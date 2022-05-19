@@ -1,4 +1,7 @@
 # healthy-cameras
+
+🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 !!! UNDER CONSTRUCTION !!! 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
+
 Demo on Kong in a system where several cameras watch over a building and we need to constantly monitor their status
 
 ## References

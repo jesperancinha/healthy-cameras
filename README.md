@@ -9,3 +9,4 @@ Demo on Kong in a system where several cameras watch over a building and we need
 - [Kong Gateway](https://docs.konghq.com/gateway/)
 - [Kong Vitals](https://docs.konghq.com/gateway/2.8.x/vitals/)
 - [Kong Plugin Hub](https://docs.konghq.com/hub/)
+- [Kong Lua Rules](https://docs.konghq.com/hub/kong-inc/bot-detection/)

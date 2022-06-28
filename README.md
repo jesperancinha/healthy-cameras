@@ -2,14 +2,17 @@
 
 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 !!! UNDER CONSTRUCTION !!! 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 
-Demo on Kong in a system where several cameras watch over a building and we need to constantly monitor their status
+Demo on Kong in a system where several cameras watch over a building, and we need to constantly monitor their status
+
 
 ## References
 
--   [Kong Gateway](https://docs.konghq.com/gateway/)
--   [Kong Vitals](https://docs.konghq.com/gateway/2.8.x/vitals/)
--   [Kong Plugin Hub](https://docs.konghq.com/hub/)
--   [Kong Lua Rules](https://docs.konghq.com/hub/kong-inc/bot-detection/)
+- [https://github.com/prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)
+- [StatsD: What Is It and How To Monitor It](https://www.metricfire.com/blog/statsd-what-is-it-and-how-to-monitor-it/)
+- [Kong Gateway](https://docs.konghq.com/gateway/)
+- [Kong Vitals](https://docs.konghq.com/gateway/2.8.x/vitals/)
+- [Kong Plugin Hub](https://docs.konghq.com/hub/)
+- [Kong Lua Rules](https://docs.konghq.com/hub/kong-inc/bot-detection/)
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
 

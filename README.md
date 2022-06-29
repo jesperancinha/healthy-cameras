@@ -4,7 +4,6 @@
 
 Demo on Kong in a system where several cameras watch over a building, and we need to constantly monitor their status
 
-
 ## References
 
 #### Online
@@ -22,6 +21,11 @@ Demo on Kong in a system where several cameras watch over a building, and we nee
       <a title="Custom Metrics with Prometheus by Stack Doctor" href="https://www.youtube.com/watch?v=XToKHYXSUyc">
      <img 
           src="https://img.youtube.com/vi/XToKHYXSUyc/0.jpg" 
+          style="width:20%;">
+      </a>
+     <a title="Getting Started with Kong Ingress Controller for Kubernetes" href="https://www.youtube.com/watch?v=hrYqGXU-a6E">
+     <img 
+          src="https://img.youtube.com/vi/hrYqGXU-a6E/0.jpg" 
           style="width:20%;">
       </a>
 </div>

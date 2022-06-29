@@ -27,7 +27,7 @@
         <!--===========================-->
         <!-- https://kotlinlang.org/docs/reference/using-maven.html -->
         <kotlin.version>1.5.32</kotlin.version>
-        <kotlinx.version>1.5.2</kotlinx.version>
+        <kotlinx.version>1.6.3</kotlinx.version>
         <kotlin.test.version>3.4.2</kotlin.test.version>
         <!-- CHECK FOR COMPILER PROPS : https://kotlinlang.org/docs/reference/using-maven.html#attributes-common-for-jvm-and-js-->
         <kotlin.code.style>official</kotlin.code.style>

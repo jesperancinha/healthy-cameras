@@ -40,7 +40,7 @@
         <!-- <kotlin.mode>sam-with-receiver</kotlin.mode>-->
         <!--===========================-->
         <!-- https://github.com/eclipse/jkube/tree/master/quickstarts/maven/docker-file-simple -->
-        <jkube.version>1.5.1</jkube.version>
+        <jkube.version>1.8.0</jkube.version>
         <jkube.enricher.jkube-service.type>NodePort</jkube.enricher.jkube-service.type>
     </properties>
 

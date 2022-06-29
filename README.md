@@ -7,12 +7,24 @@ Demo on Kong in a system where several cameras watch over a building, and we nee
 
 ## References
 
+#### Online
+
 - [https://github.com/prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)
 - [StatsD: What Is It and How To Monitor It](https://www.metricfire.com/blog/statsd-what-is-it-and-how-to-monitor-it/)
 - [Kong Gateway](https://docs.konghq.com/gateway/)
 - [Kong Vitals](https://docs.konghq.com/gateway/2.8.x/vitals/)
 - [Kong Plugin Hub](https://docs.konghq.com/hub/)
 - [Kong Lua Rules](https://docs.konghq.com/hub/kong-inc/bot-detection/)
+
+#### Videos
+
+<div align="center"> 
+      <a title="Custom Metrics with Prometheus by Stack Doctor" href="https://www.youtube.com/watch?v=XToKHYXSUyc">
+     <img 
+          src="https://img.youtube.com/vi/XToKHYXSUyc/0.jpg" 
+          style="width:20%;">
+      </a>
+</div>
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
 

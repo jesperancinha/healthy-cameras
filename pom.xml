@@ -17,7 +17,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <!--===========================-->
-        <spring-boot.version>2.6.6</spring-boot.version>
+        <spring-boot.version>2.7.1</spring-boot.version>
         <!-- https://search.maven.org/artifact/org.springdoc/springdoc-openapi-ui/1.5.4/jar -->
         <springdoc.version>1.5.4</springdoc.version>
         <!--<frtu.tools.version>1.0.2</frtu.tools.version>-->
@@ -27,7 +27,7 @@
         <!--===========================-->
         <!-- https://kotlinlang.org/docs/reference/using-maven.html -->
         <kotlin.version>1.5.32</kotlin.version>
-        <kotlinx.version>1.5.2</kotlinx.version>
+        <kotlinx.version>1.6.3</kotlinx.version>
         <kotlin.test.version>3.4.2</kotlin.test.version>
         <!-- CHECK FOR COMPILER PROPS : https://kotlinlang.org/docs/reference/using-maven.html#attributes-common-for-jvm-and-js-->
         <kotlin.code.style>official</kotlin.code.style>
@@ -40,7 +40,7 @@
         <!-- <kotlin.mode>sam-with-receiver</kotlin.mode>-->
         <!--===========================-->
         <!-- https://github.com/eclipse/jkube/tree/master/quickstarts/maven/docker-file-simple -->
-        <jkube.version>1.5.1</jkube.version>
+        <jkube.version>1.8.0</jkube.version>
         <jkube.enricher.jkube-service.type>NodePort</jkube.enricher.jkube-service.type>
     </properties>
 

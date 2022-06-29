@@ -8,6 +8,7 @@ Demo on Kong in a system where several cameras watch over a building, and we nee
 
 #### Online
 
+- [Spring Boot app metrics - with Prometheus and Micrometer](https://www.tutorialworks.com/spring-boot-prometheus-micrometer/#adding-a-custom-metric)
 - [https://github.com/prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)
 - [StatsD: What Is It and How To Monitor It](https://www.metricfire.com/blog/statsd-what-is-it-and-how-to-monitor-it/)
 - [Kong Gateway](https://docs.konghq.com/gateway/)

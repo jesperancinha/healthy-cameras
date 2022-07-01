@@ -11,37 +11,9 @@
     </modules>
 
     <properties>
-        <start-class>org.example.ApplicationKt</start-class>
-        <!--===========================-->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
-        <!--===========================-->
-        <spring-boot.version>2.7.1</spring-boot.version>
-        <!-- https://search.maven.org/artifact/org.springdoc/springdoc-openapi-ui/1.5.4/jar -->
-        <springdoc.version>1.6.9</springdoc.version>
-        <!--<frtu.tools.version>1.0.2</frtu.tools.version>-->
-        <!--===========================-->
-        <javax.persistence-api.version>2.2</javax.persistence-api.version>
-        <r2dbc.version>Arabba-SR9</r2dbc.version>
-        <!--===========================-->
-        <!-- https://kotlinlang.org/docs/reference/using-maven.html -->
-        <kotlin.version>1.7.0</kotlin.version>
-        <kotlinx.version>1.6.3</kotlinx.version>
-        <kotlin.test.version>3.4.2</kotlin.test.version>
-        <!-- CHECK FOR COMPILER PROPS : https://kotlinlang.org/docs/reference/using-maven.html#attributes-common-for-jvm-and-js-->
-        <kotlin.code.style>official</kotlin.code.style>
-        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-        <!--KOTLIN MODE : https://kotlinlang.org/docs/reference/compiler-plugins.html-->
-        <!-- * Enable kotlin.mode to allow AOP and avoid compiled class to be final -->
-        <!-- <kotlin.mode>jpa|no-arg</kotlin.mode>-->
-        <kotlin.plugin.dep>kotlin-maven-noarg</kotlin.plugin.dep>
-        <!-- <kotlin.plugin.dep>kotlin-maven-sam-with-receiver</kotlin.plugin.dep>-->
-        <!-- <kotlin.mode>sam-with-receiver</kotlin.mode>-->
-        <!--===========================-->
-        <!-- https://github.com/eclipse/jkube/tree/master/quickstarts/maven/docker-file-simple -->
-        <jkube.version>1.8.0</jkube.version>
-        <jkube.enricher.jkube-service.type>NodePort</jkube.enricher.jkube-service.type>
+        <java.version>17</java.version>
+        <kotlin.version>1.6.21</kotlin.version>
+        <spring-boot-starter-parent.version>2.7.1</spring-boot-starter-parent.version>
     </properties>
 
     <dependencyManagement>
@@ -49,7 +21,9 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
-                <version>2.6.6</version>
+                <version>${spring-boot-starter-parent.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -14,7 +14,7 @@ class CameraServiceApplication {
 	val atomicInt:AtomicInteger = AtomicInteger()
 
 	@Scheduled(cron = "*/1 * * * * *")
-	@Timed(description = "Time spent calculating difference")
+	@Timed(description = "Time spent calculating difference", extraTags =["camera.diff.time"])
 	fun calculateDiff(){
 		println("Minute!")
 	}

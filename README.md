@@ -1,13 +1,27 @@
 # healthy-cameras
 
-🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 !!! UNDER CONSTRUCTION !!! 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
+🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 !!! [Under construction...](https://github.com/jesperancinha/project-signer/blob/master/project-signer-templates/UnderConstruction.md) !!! 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 
 Demo on Kong in a system where several cameras watch over a building, and we need to constantly monitor their status
+
+## How to run
+
+##### Simple run
+
+```shell
+docker-compose up -d
+```
+
+- [Prometheus on port 9090](http://localhost:9090/)
+- [Grafana on port 3000](http://localhost:3000/)
+- [Prometheus' metrics raw in the Camera Service on port 8080](http://localhost:8080/actuator/prometheus)
 
 ## References
 
 #### Online
 
+- [Kong Blog Posts](https://github.com/danielkocot/kong-blogposts)
+- [Kong API Gateway – Observability with Prometheus, Grafana and OpsGenie by Daniel Kocot](https://blog.codecentric.de/en/2019/12/kong-api-gateway-observability-with-prometheus-grafana-and-opsgenie/)
 - [Defining custom metrics in a Spring Boot application using Micrometer](https://autsoft.net/defining-custom-metrics-in-a-spring-boot-application-using-micrometer/)
 - [Spring Boot app metrics - with Prometheus and Micrometer](https://www.tutorialworks.com/spring-boot-prometheus-micrometer/#adding-a-custom-metric)
 - [https://github.com/prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)

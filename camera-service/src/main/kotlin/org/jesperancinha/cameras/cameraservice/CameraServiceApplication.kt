@@ -18,8 +18,13 @@ class CameraServiceApplication {
 	fun calculateDiff(){
 		println("Minute!")
 	}
+
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            runApplication<CameraServiceApplication>(*args)
+        }
+    }
 }
 
-fun main(args: Array<String>) {
-	runApplication<CameraServiceApplication>(*args)
-}
+

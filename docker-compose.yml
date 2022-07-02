@@ -1,0 +1,11 @@
+services:
+  postgres:
+    hostname: postgres
+    build:
+      context: ./docker-psql/.
+    env_file: ./docker-psql/.env
+    user: postgres
+    volumes:
+      - ./docker-psql/init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"

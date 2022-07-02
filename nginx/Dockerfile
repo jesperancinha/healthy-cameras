@@ -6,7 +6,9 @@ WORKDIR ${runningFolder}
 
 RUN mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.disabled
 
-COPY default.conf /etc/nginx/conf.d/default.conf
+COPY grafana.conf /etc/nginx/conf.d/grafana.conf
+
+COPY prometheus.conf /etc/nginx/conf.d/prometheus.conf
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
@@ -14,4 +16,4 @@ COPY entrypoint.sh /usr/local/bin/
 
 ENTRYPOINT ["entrypoint.sh"]
 
-EXPOSE 8090
+EXPOSE 8090 8091

@@ -49,7 +49,11 @@ services:
 
   prometheus:
     image: prom/prometheus
+    hostname: prometheus
     container_name: prometheus
+    networks:
+      healthy-cameras:
+        ipv4_address: ${PROMETHEUS}
     restart: always
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
@@ -60,6 +64,10 @@ services:
   grafana:
     image: grafana/grafana
     container_name: grafana
+    networks:
+      healthy-cameras:
+        ipv4_address: ${GRAFANA}
+    hostname: grafana
     restart: always
     volumes:
       - ./grafana/provisioning/:/etc/grafana/provisioning
@@ -92,6 +100,30 @@ services:
       interval: 5s
       retries: 10
 
+  nginx:
+    hostname: nginx
+    container_name: nginx
+    build:
+      context: ./nginx/.
+    ports:
+      - "8090:8090"
+    restart: on-failure
+    environment:
+      - GRAFANA=${GRAFANA}
+      - PROMETHEUS=${PROMETHEUS}
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+        reservations:
+          memory: 300M
+    networks:
+      - healthy-cameras
+
 networks:
   healthy-cameras:
-    driver: bridge
+    external: false
+    ipam:
+      driver: default
+      config:
+        - subnet: ${NETWORK_SUBNET}

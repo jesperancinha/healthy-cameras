@@ -26,11 +26,15 @@ update-snyk:
 update:
 	npm install -g npm-check-updates
 	cd concert-demos-gui && npx browserslist --update-db && ncu -u && yarn
+kong-deck:
+	bash kong_wait.sh
+	cd kong && deck sync
 audit:
 	cd concert-demos-gui && npm audit fix && yarn
 dcup-light:
 	docker-compose up -d postgres
 dcup: dcd
 	docker-compose up -d --build --remove-orphans
+	make kong-deck
 dcd:
 	docker-compose down

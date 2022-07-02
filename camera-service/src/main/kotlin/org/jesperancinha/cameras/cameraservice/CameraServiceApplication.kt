@@ -1,5 +1,6 @@
 package org.jesperancinha.cameras.cameraservice
 
+import io.micrometer.core.annotation.Timed
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.scheduling.annotation.EnableScheduling
@@ -13,6 +14,7 @@ class CameraServiceApplication {
 	val atomicInt:AtomicInteger = AtomicInteger()
 
 	@Scheduled(cron = "*/1 * * * * *")
+	@Timed(description = "Time spent calculating difference")
 	fun calculateDiff(){
 		println("Minute!")
 	}

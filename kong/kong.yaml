@@ -2,6 +2,15 @@
 _format_version: "2.1"
 _transform: true
 
+services:
+  - name: camera-1-service
+    url: http://camera-1-service:8080
+    routes:
+      - name: camera-1-service-route
+        paths:
+          - /camera-1-service
+        strip_path: true
+
 plugins:
   - name: prometheus
     enabled: true
@@ -10,3 +19,14 @@ plugins:
       - grpcs
       - http
       - https
+
+  - name: statsd
+    enabled: true
+    config:
+      host: 127.0.0.1
+      port: 8125
+      metrics:
+        - name: request_count
+          stat_type: counter
+          sample_rate: 1
+      prefix: statsd

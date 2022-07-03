@@ -32,7 +32,7 @@ kong-deck:
 audit:
 	cd concert-demos-gui && npm audit fix && yarn
 dcup-light:
-	docker-compose up -d postgres
+	docker-compose up -d kong-database
 dcup: dcd
 	docker-compose up -d --build --remove-orphans
 	make kong-deck

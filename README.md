@@ -12,6 +12,12 @@ Demo on Kong in a system where several cameras watch over a building, and we nee
 docker-compose up -d
 ```
 
+or
+
+```shell
+make dcup
+```
+
 - [Prometheus on port 9090 - http://localhost:9090/](http://localhost:9090/)
 - [Grafana on port 3000 - http://localhost:3000/](http://localhost:3000/)
 - [Prometheus' metrics raw in the Camera Service on port 8080 - http://localhost:8080/actuator/prometheus](http://localhost:8080/actuator/prometheus)

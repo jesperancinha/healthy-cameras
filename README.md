@@ -23,6 +23,11 @@ make dcup
 - [Prometheus' metrics raw in the Camera Service on port 8080 - http://localhost:8080/actuator/prometheus](http://localhost:8080/actuator/prometheus)
 - [Prometheus targets on port 9090 - http://localhost:9090/targets?search=](http://localhost:9090/targets?search=)
 
+
+##### Configuring Grafana
+
+[![alt img](./docs/grafana.setup.png)]()
+
 ## References
 
 #### Online

@@ -38,12 +38,12 @@ or
 make dcup
 ```
 
-- [Prometheus on port 9090 - http://localhost:9090/](http://localhost:9090/)
-- [Grafana on port 3000 - http://localhost:3000/](http://localhost:3000/)
-- [Prometheus' metrics raw in the Camera Service on port 8080 - http://localhost:8080/actuator/prometheus](http://localhost:8080/actuator/prometheus)
-- [Prometheus targets on port 9090 - http://localhost:9090/targets?search=](http://localhost:9090/targets?search=)
-- [Camera Welcome Message for camera 1 - http://localhost:8000/camera-1-service](http://localhost:8000/camera-1-service)
-- [Metrics in Kong - http://localhost:8001/metrics](http://localhost:8001/metrics)
+-   [Prometheus on port 9090 - http://localhost:9090/](http://localhost:9090/)
+-   [Grafana on port 3000 - http://localhost:3000/](http://localhost:3000/)
+-   [Prometheus' metrics raw in the Camera Service on port 8080 - http://localhost:8080/actuator/prometheus](http://localhost:8080/actuator/prometheus)
+-   [Prometheus targets on port 9090 - http://localhost:9090/targets?search=](http://localhost:9090/targets?search=)
+-   [Camera Welcome Message for camera 1 - http://localhost:8000/camera-1-service](http://localhost:8000/camera-1-service)
+-   [Metrics in Kong - http://localhost:8001/metrics](http://localhost:8001/metrics)
 
 ##### Configuring Grafana
 
@@ -55,17 +55,17 @@ make dcup
 
 #### Online
 
-- [Defining custom metrics in a Spring Boot application using Micrometer](https://autsoft.net/defining-custom-metrics-in-a-spring-boot-application-using-micrometer/)
-- [Kong Blog Posts](https://github.com/danielkocot/kong-blogposts)
-- [Kong API Gateway – Observability with Prometheus, Grafana and OpsGenie by Daniel Kocot](https://blog.codecentric.de/en/2019/12/kong-api-gateway-observability-with-prometheus-grafana-and-opsgenie/)
-- [Defining custom metrics in a Spring Boot application using Micrometer](https://autsoft.net/defining-custom-metrics-in-a-spring-boot-application-using-micrometer/)
-- [Spring Boot app metrics - with Prometheus and Micrometer](https://www.tutorialworks.com/spring-boot-prometheus-micrometer/#adding-a-custom-metric)
-- [https://github.com/prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)
-- [StatsD: What Is It and How To Monitor It](https://www.metricfire.com/blog/statsd-what-is-it-and-how-to-monitor-it/)
-- [Kong Gateway](https://docs.konghq.com/gateway/)
-- [Kong Vitals](https://docs.konghq.com/gateway/2.8.x/vitals/)
-- [Kong Plugin Hub](https://docs.konghq.com/hub/)
-- [Kong Lua Rules](https://docs.konghq.com/hub/kong-inc/bot-detection/)
+-   [Defining custom metrics in a Spring Boot application using Micrometer](https://autsoft.net/defining-custom-metrics-in-a-spring-boot-application-using-micrometer/)
+-   [Kong Blog Posts](https://github.com/danielkocot/kong-blogposts)
+-   [Kong API Gateway – Observability with Prometheus, Grafana and OpsGenie by Daniel Kocot](https://blog.codecentric.de/en/2019/12/kong-api-gateway-observability-with-prometheus-grafana-and-opsgenie/)
+-   [Defining custom metrics in a Spring Boot application using Micrometer](https://autsoft.net/defining-custom-metrics-in-a-spring-boot-application-using-micrometer/)
+-   [Spring Boot app metrics - with Prometheus and Micrometer](https://www.tutorialworks.com/spring-boot-prometheus-micrometer/#adding-a-custom-metric)
+-   [https://github.com/prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)
+-   [StatsD: What Is It and How To Monitor It](https://www.metricfire.com/blog/statsd-what-is-it-and-how-to-monitor-it/)
+-   [Kong Gateway](https://docs.konghq.com/gateway/)
+-   [Kong Vitals](https://docs.konghq.com/gateway/2.8.x/vitals/)
+-   [Kong Plugin Hub](https://docs.konghq.com/hub/)
+-   [Kong Lua Rules](https://docs.konghq.com/hub/kong-inc/bot-detection/)
 
 #### Videos
 

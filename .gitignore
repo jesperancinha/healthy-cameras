@@ -29,3 +29,6 @@ hs_err_pid*
 
 ## Logs
 logs
+
+## Node
+node_modules

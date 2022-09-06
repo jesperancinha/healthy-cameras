@@ -8,6 +8,7 @@
 [![GitHub License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 [![Build, Test, Coverage and Report](https://github.com/jesperancinha/healthy-cameras/actions/workflows/healthy-camera.yml/badge.svg)](https://github.com/jesperancinha/healthy-cameras/actions/workflows/healthy-camera.yml)
+[![e2e-healthy-cameras](https://github.com/jesperancinha/healthy-cameras/actions/workflows/healthy-cameras-e2e.yml/badge.svg)](https://github.com/jesperancinha/healthy-cameras/actions/workflows/healthy-cameras-e2e.yml)
 [![Build status](https://ci.appveyor.com/api/projects/status/1l4f2sx9geqi8ab2?svg=true)](https://ci.appveyor.com/project/jesperancinha/healthy-cameras)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2d1524195d9f45e5b666c44e39440c92)](https://www.codacy.com/gh/jesperancinha/healthy-cameras/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jesperancinha/healthy-cameras&amp;utm_campaign=Badge_Grade)

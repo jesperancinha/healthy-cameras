@@ -5,8 +5,11 @@ test:
 	mvn test
 local: no-test
 	mkdir -p bin
+build-maven: no-test
 no-test:
 	mvn clean install -DskipTests
+test-maven:
+	mvn test
 docker:
 	docker-compose up -d --build --remove-orphans
 docker-databases: stop local
@@ -17,10 +20,19 @@ build-images:
 	docker build concert-demos-rest-service-webflux/. -t concert-demos-rest-service-webflux
 build-docker: stop no-test dcup
 stop: dcd
-	docker ps -a -q --filter="name=postgres" | xargs docker stop
-	docker ps -a -q --filter="name=postgres" | xargs docker rm
-	docker ps -a -q --filter="name=postgres-image" | xargs docker stop
-	docker ps -a -q --filter="name=postgres-image" | xargs docker rm
+	docker ps -a -q --filter="name=kong" | xargs -I {} docker stop {}
+	docker ps -a -q --filter="name=kong" | xargs -I {} docker rm {}
+	docker ps -a -q --filter="name=camera" | xargs -I {} docker stop {}
+	docker ps -a -q --filter="name=camera" | xargs -I {} docker rm {}
+	docker ps -a -q --filter="name=prometheus" | xargs -I {} docker stop {}
+	docker ps -a -q --filter="name=prometheus" | xargs -I {} docker rm {}
+	docker ps -a -q --filter="name=grafana" | xargs -I {} docker stop {}
+	docker ps -a -q --filter="name=grafana" | xargs -I {} docker rm {}
+	docker ps -a -q --filter="name=nginx" | xargs -I {} docker stop {}
+	docker ps -a -q --filter="name=nginx" | xargs -I {} docker rm {}
+	docker ps -a -q --filter="name=graphite" | xargs -I {} docker stop {}
+	docker ps -a -q --filter="name=graphite" | xargs -I {} docker rm {}
+docker-clean: stop
 update-snyk:
 	npm i -g snyk
 update:
@@ -36,6 +48,8 @@ dcup-light:
 dcup: dcd
 	docker-compose up -d --build --remove-orphans
 	make kong-deck
+dcup-action: dcup
+dcup-full-action: dcd docker-clean build-maven dcup
 dcd:
 	docker-compose down
 cypress-open:
@@ -48,3 +62,4 @@ cypress-firefox:
 	cd e2e && make cypress-firefox
 cypress-edge:
 	cd e2e && make cypress-edge
+local-pipeline: dcd docker-clean build-maven test-maven

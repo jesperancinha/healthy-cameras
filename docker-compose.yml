@@ -8,8 +8,9 @@ services:
       - healthy-cameras
     expose:
       - 8080
-    ports:
-      - "8080:8080"
+    depends_on:
+      kong-database:
+        condition: service_healthy
 
   kong-database:
     hostname: kong-database
@@ -19,8 +20,8 @@ services:
     user: postgres
     volumes:
       - ./docker-psql/init-scripts:/docker-entrypoint-initdb.d
-    ports:
-      - "5432:5432"
+    expose:
+      - 5432
     container_name: kong-database
     image: postgres
     restart: always
@@ -61,6 +62,9 @@ services:
     command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus"
     expose:
       - 9090
+    depends_on:
+      kong-database:
+        condition: service_healthy
 
   grafana:
     image: grafana/grafana
@@ -74,13 +78,13 @@ services:
       - ./grafana/provisioning/:/etc/grafana/provisioning
     expose :
       - 3000
+    depends_on:
+      kong-database:
+        condition: service_healthy
 
   kong:
     container_name: kong
     image: kong
-    depends_on:
-      - "kong-migration"
-      - "kong-database"
     restart: always
     networks:
       - healthy-cameras
@@ -101,6 +105,11 @@ services:
       test: ["CMD-SHELL","curl -I -s -L http://localhost:8000 || exit 1"]
       interval: 5s
       retries: 10
+    depends_on:
+      kong-database:
+        condition: service_healthy
+      kong-migration:
+        condition: service_completed_successfully
 
   nginx:
     hostname: nginx
@@ -122,6 +131,13 @@ services:
           memory: 300M
     networks:
       - healthy-cameras
+    depends_on:
+      kong-database:
+        condition: service_healthy
+      kong-migration:
+        condition: service_completed_successfully
+      kong:
+        condition: service_healthy
 
   graphite:
     container_name: graphite

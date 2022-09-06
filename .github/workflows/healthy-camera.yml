@@ -15,11 +15,6 @@ jobs:
             java-version: '17'
             distribution: 'adopt'
 
-        - name: Helper Check JEsperancinha.Org
-          run:  curl https://gitlab.com/jesperancinha/joao-filipe-sabino-esperancinha-home/-/raw/master/jesperancinha.org.check.sh -o jesperancinha.org.check.sh &&
-                chmod +x jesperancinha.org.check.sh &&
-                ./jesperancinha.org.check.sh
-
         - name: Build and Test
           run:  mvn clean install jacoco:prepare-agent package jacoco:report
 

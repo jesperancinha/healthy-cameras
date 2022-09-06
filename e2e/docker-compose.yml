@@ -2,7 +2,7 @@ services:
   e2e-electron:
     image: "cypress/included:10.7.0"
     working_dir: /e2e
-    command: "--browser electron --config baseUrl=http://kong:8000/camera-1-service"
+    command: "--browser electron --config-file cypress.pipeline.config.ts --config baseUrl=http://kong:8000/camera-1-service"
     volumes:
       - ./e2e:/e2e
     networks:
@@ -11,7 +11,7 @@ services:
   e2e-chrome:
     image: "cypress/included:10.7.0"
     working_dir: /e2e
-    command: "--browser chrome --config baseUrl=http://kong:8000/camera-1-service"
+    command: "--browser chrome --config-file cypress.pipeline.config.ts  --config baseUrl=http://kong:8000/camera-1-service"
     volumes:
       - ./e2e:/e2e
     networks:
@@ -20,7 +20,7 @@ services:
   e2e-firefox:
     image: "cypress/included:10.7.0"
     working_dir: /e2e
-    command: "--browser firefox --config baseUrl=http://kong:8000/camera-1-service"
+    command: "--browser firefox --config-file cypress.pipeline.config.ts  --config baseUrl=http://kong:8000/camera-1-service"
     volumes:
       - ./e2e:/e2e
     networks:
@@ -29,7 +29,7 @@ services:
   e2e-edge:
     image: "cypress/included:10.7.0"
     working_dir: /e2e
-    command: "--browser edge --config baseUrl=http://kong:8000/camera-1-service"
+    command: "--browser edge --config-file cypress.pipeline.config.ts  --config baseUrl=http://kong:8000/camera-1-service"
     volumes:
       - ./e2e:/e2e
     networks:

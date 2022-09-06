@@ -15,16 +15,15 @@ services:
   kong-database:
     hostname: kong-database
     build:
-      context: ./docker-psql/.
-    env_file: ./docker-psql/.env
+      context: docker-images/docker-psql/.
+    env_file: docker-images/docker-psql/.env
     user: postgres
     volumes:
-      - ./docker-psql/init-scripts:/docker-entrypoint-initdb.d
+      - ./docker-images/docker-psql/init-scripts:/docker-entrypoint-initdb.d
     expose:
       - 5432
     container_name: kong-database
     image: postgres
-    restart: always
     networks:
       - healthy-cameras
     healthcheck:
@@ -41,7 +40,6 @@ services:
     container_name: kong-migration
     networks:
       - healthy-cameras
-    restart: on-failure
     environment:
       - KONG_DATABASE=postgres
       - KONG_PG_HOST=kong-database
@@ -56,9 +54,8 @@ services:
     networks:
       healthy-cameras:
         ipv4_address: ${PROMETHEUS}
-    restart: always
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./docker-images/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus"
     expose:
       - 9090
@@ -73,9 +70,8 @@ services:
       healthy-cameras:
         ipv4_address: ${GRAFANA}
     hostname: grafana
-    restart: always
     volumes:
-      - ./grafana/provisioning/:/etc/grafana/provisioning
+      - ./docker-images/grafana/provisioning/:/etc/grafana/provisioning
     expose:
       - 3000
     depends_on:
@@ -85,7 +81,6 @@ services:
   kong:
     container_name: kong
     image: kong
-    restart: always
     networks:
       - healthy-cameras
     environment:
@@ -115,11 +110,10 @@ services:
     hostname: nginx
     container_name: nginx
     build:
-      context: ./nginx/.
+      context: docker-images/nginx/.
     expose:
       - 8090
       - 8091
-    restart: on-failure
     environment:
       - GRAFANA=${GRAFANA}
       - PROMETHEUS=${PROMETHEUS}
@@ -142,10 +136,9 @@ services:
   graphite:
     container_name: graphite
     hostname: graphite
-    restart: always
-    image: graphiteapp/graphite-statsd
+    build: ./docker-images/graphite/.
     expose:
-      - 80
+      - 8085
       - 2003-2004
       - 2023-2024
       - 8125

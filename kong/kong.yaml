@@ -4,11 +4,11 @@ _transform: true
 
 services:
   - name: camera-1-service
-    url: http://camera-1-service:8080
+    url: http://camera-1-service:8080/api/v1/hc
     routes:
       - name: camera-1-service-route
         paths:
-          - /camera-1-service
+          - /camera-1-service/api/v1/hc
         strip_path: true
 
 plugins:

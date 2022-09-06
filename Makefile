@@ -1,6 +1,8 @@
 b: build
 build:
 	mvn clean install
+build-cypress:
+	cd e2e && make build
 test:
 	mvn test
 local: no-test
@@ -50,7 +52,7 @@ dcup-light:
 dcup: dcd
 	docker-compose up -d --build --remove-orphans
 dcup-action: dcup hc-wait
-dcup-full-action: dcd docker-clean build-maven dcup hc-wait
+dcup-full-action: dcd docker-clean build-maven build-cypress dcup hc-wait
 dcd:
 	docker-compose down
 cypress-open:
@@ -65,4 +67,4 @@ cypress-edge:
 	cd e2e && make cypress-edge
 install:
 	sudo apt-get install deck
-local-pipeline: dcd docker-clean build-maven test-maven
+local-pipeline: dcd docker-clean build-maven build-cypress test-maven

@@ -43,12 +43,14 @@ kong-deck:
 	cd kong && deck sync
 audit:
 	cd concert-demos-gui && npm audit fix && yarn
+hc-wait:
+	bash hc_wait.sh
 dcup-light:
 	docker-compose up -d kong-database
 dcup: dcd
 	docker-compose up -d --build --remove-orphans
-dcup-action: dcup
-dcup-full-action: dcd docker-clean build-maven dcup
+dcup-action: dcup hc-wait
+dcup-full-action: dcd docker-clean build-maven dcup hc-wait
 dcd:
 	docker-compose down
 cypress-open:

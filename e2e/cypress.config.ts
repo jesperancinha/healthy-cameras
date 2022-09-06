@@ -7,6 +7,7 @@ export default defineConfig({
     },
     includeShadowDom: true,
     video: false,
-    screenshotOnRunFailure: false
+    screenshotOnRunFailure: false,
+    baseUrl: "http://localhost:8080"
   },
 });

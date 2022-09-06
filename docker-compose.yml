@@ -160,12 +160,14 @@ services:
     image: kong/deck
     volumes:
       - ${PWD}/kong:/deck
-    command: "--kong-addr http://kong:8001 -s /deck/kong.yaml sync"
+    command: "sync --kong-addr http://kong:8001 -s /deck/kong.yaml"
     networks:
       - healthy-cameras
     depends_on:
       kong:
         condition: service_healthy
+      kong-migration:
+        condition: service_completed_successfully
 
 networks:
   healthy-cameras:

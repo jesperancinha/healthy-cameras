@@ -8,6 +8,10 @@ export default defineConfig({
     includeShadowDom: true,
     video: false,
     screenshotOnRunFailure: false,
-    baseUrl: "http://localhost:8080"
+    baseUrl: "http://localhost:8080",
+    env: {
+      'grafanaHost': 'grafana',
+      'prometheusHost': 'prometheus'
+    }
   },
 });

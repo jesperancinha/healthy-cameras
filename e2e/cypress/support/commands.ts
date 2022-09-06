@@ -35,3 +35,27 @@
 //     }
 //   }
 // }
+
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+    if (err.message && err.message.trim().length > 0 && err.name && err.name.trim().length > 0) {
+        if (err.message.indexOf('setting getter-only property "data"') >= 0) {
+            return false;
+        }
+        if (err.message.indexOf('Cannot read properties of null') >= 0) {
+            return false;
+        }
+        if (err.message.indexOf('too much recursion') >= 0) {
+            return false;
+        }
+        if (err.message.indexOf('The operation was aborted') >= 0) {
+            return false;
+        }
+        if (err.message.indexOf('undefined') >= 0) {
+            return false;
+        }
+    } else {
+        return false;
+    }
+    return true;
+})

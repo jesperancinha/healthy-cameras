@@ -28,7 +28,7 @@ services:
     networks:
       - healthy-cameras
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "kong"]
+      test: [ "CMD", "pg_isready", "-U", "kong" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -76,7 +76,7 @@ services:
     restart: always
     volumes:
       - ./grafana/provisioning/:/etc/grafana/provisioning
-    expose :
+    expose:
       - 3000
     depends_on:
       kong-database:
@@ -102,7 +102,7 @@ services:
       - 8444
       - 8125
     healthcheck:
-      test: ["CMD-SHELL","curl -I -s -L http://localhost:8000 || exit 1"]
+      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8001" ]
       interval: 5s
       retries: 10
     depends_on:
@@ -153,6 +153,19 @@ services:
     networks:
       healthy-cameras:
         ipv4_address: ${GRAPHITE}
+
+  kong-deck:
+    hostname: kong-deck
+    container_name: kong-deck
+    image: kong/deck
+    volumes:
+      - ${PWD}/kong:/deck
+    command: "--kong-addr http://kong:8001 -s /deck/kong.yaml sync"
+    networks:
+      - healthy-cameras
+    depends_on:
+      kong:
+        condition: service_healthy
 
 networks:
   healthy-cameras:

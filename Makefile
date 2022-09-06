@@ -47,7 +47,6 @@ dcup-light:
 	docker-compose up -d kong-database
 dcup: dcd
 	docker-compose up -d --build --remove-orphans
-	make kong-deck
 dcup-action: dcup
 dcup-full-action: dcd docker-clean build-maven dcup
 dcd:
@@ -62,4 +61,6 @@ cypress-firefox:
 	cd e2e && make cypress-firefox
 cypress-edge:
 	cd e2e && make cypress-edge
+install:
+	sudo apt-get install deck
 local-pipeline: dcd docker-clean build-maven test-maven

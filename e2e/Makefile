@@ -1,12 +1,12 @@
 cypress-open:
 	npm run cypress
-cypress-electron:
+cypress-electron: build
 	docker-compose -f ../docker-compose.yml -f docker-compose.yml up --exit-code-from e2e-electron e2e-electron
-cypress-chrome:
+cypress-chrome:build
 	docker-compose -f ../docker-compose.yml -f docker-compose.yml up --exit-code-from e2e-chrome e2e-chrome
-cypress-firefox:
+cypress-firefox: build
 	docker-compose -f ../docker-compose.yml -f docker-compose.yml up --exit-code-from e2e-firefox e2e-firefox
-cypress-edge:
+cypress-edge: build
 	docker-compose -f ../docker-compose.yml -f docker-compose.yml up --exit-code-from e2e-edge e2e-edge
 build:
 	yarn

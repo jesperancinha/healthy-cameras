@@ -24,3 +24,9 @@ function checkServiceByNameAndMessage() {
 }
 
 checkServiceByNameAndMessage kong 'init_worker_by_lua'
+checkServiceByNameAndMessage graphite 'ok: run: nginx'
+checkServiceByNameAndMessage kong-database 'database system is ready to accept connections'
+checkServiceByNameAndMessage nginx 'test is successful'
+checkServiceByNameAndMessage prometheus 'Starting rule manager...'
+checkServiceByNameAndMessage camera-1-service 'Tomcat started on port(s): 8080'
+

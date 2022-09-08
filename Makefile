@@ -55,6 +55,8 @@ dcup-action: dcup hc-wait
 dcup-full-action: dcd docker-clean build-maven build-cypress dcup hc-wait
 dcd:
 	docker-compose down
+cypress-open-docker:
+	cd e2e && yarn && npm run cypress:open:docker
 cypress-open:
 	cd e2e && yarn && npm run cypress
 cypress-electron:

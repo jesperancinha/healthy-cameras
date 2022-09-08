@@ -1,3 +1,5 @@
+cypress-open-docker:
+	npm run cypress:open:docker
 cypress-open:
 	npm run cypress
 cypress-electron:

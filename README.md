@@ -64,8 +64,9 @@ make dcup
 -   [Grafana on port 3000 - http://localhost:3000/](http://localhost:3000/)
 -   [Prometheus' metrics raw in the Camera Service on port 8080 - http://localhost:8080/actuator/prometheus](http://localhost:8080/actuator/prometheus)
 -   [Prometheus targets on port 9090 - http://localhost:9090/targets?search=](http://localhost:9090/targets?search=)
--   [Camera Welcome Message for camera 1 - http://localhost:8000/camera-1-service](http://localhost:8000/camera-1-service)
+-   [Camera Welcome Message for camera 1 - http://localhost:8000/camera-1-service/api/v1/hc](http://localhost:8000/camera-1-service/api/v1/hc)
 -   [Metrics in Kong - http://localhost:8001/metrics](http://localhost:8001/metrics)
+-   [Graphite Page - http://localhost:8085](http://localhost:8085)
 
 ##### Configuring Grafana
 

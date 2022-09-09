@@ -1,3 +1,5 @@
+SHELL=/bin/bash
+
 b: build
 build:
 	mvn clean install
@@ -47,12 +49,14 @@ audit:
 	cd concert-demos-gui && npm audit fix && yarn
 hc-wait:
 	bash hc_wait.sh
+kong-config:
+	cd kong && make kong-config
 dcup-light:
 	docker-compose up -d kong-database
 dcup: dcd
 	docker-compose up -d --build --remove-orphans
-dcup-action: dcup hc-wait
-dcup-full-action: dcd docker-clean build-maven build-cypress dcup hc-wait
+dcup-action: dcup hc-wait kong-config
+dcup-full-action: dcd docker-clean build-maven build-cypress dcup hc-wait kong-config
 dcd:
 	docker-compose down
 cypress-open-docker:

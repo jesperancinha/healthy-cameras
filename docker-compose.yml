@@ -8,8 +8,12 @@ services:
       - healthy-cameras
     expose:
       - 8080
+    environment:
+      CAMERA_NO: 1
     depends_on:
       kong-database:
+        condition: service_healthy
+      kong:
         condition: service_healthy
 
   kong-database:

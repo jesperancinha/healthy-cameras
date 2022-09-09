@@ -37,6 +37,23 @@
 // }
 
 
+Cypress.Commands.add('login', () => {
+    cy.visit('/api/v1/hc', {
+        auth: {
+            username: `cameraUser1`,
+            password: `administrator`,
+        },
+    })
+})
+Cypress.Commands.add('loginSwagger', () => {
+    cy.visit('/api/v1/hc/webjars/swagger-ui/index.html', {
+        auth: {
+            username: `cameraUser1`,
+            password: `administrator`,
+        },
+    })
+})
+
 Cypress.on('uncaught:exception', (err, runnable) => {
     if (err.message && err.message.trim().length > 0 && err.name && err.name.trim().length > 0) {
         if (err.message.indexOf('setting getter-only property "data"') >= 0) {

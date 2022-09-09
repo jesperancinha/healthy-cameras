@@ -37,3 +37,8 @@ plugins:
           stat_type: histogram
           sample_rate: 1
       prefix: statsd
+  - name: basic-auth
+    service: camera-1-service
+    enabled: true
+    config:
+      hide_credentials: true

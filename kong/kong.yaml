@@ -33,4 +33,7 @@ plugins:
         - name: request_size
           stat_type: histogram
           sample_rate: 1
+        - name: response_size
+          stat_type: histogram
+          sample_rate: 1
       prefix: statsd

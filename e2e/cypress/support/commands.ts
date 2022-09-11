@@ -38,6 +38,7 @@
 
 
 import * as crypto from "crypto";
+import * as jwt from "jsonwebtoken";
 
 Cypress.Commands.add('loginBasicAuth', (path: string) => {
     cy.visit(path, {
@@ -49,11 +50,37 @@ Cypress.Commands.add('loginBasicAuth', (path: string) => {
 })
 
 Cypress.Commands.add('loginHmacAuth', (path: string) => {
-    const method = 'GET'
+    const method = 'GET';
     let headers = createCamera2HmacHeaders(method, path);
     cy.visit(path, {
         method: method,
         headers: headers
+    });
+})
+
+Cypress.Commands.add('loginJWT', (path: string) => {
+    cy.fixture('CC3KongToken').then(data => {
+        let kongToken = data.data[0];
+        let secret = kongToken.secret;
+        let key = kongToken.key;
+        const token = jwt.sign(
+            {
+                algorithm: "HS256",
+                type: "JWT",
+            },
+            secret,
+            {
+                issuer: key,
+                expiresIn: "12h",
+                algorithm: "HS256"
+            });
+
+        cy.visit(path, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
     });
 })
 

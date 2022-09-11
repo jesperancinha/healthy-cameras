@@ -13,6 +13,7 @@ create-consumer-2:
 create-consumer-3:
 	curl -d "username=camera3&custom_id=CC3" http://127.0.0.1:8001/consumers/
 	curl -X POST http://localhost:8001/consumers/camera3/jwt -H "Content-Type: application/x-www-form-urlencoded"
+	curl -X GET http://localhost:8001/consumers/camera3/jwt > ../e2e/cypress/fixtures/CC3KongToken.json
 protect-camera-2-hmac:
 	curl -X POST http://localhost:8001/services/camera-2-service/plugins \
 		--data "name=hmac-auth"

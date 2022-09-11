@@ -35,3 +35,4 @@ const applicationRoot = '/api/v1/hc'
 const sanitizePrePath = (prePath: string) => `${Cypress.config().baseUrl.endsWith("8000") ? prePath : ""}`;
 export const applicationRootCamera1: string = `${sanitizePrePath("/camera-1-service")}${applicationRoot}`;
 export const applicationRootCamera2: string = `${sanitizePrePath("/camera-2-service")}${applicationRoot}`;
+export const applicationRootCamera3: string = `${sanitizePrePath("/camera-3-service")}${applicationRoot}`;

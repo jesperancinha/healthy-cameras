@@ -32,3 +32,6 @@ logs
 
 ## Node
 node_modules
+
+## Temporary images
+*.jpg~

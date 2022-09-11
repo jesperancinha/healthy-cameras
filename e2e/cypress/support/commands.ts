@@ -39,6 +39,7 @@
 
 import * as crypto from "crypto";
 import * as jwt from "jsonwebtoken";
+import {withHeaders} from "./e2e";
 
 Cypress.Commands.add('loginBasicAuth', (path: string) => {
     cy.visit(path, {
@@ -74,12 +75,13 @@ Cypress.Commands.add('loginJWT', (path: string) => {
                 expiresIn: "12h",
                 algorithm: "HS256"
             });
-
+        let headers = {
+            "Authorization": `Bearer ${token}`
+        };
+        cy.intercept("*", withHeaders(headers))
         cy.visit(path, {
             method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
+            headers: headers
         });
     });
 })

@@ -31,6 +31,12 @@ export function noCacheHandler() {
     }
 }
 
+export function withHeaders(jwtHeaders) {
+    return (request) => {
+        request.headers = jwtHeaders
+    }
+}
+
 const applicationRoot = '/api/v1/hc'
 const sanitizePrePath = (prePath: string) => `${Cypress.config().baseUrl.endsWith("8000") ? prePath : ""}`;
 export const applicationRootCamera1: string = `${sanitizePrePath("/camera-1-service")}${applicationRoot}`;

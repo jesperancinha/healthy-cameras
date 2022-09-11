@@ -32,5 +32,6 @@ export function noCacheHandler() {
 }
 
 const applicationRoot = '/api/v1/hc'
-export const applicationRootCamera1: string = `/camera-1-service${applicationRoot}`;
-export const applicationRootCamera2: string = `/camera-2-service${applicationRoot}`;
+const sanitizePrePath = (prePath: string) => `${Cypress.config().baseUrl.endsWith("8000") ? prePath : ""}`;
+export const applicationRootCamera1: string = `${sanitizePrePath("/camera-1-service")}${applicationRoot}`;
+export const applicationRootCamera2: string = `${sanitizePrePath("/camera-2-service")}${applicationRoot}`;

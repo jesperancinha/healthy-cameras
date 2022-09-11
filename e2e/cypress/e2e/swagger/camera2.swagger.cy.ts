@@ -8,14 +8,14 @@ describe('Swagger tests spec', () => {
     })
 
     it('should make correct swagger JSON API request', () => {
-        // const url = `${Cypress.config().baseUrl}${applicationRootCamera2}/v3/api-docs`;
-        // cy.request({
-        //     url: url,
-        //     headers: createCamera2HmacHeaders("GET", url)
-        // }).then(response => {
-        //     expect(response.status).to.be.eq(200);
-        //     expect(response.body).not.to.be.null
-        // })
+        const url = `${applicationRootCamera2}/v3/api-docs`;
+        cy.request({
+            url: url,
+            headers: createCamera2HmacHeaders("GET", url)
+        }).then(response => {
+            expect(response.status).to.be.eq(200);
+            expect(response.body).not.to.be.null;
+        })
     })
 })
 

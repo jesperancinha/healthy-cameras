@@ -12,3 +12,7 @@ cypress-edge:
 	docker-compose -f ../docker-compose.yml -f docker-compose.yml up --exit-code-from e2e-edge e2e-edge
 build:
 	yarn
+dcd:
+	cd .. && make dcd
+dcup-full-action:
+	cd .. && make dcup-full-action

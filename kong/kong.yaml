@@ -19,6 +19,14 @@ services:
           - /camera-2-service/api/v1/hc
         strip_path: true
 
+  - name: camera-3-service
+    url: http://camera-2-service:8080/api/v1/hc
+    routes:
+      - name: camera-3-service-route
+        paths:
+          - /camera-3-service/api/v1/hc
+        strip_path: true
+
 plugins:
   - name: prometheus
     enabled: true
@@ -54,3 +62,6 @@ plugins:
     enabled: true
     config:
       hide_credentials: true
+  - name: jwt
+    service: camera-3-service
+    enabled: true

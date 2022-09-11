@@ -31,4 +31,4 @@ checkServiceByNameAndMessage nginx 'test is successful'
 checkServiceByNameAndMessage prometheus 'Starting rule manager...'
 checkServiceByNameAndMessage camera-1-service 'Tomcat started on port(s): 8080'
 checkServiceByNameAndMessage camera-2-service 'Tomcat started on port(s): 8080'
-
+checkServiceByNameAndMessage camera-3-service 'Tomcat started on port(s): 8080'

@@ -37,21 +37,24 @@
 // }
 
 
-Cypress.Commands.add('login', () => {
-    cy.visit('/api/v1/hc', {
+import * as crypto from "crypto";
+
+Cypress.Commands.add('loginBasicAuth', (path: string) => {
+    cy.visit(path, {
         auth: {
             username: `cameraUser1`,
             password: `administrator`,
         },
     })
 })
-Cypress.Commands.add('loginSwagger', () => {
-    cy.visit('/api/v1/hc/webjars/swagger-ui/index.html', {
-        auth: {
-            username: `cameraUser1`,
-            password: `administrator`,
-        },
-    })
+
+Cypress.Commands.add('loginHmacAuth', (path: string) => {
+    const method = 'GET'
+    let headers = createCamera2HmacHeaders(method, path);
+    cy.visit(path, {
+        method: method,
+        headers: headers
+    });
 })
 
 Cypress.on('uncaught:exception', (err, runnable) => {
@@ -76,3 +79,18 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     }
     return true;
 })
+
+export function createCamera2HmacHeaders(method: string, path: string): Partial<any> {
+    const username = 'cameraUser2', secret = 'dragon', algorithm = 'hmac-sha256';
+    const dateFormat = new Date().toUTCString();
+    const digestBodyHeader = `SHA-256=${crypto.createHash('sha256').digest('base64')}`;
+    const signingString = `x-date: ${dateFormat}\n${method} ${path} HTTP/1.1\ndigest: ${digestBodyHeader}`;
+    const signature = crypto.createHmac('sha256', secret).update(signingString).digest('base64');
+    const authorization = `hmac username="${username}", algorithm="${algorithm}", headers="x-date request-line digest", signature="${signature}"`;
+    return {
+        'Digest': digestBodyHeader,
+        'Authorization': authorization,
+        'X-Date': dateFormat,
+        'Content-Type': 'application/json',
+    };
+}

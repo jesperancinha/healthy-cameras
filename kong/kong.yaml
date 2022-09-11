@@ -11,6 +11,14 @@ services:
           - /camera-1-service/api/v1/hc
         strip_path: true
 
+  - name: camera-2-service
+    url: http://camera-2-service:8080/api/v1/hc
+    routes:
+      - name: camera-2-service-route
+        paths:
+          - /camera-2-service/api/v1/hc
+        strip_path: true
+
 plugins:
   - name: prometheus
     enabled: true
@@ -19,12 +27,11 @@ plugins:
       - grpcs
       - http
       - https
-
   - name: statsd
     service: camera-1-service
     enabled: true
     config:
-      host: 192.168.0.33
+      host: graphite
       port: 8125
       metrics:
         - name: request_count
@@ -39,6 +46,11 @@ plugins:
       prefix: statsd
   - name: basic-auth
     service: camera-1-service
+    enabled: true
+    config:
+      hide_credentials: true
+  - name: hmac-auth
+    service: camera-2-service
     enabled: true
     config:
       hide_credentials: true

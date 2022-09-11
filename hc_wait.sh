@@ -6,6 +6,7 @@ function checkServiceByNameAndMessage() {
     docker-compose logs "$name" > "logs"
     string=$(cat logs)
     counter=0
+    echo "Checking $name Service"
     while [[ "$string" != *"$message"* ]]
     do
       printf "."
@@ -29,4 +30,5 @@ checkServiceByNameAndMessage kong-database 'database system is ready to accept c
 checkServiceByNameAndMessage nginx 'test is successful'
 checkServiceByNameAndMessage prometheus 'Starting rule manager...'
 checkServiceByNameAndMessage camera-1-service 'Tomcat started on port(s): 8080'
+checkServiceByNameAndMessage camera-2-service 'Tomcat started on port(s): 8080'
 

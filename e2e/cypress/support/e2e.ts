@@ -18,3 +18,19 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+export function noCacheHandler() {
+    return (request) => {
+        request.auth = {
+            username: `cameraUser1`,
+            password: `administrator`,
+        }
+        request.on('before:response', (response) => {
+            response.headers['cache-control'] = 'no-store'
+        })
+    }
+}
+
+const applicationRoot = '/api/v1/hc'
+export const applicationRootCamera1: string = `/camera-1-service${applicationRoot}`;
+export const applicationRootCamera2: string = `/camera-2-service${applicationRoot}`;

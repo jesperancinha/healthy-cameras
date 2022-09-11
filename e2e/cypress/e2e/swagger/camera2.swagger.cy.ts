@@ -1,7 +1,7 @@
 import {applicationRootCamera2} from "../../support/e2e";
 import {createCamera2HmacHeaders} from "../../support/commands";
 
-describe('Swagger tests spec', () => {
+describe('Swagger tests spec for Camera 2', () => {
 
     before(() => {
         cy.loginHmacAuth(`${applicationRootCamera2}/webjars/swagger-ui/index.html`);

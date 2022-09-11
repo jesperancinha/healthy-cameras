@@ -1,6 +1,6 @@
 import {applicationRootCamera2} from "../../support/e2e";
 import {createCamera2HmacHeaders} from "../../support/commands";
-import exp = require("constants");
+
 
 describe('Camera 2 API tests', () => {
 

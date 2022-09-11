@@ -1,5 +1,4 @@
-import {applicationRootCamera1, applicationRootCamera2} from "../../support/e2e";
-import {createCamera2HmacHeaders} from "../../support/commands";
+import {applicationRootCamera1} from "../../support/e2e";
 
 describe('Camera 1 API tests', () => {
 

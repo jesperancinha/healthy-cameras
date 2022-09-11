@@ -1,6 +1,6 @@
 import {applicationRootCamera1} from "../../support/e2e";
 
-describe('Swagger tests spec', () => {
+describe('Swagger tests spec for Camera 1', () => {
 
     before(() => {
         cy.loginBasicAuth(`${applicationRootCamera1}/webjars/swagger-ui/index.html`);

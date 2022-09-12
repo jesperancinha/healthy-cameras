@@ -43,6 +43,16 @@ services:
           - /camera-5-service/api/v1/hc
         strip_path: true
 
+  - name: camera-6-service
+    url: http://camera-6-service:8080/api/v1/hc
+    routes:
+      - name: camera-6-service-route
+        paths:
+          - /camera-6-service/api/v1/hc
+        strip_path: true
+        protocols:
+          - https
+
 plugins:
   - name: prometheus
     enabled: true
@@ -94,4 +104,3 @@ plugins:
       header_type: ldap
       base_dn: dc=example,dc=org
       attribute: cn
-

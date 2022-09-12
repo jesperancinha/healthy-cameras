@@ -39,8 +39,10 @@
 
 import * as crypto from "crypto";
 import * as jwt from "jsonwebtoken";
-import {withHeaders} from "./e2e";
+import {authorizationRequest, withFormAndHeaders, withHeaders} from "./e2e";
 import exp = require("constants");
+import {config} from "rxjs";
+import {stringify} from "querystring";
 
 Cypress.Commands.add('loginBasicAuth', (path: string) => {
     cy.visit(path, {
@@ -109,6 +111,30 @@ Cypress.Commands.add('loginLDAP', (path: string) => {
         headers: headers
     });
 })
+
+Cypress.Commands.add('loginOauth2', (path: string) => {
+    cy.fixture('CC6KongOauth2').then(appConfig => {
+        cy.fixture('CC6KongProvOauth2').then(data => {
+            let request = authorizationRequest(appConfig.client_id, 'email', data.config.provision_key);
+            cy.log(stringify(request.form));
+            cy.request({
+                url: 'https://localhost:8443/camera-6-service/api/v1/hc/oauth2/authorize',
+                method: 'POST',
+                form: true,
+                body: request.form,
+                headers: request.headers
+            }).then(response => {
+                cy.log(stringify(response.body));
+                cy.log(stringify(response.headers));
+            })
+            cy.request('POST', 'https://localhost:8443/camera-6-service/api/v1/hc/oauth2/authorize', request.form).then(response => {
+                cy.log(stringify(response.body));
+                cy.log(stringify(response.headers));
+            });
+        });
+    });
+
+});
 
 Cypress.on('uncaught:exception', (err) => {
     if (err.message && err.message.trim().length > 0 && err.name && err.name.trim().length > 0) {

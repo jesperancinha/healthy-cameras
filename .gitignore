@@ -41,3 +41,5 @@ node_modules
 /screenshots
 CC3KongToken.json
 CC4KongKeys.json
+CC6KongOauth2.json
+CC6KongProvOauth2.json

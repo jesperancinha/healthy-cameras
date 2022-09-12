@@ -43,3 +43,4 @@ export const applicationRootCamera1: string = `${sanitizePrePath("/camera-1-serv
 export const applicationRootCamera2: string = `${sanitizePrePath("/camera-2-service")}${applicationRoot}`;
 export const applicationRootCamera3: string = `${sanitizePrePath("/camera-3-service")}${applicationRoot}`;
 export const applicationRootCamera4: string = `${sanitizePrePath("/camera-4-service")}${applicationRoot}`;
+export const applicationRootCamera5: string = `${sanitizePrePath("/camera-5-service")}${applicationRoot}`;

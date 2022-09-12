@@ -35,6 +35,14 @@ services:
           - /camera-4-service/api/v1/hc
         strip_path: true
 
+  - name: camera-5-service
+    url: http://camera-5-service:8080/api/v1/hc
+    routes:
+      - name: camera-5-service-route
+        paths:
+          - /camera-5-service/api/v1/hc
+        strip_path: true
+
 plugins:
   - name: prometheus
     enabled: true
@@ -76,3 +84,14 @@ plugins:
   - name: key-auth
     service: camera-4-service
     enabled: true
+  - name: ldap-auth
+    service: camera-5-service
+    enabled: true
+    config:
+      hide_credentials: true
+      ldap_host: openldap
+      ldap_port: 1389
+      header_type: ldap
+      base_dn: dc=example,dc=org
+      attribute: cn
+

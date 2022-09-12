@@ -1,13 +1,13 @@
-import {applicationRootCamera1, applicationRootCamera4} from "../../support/e2e";
+import {applicationRootCamera1, applicationRootCamera5} from "../../support/e2e";
 
-describe('Swagger tests spec for Camera 4', () => {
+describe('Swagger tests spec for Camera 5', () => {
 
     before(() => {
-        cy.loginKey(`${applicationRootCamera4}/webjars/swagger-ui/index.html`);
+        cy.loginLDAP(`${applicationRootCamera5}/webjars/swagger-ui/index.html`);
     })
 
     it('passes', () => {
-        cy.get('input[class="download-url-input"]').clear().type(`${Cypress.config().baseUrl}${applicationRootCamera4}/v3/api-docs`);
+        cy.get('input[class="download-url-input"]').clear().type(`${Cypress.config().baseUrl}${applicationRootCamera5}/v3/api-docs`);
         cy.get('button').contains('Explore').click();
         cy.get('h2', {timeout: 10000}).contains('OpenAPI definition', {timeout: 10000}).should('not.be.null');
         cy.wait(1000);

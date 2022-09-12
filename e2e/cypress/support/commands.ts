@@ -40,6 +40,7 @@
 import * as crypto from "crypto";
 import * as jwt from "jsonwebtoken";
 import {withHeaders} from "./e2e";
+import exp = require("constants");
 
 Cypress.Commands.add('loginBasicAuth', (path: string) => {
     cy.visit(path, {
@@ -95,6 +96,17 @@ Cypress.Commands.add("loginKey", (path: string) => {
     }).then(headers => {
         cy.intercept("*", withHeaders(headers))
         cy.visit(path)
+    });
+})
+
+Cypress.Commands.add('loginLDAP', (path: string) => {
+    const credentials = btoa("admin:password");
+    let headers = {
+        "Authorization": `ldap ${credentials}`
+    };
+    cy.intercept("*", withHeaders(headers))
+    cy.visit(path, {
+        headers: headers
     });
 })
 

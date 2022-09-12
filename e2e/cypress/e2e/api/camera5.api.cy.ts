@@ -1,9 +1,9 @@
-import {applicationRootCamera1} from "../../support/e2e";
+import {applicationRootCamera5} from "../../support/e2e";
 
-describe('Camera 1 API tests (Basic Auth)', () => {
+describe('Camera 5 API tests (LDAP)', () => {
 
     before(() => {
-        cy.loginBasicAuth(applicationRootCamera1);
+        cy.loginLDAP(applicationRootCamera5);
     })
 
     it('should make a correct visit', () => {
@@ -13,7 +13,9 @@ describe('Camera 1 API tests (Basic Auth)', () => {
     it('should reload 10 times', () => {
         for (let i = 0; i < 10; i++) {
             cy.reload();
+            cy.loginLDAP(applicationRootCamera5);
             cy.contains('Welcome to Healthy cameras!').should('exist');
         }
     })
-})
+
+});

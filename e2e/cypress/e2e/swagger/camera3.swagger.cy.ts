@@ -1,6 +1,6 @@
 import {applicationRootCamera1, applicationRootCamera3} from "../../support/e2e";
 
-describe('Swagger tests spec for Camera 1', () => {
+describe('Swagger tests spec for Camera 3', () => {
 
     before(() => {
         cy.loginJWT(`${applicationRootCamera3}/webjars/swagger-ui/index.html`);

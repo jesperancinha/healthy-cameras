@@ -11,7 +11,7 @@ import {applicationRootCamera3} from "../../support/e2e";
  * This demonstrates that we can also send JWT tokens without using private key ciphering and public key validation.
  * This is a less secure way of using JWT tokens to access the application when comparing to using private/public keys.
  */
-describe('Camera 3 API tests', () => {
+describe('Camera 3 API tests (JWT)', () => {
 
     before(() => {
         cy.loginJWT(applicationRootCamera3);

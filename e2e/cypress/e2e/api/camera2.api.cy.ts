@@ -2,7 +2,7 @@ import {applicationRootCamera2} from "../../support/e2e";
 import {createCamera2HmacHeaders} from "../../support/commands";
 
 
-describe('Camera 2 API tests', () => {
+describe('Camera 2 API tests (HMAC)', () => {
 
     before(() => {
         cy.loginHmacAuth(applicationRootCamera2);

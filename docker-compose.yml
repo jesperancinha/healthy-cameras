@@ -64,6 +64,22 @@ services:
       kong:
         condition: service_healthy
 
+  camera-5-service:
+    hostname: camera-5-service
+    container_name: camera-5-service
+    build: ./camera-service
+    networks:
+      - healthy-cameras
+    expose:
+      - 8080
+    environment:
+      CAMERA_NO: 4
+    depends_on:
+      kong-database:
+        condition: service_healthy
+      kong:
+        condition: service_healthy
+
   kong-database:
     hostname: kong-database
     build:
@@ -213,6 +229,20 @@ services:
         condition: service_healthy
       kong-migration:
         condition: service_completed_successfully
+
+  openldap:
+    hostname: openldap
+    container_name: openldap
+    image: bitnami/openldap
+    environment:
+      LDAP_ROOT: dc=example,dc=org
+      LDAP_PORT_NUMBER: 1389
+      LDAP_ADMIN_USERNAME: admin
+      LDAP_ADMIN_PASSWORD: password
+      LDAP_USERS: camera5
+      LDAP_PASSWORDS: admin
+    networks:
+      - healthy-cameras
 
 networks:
   healthy-cameras:

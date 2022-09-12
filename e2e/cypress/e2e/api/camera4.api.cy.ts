@@ -4,7 +4,7 @@ import {applicationRootCamera4} from "../../support/e2e";
  * When running `make dcup-full-action` at the root of the project, a file called `CC4KongKeys.json` will be created as a fixture.
  * From here, the key in the data of the first element will be extracted and used to access the application
  */
-describe('Camera 3 API tests', () => {
+describe('Camera 4 API tests (KEY)', () => {
 
     before(() => {
         cy.loginKey(applicationRootCamera4);

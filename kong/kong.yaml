@@ -20,11 +20,19 @@ services:
         strip_path: true
 
   - name: camera-3-service
-    url: http://camera-2-service:8080/api/v1/hc
+    url: http://camera-3-service:8080/api/v1/hc
     routes:
       - name: camera-3-service-route
         paths:
           - /camera-3-service/api/v1/hc
+        strip_path: true
+
+  - name: camera-4-service
+    url: http://camera-4-service:8080/api/v1/hc
+    routes:
+      - name: camera-4-service-route
+        paths:
+          - /camera-4-service/api/v1/hc
         strip_path: true
 
 plugins:
@@ -64,4 +72,7 @@ plugins:
       hide_credentials: true
   - name: jwt
     service: camera-3-service
+    enabled: true
+  - name: key-auth
+    service: camera-4-service
     enabled: true

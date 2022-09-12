@@ -86,7 +86,19 @@ Cypress.Commands.add('loginJWT', (path: string) => {
     });
 })
 
-Cypress.on('uncaught:exception', (err, runnable) => {
+Cypress.Commands.add("loginKey", (path: string) => {
+    cy.fixture('CC4KongKeys').then(data => {
+        const apikey = data.data[0].key
+        return {
+            apikey: apikey
+        };
+    }).then(headers => {
+        cy.intercept("*", withHeaders(headers))
+        cy.visit(path)
+    });
+})
+
+Cypress.on('uncaught:exception', (err) => {
     if (err.message && err.message.trim().length > 0 && err.name && err.name.trim().length > 0) {
         if (err.message.indexOf('setting getter-only property "data"') >= 0) {
             return false;

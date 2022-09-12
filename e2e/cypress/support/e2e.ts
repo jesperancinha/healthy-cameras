@@ -31,9 +31,9 @@ export function noCacheHandler() {
     }
 }
 
-export function withHeaders(jwtHeaders) {
+export function withHeaders(headers) {
     return (request) => {
-        request.headers = jwtHeaders
+        request.headers = headers
     }
 }
 
@@ -42,3 +42,4 @@ const sanitizePrePath = (prePath: string) => `${Cypress.config().baseUrl.endsWit
 export const applicationRootCamera1: string = `${sanitizePrePath("/camera-1-service")}${applicationRoot}`;
 export const applicationRootCamera2: string = `${sanitizePrePath("/camera-2-service")}${applicationRoot}`;
 export const applicationRootCamera3: string = `${sanitizePrePath("/camera-3-service")}${applicationRoot}`;
+export const applicationRootCamera4: string = `${sanitizePrePath("/camera-4-service")}${applicationRoot}`;

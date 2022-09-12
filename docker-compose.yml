@@ -48,6 +48,22 @@ services:
       kong:
         condition: service_healthy
 
+  camera-4-service:
+    hostname: camera-4-service
+    container_name: camera-4-service
+    build: ./camera-service
+    networks:
+      - healthy-cameras
+    expose:
+      - 8080
+    environment:
+      CAMERA_NO: 4
+    depends_on:
+      kong-database:
+        condition: service_healthy
+      kong:
+        condition: service_healthy
+
   kong-database:
     hostname: kong-database
     build:

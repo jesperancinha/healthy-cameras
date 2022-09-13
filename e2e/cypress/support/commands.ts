@@ -115,8 +115,10 @@ Cypress.Commands.add('loginOauth2', (path: string) => {
         cy.fixture('CC6KongProvOauth2').then(data => {
             let request = authorizationRequest(appConfig.client_id, 'email', data.config.provision_key);
             cy.log(stringify(request.form));
+            let oauthHost = Cypress.config().baseUrl.split('http://')[1].split(':')[0];
+            let oauth2AuthorizeUrl = `https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/authorize`;
             cy.request({
-                url: 'https://127.0.0.1:8443/camera-6-service/api/v1/hc/oauth2/authorize',
+                url: oauth2AuthorizeUrl,
                 method: 'POST',
                 form: true,
                 body: request.form,
@@ -125,7 +127,7 @@ Cypress.Commands.add('loginOauth2', (path: string) => {
                 cy.log(stringify(response.body));
                 cy.log(stringify(response.headers));
             })
-            cy.request('POST', 'https://127.0.0.1:8443/camera-6-service/api/v1/hc/oauth2/authorize', request.form).then(response => {
+            cy.request('POST', oauth2AuthorizeUrl, request.form).then(response => {
                 cy.log(stringify(response.body));
                 cy.log(stringify(response.headers));
             });

@@ -110,7 +110,7 @@ Cypress.Commands.add('loginLDAP', (path: string) => {
     });
 })
 
-Cypress.Commands.add('loginOauth2', (path: string) => {
+Cypress.Commands.add('loginOAuth2', (path: string) => {
     cy.fixture('CC6KongOauth2').then(appConfig => {
         cy.fixture('CC6KongProvOauth2').then(data => {
             let request = authorizationRequest(appConfig.client_id, 'email', data.config.provision_key);
@@ -130,6 +130,28 @@ Cypress.Commands.add('loginOauth2', (path: string) => {
             cy.request('POST', oauth2AuthorizeUrl, request.form).then(response => {
                 cy.log(stringify(response.body));
                 cy.log(stringify(response.headers));
+
+                cy.request( {
+                    method: 'POST',
+                    url:`https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/token`,
+                    body: {
+                        client_id: appConfig.client_id,
+                        client_secret: appConfig.client_secret,
+                        provision_key: data.config.provision_key,
+                        authenticated_userid: 'cameraUser6',
+                        scope: "email",
+                        grant_type: 'password'
+                    },
+                    form: true,
+                    headers: {
+                        'Authorization': `Basic ${btoa('cameraUser6:administrator')}`,
+                    }
+                }).then(response => {
+                    cy.intercept('*', withHeaders({
+                        'Authorization': `Bearer ${response.body.access_token}`,
+                    }))
+                    cy.visit(`https://${oauthHost}:8443${path}`)
+                })
             });
         });
     });

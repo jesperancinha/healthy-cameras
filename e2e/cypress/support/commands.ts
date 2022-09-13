@@ -39,9 +39,7 @@
 
 import * as crypto from "crypto";
 import * as jwt from "jsonwebtoken";
-import {authorizationRequest, withFormAndHeaders, withHeaders} from "./e2e";
-import exp = require("constants");
-import {config} from "rxjs";
+import {authorizationRequest, withHeaders} from "./e2e";
 import {stringify} from "querystring";
 
 Cypress.Commands.add('loginBasicAuth', (path: string) => {
@@ -118,7 +116,7 @@ Cypress.Commands.add('loginOauth2', (path: string) => {
             let request = authorizationRequest(appConfig.client_id, 'email', data.config.provision_key);
             cy.log(stringify(request.form));
             cy.request({
-                url: 'https://localhost:8443/camera-6-service/api/v1/hc/oauth2/authorize',
+                url: 'https://127.0.0.1:8443/camera-6-service/api/v1/hc/oauth2/authorize',
                 method: 'POST',
                 form: true,
                 body: request.form,
@@ -127,7 +125,7 @@ Cypress.Commands.add('loginOauth2', (path: string) => {
                 cy.log(stringify(response.body));
                 cy.log(stringify(response.headers));
             })
-            cy.request('POST', 'https://localhost:8443/camera-6-service/api/v1/hc/oauth2/authorize', request.form).then(response => {
+            cy.request('POST', 'https://127.0.0.1:8443/camera-6-service/api/v1/hc/oauth2/authorize', request.form).then(response => {
                 cy.log(stringify(response.body));
                 cy.log(stringify(response.headers));
             });

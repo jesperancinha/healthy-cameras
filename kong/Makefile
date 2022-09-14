@@ -12,14 +12,14 @@ create-consumer-2:
 	  -d "secret=dragon"
 create-consumer-3:
 	curl -d "username=camera3&custom_id=CC3" http://127.0.0.1:8001/consumers/
-	curl -X POST http://localhost:8001/consumers/camera3/jwt -H "Content-Type: application/x-www-form-urlencoded"
-	curl -X GET http://localhost:8001/consumers/camera3/jwt > ../e2e/cypress/fixtures/CC3KongToken.json
+	curl -X POST http://127.0.0.1:8001/consumers/camera3/jwt -H "Content-Type: application/x-www-form-urlencoded"
+	curl -X GET http://127.0.0.1:8001/consumers/camera3/jwt > ../e2e/cypress/fixtures/CC3KongToken.json
 create-consumer-4:
 	curl -d "username=camera4&custom_id=CC4" http://127.0.0.1:8001/consumers/
-	curl -X POST http://localhost:8001/consumers/camera4/key-auth
-	curl -X GET http://localhost:8001/key-auths > ../e2e/cypress/fixtures/CC4KongKeys.json
+	curl -X POST http://127.0.0.1:8001/consumers/camera4/key-auth
+	curl -X GET http://127.0.0.1:8001/key-auths > ../e2e/cypress/fixtures/CC4KongKeys.json
 create-consumer-6:
-	curl -X POST http://localhost:8001/consumers/ \
+	curl -X POST http://127.0.0.1:8001/consumers/ \
 	  --data "username=camera6" \
 	  --data "custom_id=CC6"
 	curl -X POST http://127.0.0.1:8001/consumers/camera6/basic-auth \
@@ -33,37 +33,37 @@ create-consumer-6:
 	  --data "config.scopes=email" \
 	  --data "config.mandatory_scope=true" \
 	  --data "config.enable_authorization_code=true" > ../e2e/cypress/fixtures/CC6KongProvOauth2.json
-	curl -X POST http://localhost:8001/consumers/camera6/oauth2 \
+	curl -X POST http://127.0.0.1:8001/consumers/camera6/oauth2 \
 	  --data "name=Camera%20Application" \
 	  --data "client_id=CAMERA06CLIENTID" \
 	  --data "client_secret=CAMERA06CLIENTSECRET" \
-	  --data "redirect_uris=https://localhost:8443/camera-6-service/api/v1/hc" \
+	  --data "redirect_uris=https://127.0.0.1:8443/camera-6-service/api/v1/hc" \
 	  --data "hash_secret=true"
-	curl -X GET http://localhost:8001/oauth2_tokens/
+	curl -X GET http://127.0.0.1:8001/oauth2_tokens/
 	curl -X POST http://127.0.0.1:8001/consumers/camera6/oauth2/ \
 	  --data "name=Camera%20Application" \
-	  --data "redirect_uris[]=https://localhost:8443/camera-6-service/api/v1/hc" > ../e2e/cypress/fixtures/CC6KongOauth2.json
+	  --data "redirect_uris[]=https://127.0.0.1:8443/camera-6-service/api/v1/hc" > ../e2e/cypress/fixtures/CC6KongOauth2.json
 create-client-6:
 	curl -X POST http://127.0.0.1:8001/consumers/camera6/oauth2/ \
 	  --data "name=Camera%20Application" \
-	  --data "redirect_uris[]=https://localhost:8443/camera-6-service/api/v1/hc"
+	  --data "redirect_uris[]=https://127.0.0.1:8443/camera-6-service/api/v1/hc"
 protect-camera-2-hmac:
-	curl -X POST http://localhost:8001/services/camera-2-service/plugins \
+	curl -X POST http://127.0.0.1:8001/services/camera-2-service/plugins \
 		--data "name=hmac-auth"
 protect-camera-3-jwt:
-	curl -X POST http://localhost:8001/services/camera-3-service/plugins \
+	curl -X POST http://127.0.0.1:8001/services/camera-3-service/plugins \
 		--data "name=jwt"
 protect-camera-auth:
-	curl -X POST http://localhost:8001/services/camera-4-service/plugins \
+	curl -X POST http://127.0.0.1:8001/services/camera-4-service/plugins \
 		--data "name=key-auth"
 list-camera-jwt:
-	curl -X GET http://localhost:8001/consumers/camera3/jwt
+	curl -X GET http://127.0.0.1:8001/consumers/camera3/jwt
 list-camera-key-auth:
-	curl -X GET http://localhost:8001/key-auths
+	curl -X GET http://127.0.0.1:8001/key-auths
 list-camera-oauth:
-	curl -X GET http://localhost:8001/oauth2_tokens/
+	curl -X GET http://127.0.0.1:8001/oauth2_tokens/
 connect-camera-1:
-	curl http://localhost:8000/camera-1-service/api/v1/hc -H "Authorization: Basic $(shell echo "cameraUser1:administrator" | base64)"
+	curl http://127.0.0.1:8000/camera-1-service/api/v1/hc -H "Authorization: Basic $(shell echo "cameraUser1:administrator" | base64)"
 kong-config: create-consumer-1 create-consumer-2 create-consumer-3 create-consumer-4 create-consumer-6
 dcd:
 	cd .. && make dcd

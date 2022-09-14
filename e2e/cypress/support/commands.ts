@@ -145,9 +145,9 @@ Cypress.Commands.add('loginOAuth2ByProvisionKey', (path: string) => {
                         grant_type: 'password',
                     },
                     form: true,
-                }).then(response => {
+                }).then(endResponse => {
                     cy.intercept('*', withHeaders({
-                        'Authorization': `Bearer ${response.body.access_token}`,
+                        'Authorization': `Bearer ${endResponse.body.access_token}`,
                     }))
                     cy.visit(`https://${oauthHost}:8443${path}`)
                 });
@@ -188,12 +188,12 @@ Cypress.Commands.add('loginOAuth2ByAccessCode', (path: string) => {
                         authenticated_userid: 'CC6',
                         scope: "email",
                         grant_type: 'authorization_code',
-                        code: response.body.redirect_uri.toString().split("?")[1].split('=')[1]
+                        code: response.body.redirect_uri.toString().split("?")[1].split('=')[1],
                     },
                     form: true,
-                }).then(response => {
+                }).then(endResponse => {
                     cy.intercept('*', withHeaders({
-                        'Authorization': `Bearer ${response.body.access_token}`,
+                        'Authorization': `Bearer ${endResponse.body.access_token}`,
                     }))
                     cy.visit(`https://${oauthHost}:8443${path}`)
                 });

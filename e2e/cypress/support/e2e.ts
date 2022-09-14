@@ -55,18 +55,3 @@ export const applicationRootCamera3: string = `${sanitizePrePath("/camera-3-serv
 export const applicationRootCamera4: string = `${sanitizePrePath("/camera-4-service")}${applicationRoot}`;
 export const applicationRootCamera5: string = `${sanitizePrePath("/camera-5-service")}${applicationRoot}`;
 export const applicationRootCamera6: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}`;
-
-export function authorizationRequest(client_id, scope, provisionKey) {
-    return {
-        headers: {
-            Host: 'localhost'
-        },
-        form: {
-            client_id: `${client_id}`,
-            scope: scope,
-            provision_key: `${provisionKey}`,
-            authenticated_userid: "camera6",
-            response_type: 'code'
-        }
-    };
-}

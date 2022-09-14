@@ -110,52 +110,96 @@ Cypress.Commands.add('loginLDAP', (path: string) => {
     });
 })
 
-Cypress.Commands.add('loginOAuth2', (path: string) => {
+Cypress.Commands.add('loginOAuth2ByProvisionKey', (path: string) => {
     cy.fixture('CC6KongOauth2').then(appConfig => {
         cy.fixture('CC6KongProvOauth2').then(data => {
-            let request = authorizationRequest(appConfig.client_id, 'email', data.config.provision_key);
-            cy.log(stringify(request.form));
             let oauthHost = Cypress.config().baseUrl.split('http://')[1].split(':')[0];
-            let oauth2AuthorizeUrl = `https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/authorize`;
+                let oauth2AuthorizeUrl = `https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/authorize`;
             cy.request({
                 url: oauth2AuthorizeUrl,
                 method: 'POST',
                 form: true,
-                body: request.form,
-                headers: request.headers
+                body: {
+                    client_id: `${appConfig.client_id}`,
+                    scope: 'email',
+                    provision_key: `${data.config.provision_key}`,
+                    authenticated_userid: "camera6",
+                    response_type: 'code',
+                },
+                headers: {
+                    Host: 'localhost'
+                }
             }).then(response => {
                 cy.log(stringify(response.body));
                 cy.log(stringify(response.headers));
-            })
-            cy.request('POST', oauth2AuthorizeUrl, request.form).then(response => {
-                cy.log(stringify(response.body));
-                cy.log(stringify(response.headers));
 
-                cy.request( {
+                cy.request({
                     method: 'POST',
-                    url:`https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/token`,
+                    url: `https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/token`,
                     body: {
                         client_id: appConfig.client_id,
                         client_secret: appConfig.client_secret,
                         provision_key: data.config.provision_key,
-                        authenticated_userid: 'cameraUser6',
+                        authenticated_userid: 'CC6',
                         scope: "email",
-                        grant_type: 'password'
+                        grant_type: 'password',
                     },
                     form: true,
-                    headers: {
-                        'Authorization': `Basic ${btoa('cameraUser6:administrator')}`,
-                    }
                 }).then(response => {
                     cy.intercept('*', withHeaders({
                         'Authorization': `Bearer ${response.body.access_token}`,
                     }))
                     cy.visit(`https://${oauthHost}:8443${path}`)
-                })
+                });
             });
         });
     });
+});
 
+Cypress.Commands.add('loginOAuth2ByAccessCode', (path: string) => {
+    cy.fixture('CC6KongOauth2').then(appConfig => {
+        cy.fixture('CC6KongProvOauth2').then(data => {
+            let oauthHost = Cypress.config().baseUrl.split('http://')[1].split(':')[0];
+                let oauth2AuthorizeUrl = `https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/authorize`;
+            cy.request({
+                url: oauth2AuthorizeUrl,
+                method: 'POST',
+                form: true,
+                body: {
+                    client_id: `${appConfig.client_id}`,
+                    scope: 'email',
+                    provision_key: `${data.config.provision_key}`,
+                    authenticated_userid: "camera6",
+                    response_type: 'code',
+                },
+                headers: {
+                    Host: 'localhost'
+                }
+            }).then(response => {
+                cy.log(stringify(response.body));
+                cy.log(stringify(response.headers));
+
+                cy.request({
+                    method: 'POST',
+                    url: `https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/token`,
+                    body: {
+                        client_id: appConfig.client_id,
+                        client_secret: appConfig.client_secret,
+                        authenticated_userid: 'CC6',
+                        scope: "email",
+                        grant_type: 'authorization_code',
+                        code: response.body.redirect_uri.toString().split("?")[1].split('=')[1]
+                    },
+                    form: true,
+                }).then(response => {
+                    cy.intercept('*', withHeaders({
+                        'Authorization': `Bearer ${response.body.access_token}`,
+                    }))
+                    cy.visit(`https://${oauthHost}:8443${path}`)
+                });
+            });
+        });
+    });
 });
 
 Cypress.on('uncaught:exception', (err) => {

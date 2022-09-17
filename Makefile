@@ -74,3 +74,8 @@ cypress-edge:
 install:
 	sudo apt-get install deck
 local-pipeline: dcd docker-clean build-maven build-cypress test-maven
+docker-stop-all:
+	docker ps -a --format '{{.ID}}' | xargs -I {}  docker stop {}
+docker-remove-all: docker-stop-all
+	docker network list --format '{{.ID}}' | xargs -I {} docker network rm  {} || echo 'Done!'
+	docker ps -a --format '{{.ID}}' | xargs -I {}  docker rm {}

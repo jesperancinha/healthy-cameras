@@ -7,6 +7,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.oauth2.client.oidc.web.server.logout.OidcClientInitiatedServerLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
+import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
+import org.springframework.security.oauth2.jwt.ReactiveJwtDecoders;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
 
@@ -16,9 +18,13 @@ import org.springframework.security.web.server.util.matcher.ServerWebExchangeMat
 @Configuration
 public class SecurityConfiguration {
 
-    @Value("${okta.oauth2.post-logout-redirect-uri}")
+    @Value("${camera.service.oauth2.post-logout-redirect-uri}")
     private String postLogoutRedirectUrl;
 
+    @Bean
+    public ReactiveJwtDecoder jwtDecoder() {
+        return ReactiveJwtDecoders.fromIssuerLocation("https://127.0.0.1:8443/camera-6-service/api/v1/hc");
+    }
     final
     ReactiveClientRegistrationRepository clientRegistrationRepository;
 
@@ -47,10 +53,6 @@ public class SecurityConfiguration {
                         .pathMatchers("/logout")
                         .permitAll()
                         .pathMatchers("/logout/**")
-                        .permitAll()
-                        .pathMatchers("/info/jwt/open/**")
-                        .permitAll()
-                        .pathMatchers("/webcams/jwt/open/**")
                         .permitAll()
                         .pathMatchers("/v3/**")
                         .permitAll()

@@ -30,9 +30,12 @@ create-consumer-6:
 	  --data "config.scopes=email" \
 	  --data "config.mandatory_scope=true" \
 	  --data "config.enable_authorization_code=true" > ../e2e/cypress/fixtures/CC6KongProvOauth2.json
-	curl -X POST http://127.0.0.1:8001/consumers/camera6/oauth2/ \
+	curl -X POST http://127.0.0.1:8001/consumers/camera6/oauth2 \
 	  --data "name=Camera%20Application" \
-	  --data "redirect_uris[]=https://127.0.0.1:8443/camera-6-service/api/v1/hc" > ../e2e/cypress/fixtures/CC6KongOauth2.json
+	  --data "client_id=CAMERA06CLIENTID" \
+	  --data "client_secret=CAMERA06CLIENTSECRET" \
+	  --data "redirect_uris=https://127.0.0.1:8443/camera-6-service/api/v1/hc" \
+	  --data "hash_secret=true" > ../e2e/cypress/fixtures/CC6KongOauth2.json
 	curl -X GET http://127.0.0.1:8001/oauth2_tokens/
 create-credentials-6:
 	curl -X POST http://127.0.0.1:8001/consumers/camera6/oauth2/ \
@@ -45,6 +48,10 @@ create-custom-credentials-6:
 	  --data "client_secret=CAMERA06CLIENTSECRET" \
 	  --data "redirect_uris=https://127.0.0.1:8443/camera-6-service/api/v1/hc" \
 	  --data "hash_secret=true"
+create-generic-credentials-6:
+	curl -X POST http://127.0.0.1:8001/consumers/camera6/oauth2/ \
+	  --data "name=Camera%20Application" \
+	  --data "redirect_uris[]=https://127.0.0.1:8443/camera-6-service/api/v1/hc"
 protect-camera-2-hmac:
 	curl -X POST http://127.0.0.1:8001/services/camera-2-service/plugins \
 		--data "name=hmac-auth"

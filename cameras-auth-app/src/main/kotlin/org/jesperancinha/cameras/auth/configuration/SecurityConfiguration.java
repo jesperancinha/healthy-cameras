@@ -21,10 +21,6 @@ public class SecurityConfiguration {
     @Value("${camera.service.oauth2.post-logout-redirect-uri}")
     private String postLogoutRedirectUrl;
 
-    @Bean
-    public ReactiveJwtDecoder jwtDecoder() {
-        return ReactiveJwtDecoders.fromIssuerLocation("https://127.0.0.1:8443/camera-6-service/api/v1/hc");
-    }
     final
     ReactiveClientRegistrationRepository clientRegistrationRepository;
 

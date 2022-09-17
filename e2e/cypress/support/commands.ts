@@ -138,7 +138,7 @@ Cypress.Commands.add('loginOAuth2ByProvisionKey', (path: string) => {
                     url: `https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/token`,
                     body: {
                         client_id: appConfig.client_id,
-                        client_secret: appConfig.client_secret,
+                        client_secret: 'CAMERA06CLIENTSECRET',
                         provision_key: data.config.provision_key,
                         authenticated_userid: 'CC6',
                         scope: "email",
@@ -184,7 +184,7 @@ Cypress.Commands.add('loginOAuth2ByAccessCode', (path: string) => {
                     url: `https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/token`,
                     body: {
                         client_id: appConfig.client_id,
-                        client_secret: appConfig.client_secret,
+                        client_secret: 'CAMERA06CLIENTSECRET',
                         authenticated_userid: 'CC6',
                         scope: "email",
                         grant_type: 'authorization_code',

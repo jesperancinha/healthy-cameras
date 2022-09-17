@@ -1,11 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0">
     <parent>
-        <artifactId>healthy-cameras</artifactId>
         <groupId>org.jesperancinha.cameras</groupId>
+        <artifactId>healthy-cameras</artifactId>
         <version>0.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cameras-auth-app</artifactId>
+
+    <artifactId>cameras-auth-service</artifactId>
+    <name>Healthy Cameras >> Camera Authentication Service</name>
 
     <dependencies>
         <dependency>
@@ -33,37 +35,14 @@
             <artifactId>spring-boot-actuator-autoconfigure</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-resource-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-jose</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlinx</groupId>
-            <artifactId>kotlinx-coroutines-reactor</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-webflux-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-webflux-ui</artifactId>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
         </dependency>
     </dependencies>
-
     <build>
         <finalName>${artifactId}</finalName>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>

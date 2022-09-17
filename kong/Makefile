@@ -34,7 +34,7 @@ create-consumer-6:
 	  --data "name=Camera%20Application" \
 	  --data "client_id=CAMERA06CLIENTID" \
 	  --data "client_secret=CAMERA06CLIENTSECRET" \
-	  --data "redirect_uris=https://127.0.0.1:8443/camera-6-service/api/v1/hc" \
+	  --data "redirect_uris=http://localhost:8095/api/v1/cameras" \
 	  --data "hash_secret=true" > ../e2e/cypress/fixtures/CC6KongOauth2.json
 	curl -X GET http://127.0.0.1:8001/oauth2_tokens/
 # By default the client secret is return in the clear

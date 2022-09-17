@@ -8,7 +8,7 @@
 		<version>0.0.0</version>
 	</parent>
 	<artifactId>camera-service</artifactId>
-	<name>Camera Service</name>
+	<name>Healthy Cameras >> Camera Service</name>
 	<description>Service for a single camera</description>
 	<dependencies>
 		<dependency>

@@ -111,7 +111,7 @@ services:
       - POSTGRES_USER=kong
       - POSTGRES_PASSWORD=kong_password
       - POSTGRES_MULTIPLE_DATABASES=hc,postgres
-      - POSTGRES_FOLDER_MAPPING=true
+      - POSTGRES_FOLDER_MAPPING=false
     image: postgres
     networks:
       - healthy-cameras

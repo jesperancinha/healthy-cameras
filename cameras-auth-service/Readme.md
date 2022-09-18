@@ -6,7 +6,10 @@ It is NOT intended to show how they are implemented. The implementation of the a
 
 ## Login page
 
-- [Auth Page](http://localhost:8095/api/v1/cameras/auth)
+- [Auth Page](http://localhost:8096/api/v1/cameras/auth)
+- [Swagger UI Page](http://localhost:8096/api/v1/cameras/auth/webjars/swagger-ui/index.html)
+- [Swagger UI JSON](http://localhost:8096/api/v1/cameras/auth/v3/api-docs)
+
 
 ##  Useful commands
 

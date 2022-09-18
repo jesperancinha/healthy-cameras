@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS USERS;
+CREATE TABLE USERS
+(
+    username VARCHAR(255) PRIMARY KEY,
+    password_hash VARCHAR(255),
+    roles    VARCHAR(255)
+);

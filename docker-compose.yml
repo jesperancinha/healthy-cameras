@@ -109,7 +109,7 @@ services:
     container_name: kong-database
     environment:
       - POSTGRES_USER=kong
-      - POSTGRES_PASSWORD=kong
+      - POSTGRES_PASSWORD=kong_password
       - POSTGRES_MULTIPLE_DATABASES=hc,postgres
       - POSTGRES_FOLDER_MAPPING=true
     image: postgres
@@ -133,7 +133,7 @@ services:
       - KONG_DATABASE=postgres
       - KONG_PG_HOST=kong-database
       - KONG_PG_DATABASE=kong
-      - KONG_PG_PASSWORD=kong
+      - KONG_PG_PASSWORD=kong_password
     command: kong migrations bootstrap && kong migrations up && kong migrations finish
 
   prometheus:
@@ -176,7 +176,7 @@ services:
       - KONG_DATABASE=postgres
       - KONG_PG_HOST=kong-database
       - KONG_PG_DATABASE=kong
-      - KONG_PG_PASSWORD=kong
+      - KONG_PG_PASSWORD=kong_password
       - KONG_PROXY_LISTEN=0.0.0.0:8000, 0.0.0.0:8443 ssl
       - KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl
     expose:

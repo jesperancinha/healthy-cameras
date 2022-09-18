@@ -54,7 +54,7 @@ function import_files_from_folder() {
         import_file_to_database "$database" "$script"
     done
   else
-    echo "WARNING: No script bundle directory found for database $database"
+    echo -e "\e[38;5;208mWARNING\e[0m: No script bundle directory \e[38;5;82m$directory\e[0m found for database \e[38;5;82m$database\e[0m"
   fi
 }
 
@@ -85,10 +85,10 @@ function create_and_import_files(){
                 if [ -f "$schema_data" ]; then
                         import_file_to_database "$database" "$schema_data"
                 else
-                  echo "WARNING: No data file detected for database $database"
+                  echo "\e[38;5;208mWARNING\e[0m: No data file \e[38;5;82m$schema_data\e[0m detected for database \e[38;5;82m$database\e[0m"
                 fi
         else
-            echo "WARNING: No schema file detected for database $database"
+            echo "\e[38;5;208mWARNING\e[0m: No schema file \e[38;5;82m$schema_file\e[0m detected for database \e[38;5;82m$database\e[0m"
         fi
       fi
     done

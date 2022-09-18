@@ -1,9 +1,9 @@
 package org.jesperancinha.cameras.auth.controller
 
 import org.jesperancinha.cameras.auth.service.TokenService
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
-import java.security.Principal
 
 @RestController
 class CameraAuthController(
@@ -11,5 +11,6 @@ class CameraAuthController(
 ) {
 
     @GetMapping
-    suspend fun createToken(principal: Principal) = tokenService.createToken(principal)
+    fun createToken(usernamePasswordAuthenticationToken: UsernamePasswordAuthenticationToken) =
+        tokenService.createToken(usernamePasswordAuthenticationToken)
 }

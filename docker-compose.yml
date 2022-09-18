@@ -107,6 +107,11 @@ services:
     expose:
       - 5432
     container_name: kong-database
+    environment:
+      - POSTGRES_USER=kong
+      - POSTGRES_PASSWORD=kong
+      - POSTGRES_MULTIPLE_DATABASES=hc,postgres
+      - POSTGRES_FOLDER_MAPPING=true
     image: postgres
     networks:
       - healthy-cameras

@@ -27,7 +27,10 @@ create-consumer-6:
 	  --data "name=oauth2" \
 	  --data "config.enable_password_grant=true" \
 	  --data "config.enable_client_credentials=true" \
-	  --data "config.scopes=email" \
+	  --data "config.scopes=admin" \
+	  --data "config.scopes=observer" \
+	  --data "config.scopes=visitor" \
+	  --data "config.scopes=researcher" \
 	  --data "config.mandatory_scope=true" \
 	  --data "config.enable_authorization_code=true" > ../e2e/cypress/fixtures/CC6KongProvOauth2.json
 	curl -X POST http://127.0.0.1:8001/consumers/camera6/oauth2 \

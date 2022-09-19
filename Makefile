@@ -79,3 +79,8 @@ docker-stop-all:
 docker-remove-all: docker-stop-all
 	docker network list --format '{{.ID}}' | xargs -I {} docker network rm  {} || echo 'Done!'
 	docker ps -a --format '{{.ID}}' | xargs -I {}  docker rm {}
+run-cameras-auth:
+	cd cameras-auth-service && make run-cameras-auth
+cameras-auth-prov-key:
+	cd cameras-auth-service && make cameras-auth-prov-key
+

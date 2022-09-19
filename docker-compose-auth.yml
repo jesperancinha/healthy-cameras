@@ -1,0 +1,16 @@
+services:
+  cameras-auth-service:
+    hostname: cameras-auth-service
+    container_name: cameras-auth-service
+    build: ./cameras-auth-service
+    networks:
+      - healthy-cameras
+    expose:
+      - 8096
+    ports:
+      - "8096:8096"
+    depends_on:
+      kong-database:
+        condition: service_healthy
+      kong:
+        condition: service_healthy

@@ -33,6 +33,7 @@ create-consumer-6:
 	  --data "config.scopes=researcher" \
 	  --data "config.mandatory_scope=true" \
 	  --data "config.enable_authorization_code=true" > ../e2e/cypress/fixtures/CC6KongProvOauth2.json
+	cp ../e2e/cypress/fixtures/CC6KongProvOauth2.json ../cameras-auth-service/target/CC6KongProvOauth2.json
 	curl -X POST http://127.0.0.1:8001/consumers/camera6/oauth2 \
 	  --data "name=Camera%20Application" \
 	  --data "client_id=CAMERA06CLIENTID" \

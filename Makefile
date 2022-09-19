@@ -23,7 +23,7 @@ build-images:
 	docker build concert-demos-rest-service-mvc/. -t concert-demos-rest-service-mvc
 	docker build concert-demos-rest-service-webflux/. -t concert-demos-rest-service-webflux
 build-docker: stop no-test dcup
-stop: dcd
+stop:
 	docker ps -a -q --filter="name=kong" | xargs -I {} docker stop {}
 	docker ps -a -q --filter="name=kong" | xargs -I {} docker rm {}
 	docker ps -a -q --filter="name=camera" | xargs -I {} docker stop {}
@@ -53,11 +53,14 @@ kong-config:
 	cd kong && make kong-config
 dcup-light:
 	docker-compose up -d kong-database
-dcup: dcd
+dcup-base:
 	docker-compose up -d --build --remove-orphans
-dcup-action: dcup hc-wait kong-config
-dcup-full-action: dcd docker-clean build-maven build-cypress dcup hc-wait kong-config
-dcd:
+dcup-auth:
+	docker-compose -f docker-compose.yml -f docker-compose-auth.yml up -d
+dcup: dcd dcup-base
+dcup-action: dcup hc-wait kong-config dcup-auth
+dcup-full-action: dcd docker-clean build-maven build-cypress dcup hc-wait kong-config dcup-auth
+dcd: stop
 	docker-compose down
 cypress-open-docker:
 	cd e2e && yarn && npm run cypress:open:docker

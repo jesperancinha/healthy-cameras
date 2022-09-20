@@ -27,6 +27,7 @@ class CamerasAuthAppLauncher(
 
     override fun run(args: ApplicationArguments?) {
         logger.info("Go to -> http://localhost:$port/api/v1/cameras/auth/ when running locally")
+        logger.info("Go to -> https://localhost:8443/camera-6-service/api/v1/hc for the secured OAuth2 application")
     }
 }
 

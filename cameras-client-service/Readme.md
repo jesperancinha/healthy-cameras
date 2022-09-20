@@ -11,3 +11,9 @@
 ```shell
 curl https://127.0.0.1:8443/camera-6-service/api/v1/hc -k
 ```
+
+##### 2. Make a curl command with a bearer token
+
+```shell
+curl https://127.0.0.1:8443/camera-6-service/api/v1/hc -k -H 'Authorization: bearer <BEARER_TOKEN>'
+```

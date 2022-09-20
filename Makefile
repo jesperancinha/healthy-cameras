@@ -54,15 +54,14 @@ kong-config:
 dcup-light:
 	docker-compose up -d kong-database
 dcup-base:
-	docker-compose up -d --build --remove-orphans
-dcup-auth:
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
-	docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-auth.yml up -d cameras-auth-service
+dcup-auth:
+	docker-compose -f docker-compose-auth.yml up -d cameras-auth-service
 dcup: dcd dcup-base
-dcup-action: dcup hc-wait kong-config dcup-auth
-dcup-full-action: dcd docker-clean build-maven build-cypress dcup hc-wait kong-config dcup-auth
+dcup-action: dcup hc-wait kong-config cameras-auth-service-build
+dcup-full-action: dcd docker-clean build-maven build-cypress dcup hc-wait kong-config cameras-auth-service-build
 dcd: stop
-	docker-compose down
+	docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-auth.yml down
 cypress-open-docker:
 	cd e2e && yarn && npm run cypress:open:docker
 cypress-open:
@@ -87,4 +86,8 @@ run-cameras-auth:
 	cd cameras-auth-service && make run-cameras-auth
 cameras-auth-prov-key:
 	cd cameras-auth-service && make cameras-auth-prov-key
-
+cameras-auth-service-build:
+	docker-compose -f docker-compose-auth.yml stop cameras-auth-service
+	docker-compose -f docker-compose-auth.yml rm cameras-auth-service
+	docker-compose -f docker-compose-auth.yml build --no-cache cameras-auth-service
+	make dcup-auth

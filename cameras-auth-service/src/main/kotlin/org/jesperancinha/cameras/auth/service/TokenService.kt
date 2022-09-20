@@ -3,6 +3,8 @@ package org.jesperancinha.cameras.auth.service
 import io.netty.handler.ssl.SslContextBuilder
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory
 import org.jesperancinha.cameras.auth.dao.*
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders.CONTENT_TYPE
 import org.springframework.http.MediaType
@@ -52,7 +54,7 @@ class TokenService(
         WebClient.builder().clientConnector(ReactorClientHttpConnector(httpClient)).build()
     }
 
-    fun createToken(principal: UsernamePasswordAuthenticationToken): Mono<BearerToken> {
+    fun createToken(principal: UsernamePasswordAuthenticationToken, ctr: ClientTokenRequest): Mono<BearerToken> {
         val scope = principal.authorities.map { it.authority }[0]
         return webFluxClient.post()
             .uri(authUrl)
@@ -71,6 +73,10 @@ class TokenService(
             ).retrieve()
             .bodyToMono(ResAuthorizeBody::class.java)
             .map {
+                logger.info("Response redirect uri: ${it.redirectUri}")
+                logger.info("Input redirect uri: ${ctr.redirectUri}")
+                if(!it.redirectUri.startsWith(ctr.redirectUri))
+                    throw RuntimeException("OAuth2 Validation Failed!")
                 webFluxClient.post()
                     .uri(tokenUrl)
                     .body(
@@ -89,4 +95,20 @@ class TokenService(
             }
             .flatMap { it }
     }
+
+    fun validate(clientTokenRequest: ClientTokenRequest) {
+        logger.info("clientId = ${clientTokenRequest.clientId}")
+        logger.info("scope = ${clientTokenRequest.scope}")
+        logger.info("responseType = ${clientTokenRequest.responseType}")
+        if (clientId != clientTokenRequest.clientId ||
+            clientTokenRequest.scope != "admin" ||
+            responseType != clientTokenRequest.responseType
+        )
+            throw RuntimeException("OAuth2 Validation Failed!")
+    }
+
+    companion object {
+        val logger: Logger = LoggerFactory.getLogger(TokenService::class.java)
+    }
 }
+

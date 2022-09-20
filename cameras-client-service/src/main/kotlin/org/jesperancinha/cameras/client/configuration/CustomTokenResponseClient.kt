@@ -11,6 +11,10 @@ import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToMono
 import reactor.core.publisher.Mono
 
+data class CustomTokenRequest(val clientId: String?, val clientSecret: String?)
+
+data class NotStandardTokenResponse(val accessToken: String, val refreshToken: String)
+
 @Component
 class CustomTokenResponseClient : ReactiveOAuth2AccessTokenResponseClient<OAuth2ClientCredentialsGrantRequest> {
 

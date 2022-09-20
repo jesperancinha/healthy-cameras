@@ -38,15 +38,21 @@ create-consumer-6:
 	  --data "name=Camera%20Application" \
 	  --data "client_id=CAMERA06CLIENTID" \
 	  --data "client_secret=CAMERA06CLIENTSECRET" \
-	  --data "redirect_uris=http://localhost:8095/api/v1/cameras" \
+	  --data "redirect_uris=http://localhost:8095/api/v1/cameras/client" \
+	  --data "redirect_uris=https://localhost:8443/camera-6-service/api/v1/hc" \
 	  --data "hash_secret=true" > ../e2e/cypress/fixtures/CC6KongOauth2.json
 	curl -X GET http://127.0.0.1:8001/oauth2_tokens/
 # By default the client secret is return in the clear
 create-credentials-6:
 	curl -X POST http://127.0.0.1:8001/consumers/camera6/oauth2/ \
 	  --data "name=Camera%20Application" \
-	  --data "redirect_uris[]=https://127.0.0.1:8443/camera-6-service/api/v1/hc"
+	  --data "redirect_uris[]=https://localhost:8443/camera-6-service/api/v1/hc"
 # By specifying a hash, the client secret is return as a hashed value
+create-credentials-6-v2:
+	curl -X POST http://127.0.0.1:8001/consumers/camera6/oauth2/ \
+	  --data "name=Camera%20Application" \
+	  --data "redirect_uris=http://localhost:8095/api/v1/cameras/client" \
+	  --data "redirect_uris=https://localhost:8443/camera-6-service/api/v1/hc" \# By specifying a hash, the client secret is return as a hashed value
 create-custom-credentials-6:
 	curl -X POST http://127.0.0.1:8001/consumers/camera6/oauth2 \
 	  --data "name=Camera%20Application" \

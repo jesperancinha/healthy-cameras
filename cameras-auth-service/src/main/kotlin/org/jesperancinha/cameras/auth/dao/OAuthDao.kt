@@ -2,7 +2,6 @@ package org.jesperancinha.cameras.auth.dao
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
-import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
@@ -58,3 +57,10 @@ fun TokenRequest.toMultiValueMap() = LinkedMultiValueMap<String, String>().apply
     add("code", code)
 }
 
+data class ClientTokenRequest(
+    val responseType: String,
+    val clientId: String,
+    val scope: String,
+    val state: String,
+    val redirectUri: String,
+)

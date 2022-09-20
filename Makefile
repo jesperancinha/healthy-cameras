@@ -56,7 +56,8 @@ dcup-light:
 dcup-base:
 	docker-compose up -d --build --remove-orphans
 dcup-auth:
-	docker-compose -f docker-compose.yml -f docker-compose-auth.yml up -d
+	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+	docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-auth.yml up -d cameras-auth-service
 dcup: dcd dcup-base
 dcup-action: dcup hc-wait kong-config dcup-auth
 dcup-full-action: dcd docker-clean build-maven build-cypress dcup hc-wait kong-config dcup-auth

@@ -4,7 +4,7 @@ import exp = require("constants");
 describe('Camera 6 API tests (OAuth2)', () => {
 
     beforeEach(() => {
-        cy.visit(applicationAuthAPI);
+        cy.visit(`${applicationAuthAPI}?response_type=code&client_id=CAMERA06CLIENTID&scope=admin&state=DUMMY&redirect_uri=http://localhost:8095/api/v1/cameras/client`);
     })
 
     it('should login and see welcome screen', () => {

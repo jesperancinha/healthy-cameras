@@ -2,6 +2,7 @@ package org.jesperancinha.cameras.auth.controller
 
 import org.jesperancinha.cameras.auth.dao.ClientTokenRequest
 import org.jesperancinha.cameras.auth.service.TokenService
+import org.springframework.http.server.reactive.ServerHttpResponse
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -20,7 +21,7 @@ class CameraAuthController(
         @RequestParam(value = "client_id", required = false) clientId: String?,
         @RequestParam(value = "scope", required = false) scope: String?,
         @RequestParam(value = "state", required = false) state: String?,
-        @RequestParam(value = "redirect_uri", required = false) redirectUrl: String?,
+        @RequestParam(value = "redirect_uri", required = false) redirectUrl: String?
     ) = ClientTokenRequest(
         responseType = responseType,
         clientId = clientId,

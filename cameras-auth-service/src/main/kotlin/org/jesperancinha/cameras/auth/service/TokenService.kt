@@ -7,8 +7,10 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders.CONTENT_TYPE
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE
+import org.springframework.http.ResponseEntity
 import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.stereotype.Service
@@ -18,6 +20,7 @@ import reactor.core.publisher.Mono
 import reactor.netty.http.client.HttpClient
 import reactor.netty.tcp.SslProvider.SslContextSpec
 import reactor.netty.tcp.TcpClient
+import java.net.URI
 
 
 @Service
@@ -46,11 +49,10 @@ class TokenService(
 
     fun createToken(
         principal: UsernamePasswordAuthenticationToken, ctr: ClientTokenRequest
-    ): Mono<BearerTokenEnriched> = principal.authorities.map { it.authority }[0].let { scope ->
+    ): Mono<ResponseEntity<BearerTokenEnriched>> = principal.authorities.map { it.authority }[0].let { scope ->
         webFluxClient.post().uri(authUrl).header(CONTENT_TYPE, APPLICATION_FORM_URLENCODED_VALUE)
-            .accept(MediaType.APPLICATION_JSON).body(
-                createAuthFormRequestBody(scope)
-            ).retrieve().bodyToMono(ResAuthorizeBody::class.java).map { authorizeBody ->
+            .accept(MediaType.APPLICATION_JSON).body(createAuthFormRequestBody(scope))
+            .retrieve().bodyToMono(ResAuthorizeBody::class.java).map { authorizeBody ->
                 logger.info("Response redirect uri: ${authorizeBody.redirectUri}")
                 logger.info("Input redirect uri: ${ctr.redirectUri}")
                 if (validate) {
@@ -61,7 +63,15 @@ class TokenService(
                 ).retrieve().bodyToMono(BearerToken::class.java).map { bearerToken ->
                     bearerToken.enrich(authorizeBody.redirectUri)
                 }
-            }.flatMap { it }
+            }
+            .flatMap { it }
+            .map {
+                ResponseEntity
+                    .status(HttpStatus.OK)
+                    .header("Authorization", "bearer ${it.accessToken}")
+                    .location(URI.create(it.redirectUri))
+                    .body(it)
+            }
     }
 
     private fun createTokenFormRequestBody(

@@ -1,5 +1,13 @@
 # Healthy Cameras Log Book
 
+<ins>2022/09/21</ins>
+
+camera-service -> Generic cameras service from 1 to 6
+cameras-auth-service -> Authentication Provider - Simulates GitHub, Facebook, Google authentication - It communicates directly with the OAuth Layer via Kong
+cameras-client-service -> Application configured with Spring to create the OAuth2 Layer and protect the application in a standalone way
+
+Established as goals to create an angular application to access cameras via modularized interfaces and give the user the possibility to fill in the necessary fields.
+
 <ins>2022/06/02</ins>
 
 Adds First Camera Service plus PostgresSQL

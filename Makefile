@@ -58,8 +58,8 @@ dcup-base:
 dcup-auth:
 	docker-compose -f docker-compose-auth.yml up -d cameras-auth-service
 dcup: dcd dcup-base
-dcup-action: dcup hc-wait kong-config cameras-auth-service-build
-dcup-full-action: dcd docker-clean build-maven build-cypress dcup hc-wait kong-config cameras-auth-service-build
+dcup-action: dcup hc-wait kong-config build-cameras-auth-service
+dcup-full-action: dcd docker-clean build-maven build-cypress dcup hc-wait kong-config build-cameras-auth-service
 dcd: stop
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-auth.yml down
 cypress-open-docker:

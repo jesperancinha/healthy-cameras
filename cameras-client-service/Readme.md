@@ -1,4 +1,6 @@
-# Camera Authentication App
+# Cameras Client App
+
+This module is here to provide a comparison between a manually implemented OAuth2 layer and one that is created via Kong
 
 ## Login page
 

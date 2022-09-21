@@ -39,6 +39,20 @@ data class BearerToken(
     val tokenType: String
 )
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
+data class BearerTokenEnriched(
+    @JsonProperty("refresh_token")
+    val refreshToken: String,
+    @JsonProperty("access_token")
+    val accessToken: String,
+    @JsonProperty("expires_in")
+    val expiresIn: String,
+    @JsonProperty("token_type")
+    val tokenType: String,
+    @JsonProperty("redirect_uri")
+    val redirectUri: String
+)
+
 class TokenRequest(
     val clientId: String,
     val clientSecret: String,

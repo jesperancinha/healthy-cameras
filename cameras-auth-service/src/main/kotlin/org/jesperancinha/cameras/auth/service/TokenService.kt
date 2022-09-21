@@ -54,7 +54,7 @@ class TokenService(
         WebClient.builder().clientConnector(ReactorClientHttpConnector(httpClient)).build()
     }
 
-    fun createToken(principal: UsernamePasswordAuthenticationToken, ctr: ClientTokenRequest): Mono<BearerToken> {
+    fun createToken(principal: UsernamePasswordAuthenticationToken, ctr: ClientTokenRequest): Mono<BearerTokenEnriched> {
         val scope = principal.authorities.map { it.authority }[0]
         return webFluxClient.post()
             .uri(authUrl)
@@ -72,10 +72,10 @@ class TokenService(
                 )
             ).retrieve()
             .bodyToMono(ResAuthorizeBody::class.java)
-            .map {
-                logger.info("Response redirect uri: ${it.redirectUri}")
+            .map { authorizeBody ->
+                logger.info("Response redirect uri: ${authorizeBody.redirectUri}")
                 logger.info("Input redirect uri: ${ctr.redirectUri}")
-                if(!it.redirectUri.startsWith(ctr.redirectUri))
+                if (!authorizeBody.redirectUri.startsWith(ctr.redirectUri))
                     throw RuntimeException("OAuth2 Validation Failed!")
                 webFluxClient.post()
                     .uri(tokenUrl)
@@ -87,11 +87,20 @@ class TokenService(
                                 authenticatedUserid = authenticatedUserid,
                                 scope = scope,
                                 grantType = grantType,
-                                code = it.redirectUri.split("=")[1]
+                                code = authorizeBody.redirectUri.split("=")[1]
                             ).toMultiValueMap()
                         )
                     ).retrieve()
                     .bodyToMono(BearerToken::class.java)
+                    .map { bearerToken ->
+                        BearerTokenEnriched(
+                            refreshToken = bearerToken.refreshToken,
+                            accessToken = bearerToken.accessToken,
+                            expiresIn = bearerToken.expiresIn,
+                            tokenType = bearerToken.tokenType,
+                            redirectUri = authorizeBody.redirectUri
+                        )
+                    }
             }
             .flatMap { it }
     }

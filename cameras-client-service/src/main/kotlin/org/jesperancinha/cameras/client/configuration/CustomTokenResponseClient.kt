@@ -1,10 +1,10 @@
 package org.jesperancinha.cameras.client.configuration;
 
-import org.springframework.http.HttpHeaders
-import org.springframework.http.MediaType
+import org.springframework.http.HttpHeaders.CONTENT_TYPE
+import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.security.oauth2.client.endpoint.OAuth2ClientCredentialsGrantRequest
 import org.springframework.security.oauth2.client.endpoint.ReactiveOAuth2AccessTokenResponseClient
-import org.springframework.security.oauth2.core.OAuth2AccessToken
+import org.springframework.security.oauth2.core.OAuth2AccessToken.TokenType.BEARER
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
@@ -25,7 +25,7 @@ class CustomTokenResponseClient : ReactiveOAuth2AccessTokenResponseClient<OAuth2
     ): Mono<OAuth2AccessTokenResponse> =
         webClient.post()
             .uri(authorizationGrantRequest.clientRegistration.providerDetails.tokenUri)
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            .header(CONTENT_TYPE, APPLICATION_JSON_VALUE)
             .bodyValue(
                 CustomTokenRequest(
                     clientId = authorizationGrantRequest.clientRegistration.clientId,
@@ -40,7 +40,7 @@ class CustomTokenResponseClient : ReactiveOAuth2AccessTokenResponseClient<OAuth2
     private fun NotStandardTokenResponse.toOAuth2AccessTokenResponse() = OAuth2AccessTokenResponse
         .withToken(this.accessToken)
         .refreshToken(this.refreshToken)
-        .tokenType(OAuth2AccessToken.TokenType.BEARER)
+        .tokenType(BEARER)
         .build()
 
 }

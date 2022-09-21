@@ -47,7 +47,7 @@ class TokenService(
     fun createToken(
         principal: UsernamePasswordAuthenticationToken, ctr: ClientTokenRequest
     ): Mono<BearerTokenEnriched> = principal.authorities.map { it.authority }[0].let { scope ->
-        return webFluxClient.post().uri(authUrl).header(CONTENT_TYPE, APPLICATION_FORM_URLENCODED_VALUE)
+        webFluxClient.post().uri(authUrl).header(CONTENT_TYPE, APPLICATION_FORM_URLENCODED_VALUE)
             .accept(MediaType.APPLICATION_JSON).body(
                 createAuthFormRequestBody(scope)
             ).retrieve().bodyToMono(ResAuthorizeBody::class.java).map { authorizeBody ->
@@ -93,9 +93,7 @@ class TokenService(
             logger.info("clientId = ${clientTokenRequest.clientId}")
             logger.info("scope = ${clientTokenRequest.scope}")
             logger.info("responseType = ${clientTokenRequest.responseType}")
-            if (clientId != clientTokenRequest.clientId || clientTokenRequest.scope != "admin" || responseType != clientTokenRequest.responseType) throw RuntimeException(
-                "OAuth2 Validation Failed!"
-            )
+            if (clientId != clientTokenRequest.clientId || clientTokenRequest.scope != "admin" || responseType != clientTokenRequest.responseType) fail()
         }
     }
 
@@ -113,6 +111,10 @@ private fun BearerToken.enrich(redirectUri: String) = BearerTokenEnriched(
 )
 
 private fun ResAuthorizeBody.validate(ctr: ClientTokenRequest) {
-    if (!redirectUri.startsWith(ctr.redirectUri)) throw RuntimeException("OAuth2 Validation Failed!")
+    ctr.redirectUri?.let { if (!redirectUri.startsWith(ctr.redirectUri)) fail() } ?: fail()
+}
+
+private fun fail() {
+    throw RuntimeException("OAuth2 Validation Failed!")
 }
 

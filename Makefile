@@ -86,10 +86,11 @@ run-cameras-auth:
 	cd cameras-auth-service && make run-cameras-auth
 cameras-auth-prov-key:
 	cd cameras-auth-service && make cameras-auth-prov-key
-cameras-auth-service-build:
-	docker-compose -f docker-compose-auth.yml stop cameras-auth-service
+build-cameras-auth-service: stop-cameras-auth-service
 	docker-compose -f docker-compose-auth.yml rm cameras-auth-service
 	cd cameras-auth-service && mvn clean install -DskipTests
 	cp e2e/cypress/fixtures/CC6KongProvOauth2.json cameras-auth-service/target/CC6KongProvOauth2.json
 	docker-compose -f docker-compose-auth.yml build --no-cache cameras-auth-service
 	make dcup-auth
+stop-cameras-auth-service:
+	docker-compose -f docker-compose-auth.yml stop cameras-auth-service

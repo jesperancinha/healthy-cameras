@@ -16,11 +16,11 @@ class CameraAuthController(
     @GetMapping
     fun createToken(
         usernamePasswordAuthenticationToken: UsernamePasswordAuthenticationToken,
-        @RequestParam(value = "response_type", required = true) responseType: String,
-        @RequestParam(value = "client_id", required = true) clientId: String,
-        @RequestParam(value = "scope", required = true) scope: String,
-        @RequestParam(value = "state", required = true) state: String,
-        @RequestParam(value = "redirect_uri", required = true) redirectUrl: String,
+        @RequestParam(value = "response_type", required = false) responseType: String?,
+        @RequestParam(value = "client_id", required = false) clientId: String?,
+        @RequestParam(value = "scope", required = false) scope: String?,
+        @RequestParam(value = "state", required = false) state: String?,
+        @RequestParam(value = "redirect_uri", required = false) redirectUrl: String?,
     ) = ClientTokenRequest(
         responseType = responseType,
         clientId = clientId,

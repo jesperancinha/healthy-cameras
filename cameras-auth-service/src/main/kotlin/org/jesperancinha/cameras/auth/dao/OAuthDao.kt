@@ -72,9 +72,9 @@ fun TokenRequest.toMultiValueMap() = LinkedMultiValueMap<String, String>().apply
 }
 
 data class ClientTokenRequest(
-    val clientId: String,
-    val responseType: String,
-    val scope: String,
-    val state: String,
-    val redirectUri: String,
+    val clientId: String?,
+    val responseType: String?,
+    val scope: String?,
+    val state: String?,
+    val redirectUri: String?,
 )

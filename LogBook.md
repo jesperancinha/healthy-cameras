@@ -1,4 +1,14 @@
 # Healthy Cameras Log Book
+<ins<2022/09/22</ins>
+
+```shell
+ng generate component camera-view
+ng generate component control
+ng generate component overview
+ng generate component statsd
+ng generate service basic-auth
+ng generate service hmac-auth
+```
 
 <ins>2022/09/21</ins>
 

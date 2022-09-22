@@ -19,7 +19,10 @@ export class AppComponent {
 
   getButtonText(path?: string) {
     if (!path) {
-      return "Main"
+      return "Main";
+    }
+    if (path === "statsd") {
+      return "StatsD";
     }
     return path.toLowerCase()
       .replace(/\w/, capital => capital.toUpperCase());

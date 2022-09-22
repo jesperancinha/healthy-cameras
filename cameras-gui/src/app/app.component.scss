@@ -1,8 +1,9 @@
 mat-card {
   height: 100px;
   mat-card {
+    border-radius: 5px;
     width: min-content;
-    float: left;
+    float: right;
     height: min-content;
     background: darkolivegreen;
     padding:0;
@@ -15,5 +16,15 @@ mat-card {
       background: greenyellow;
     }
   }
+  mat-card-title {
+    height: 100px;
+    padding: 20px;
+    width: max-content;
+    float: left;
+  }
 
+}
+
+mat-card {
+  border-radius: 0;
 }

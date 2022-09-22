@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ProviderService} from "../services/provider.service";
 
 @Component({
   selector: 'app-camera-view',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CameraViewComponent implements OnInit {
 
+  @Input() providerService: ProviderService | undefined;
+  @Input() title: string | undefined;
+  basicMessage: string | undefined;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.providerService?.findCameraBasicAuthMessage("cameraUser1","administrator").subscribe(data => {
+      this.basicMessage = data;
+    })
   }
-
 }

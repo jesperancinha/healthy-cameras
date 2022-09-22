@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {BasicAuthService} from "../services/basic-auth.service";
 
 @Component({
   selector: 'app-overview',
@@ -8,12 +9,10 @@ import {Router} from "@angular/router";
 })
 export class OverviewComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router: Router, public basicAuthService: BasicAuthService) {
+  }
 
   ngOnInit(): void {
   }
 
-  moveToControlPage() {
-    this.router.navigate(['control']).then(_ => {});
-  }
 }

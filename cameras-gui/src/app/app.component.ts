@@ -8,7 +8,7 @@ import {BasicAuthService} from "./services/basic-auth.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
   title = 'cameras-gui';
 
   public buttons = routes;
@@ -16,12 +16,6 @@ export class AppComponent implements OnInit{
 
   public constructor(private router: Router,private basicAuthService:BasicAuthService) {
 
-  }
-
-  ngOnInit(): void {
-    this.basicAuthService.findCameraBasicAuthMessage("cameraUser1","administrator").subscribe(data => {
-      this.basicMessage = data;
-    })
   }
 
   getButtonText(path?: string) {

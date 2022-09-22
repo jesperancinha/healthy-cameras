@@ -1,0 +1,19 @@
+mat-card {
+  height: 100px;
+  mat-card {
+    width: min-content;
+    float: left;
+    height: min-content;
+    background: darkolivegreen;
+    padding:0;
+    margin: 10px;
+    color: black;
+    button {
+      color: black;
+    }
+    button:hover {
+      background: greenyellow;
+    }
+  }
+
+}

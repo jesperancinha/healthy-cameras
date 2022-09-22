@@ -12,7 +12,7 @@ local: no-test
 build-maven: no-test
 build-npm:
 	cd cameras-gui && yarn
-no-tst:
+no-test:
 	mvn clean install -DskipTests
 test-maven:
 	mvn test

@@ -10,6 +10,7 @@ import {OverviewComponent} from './overview/overview.component';
 import {ControlComponent} from './control/control.component';
 import {MatButtonModule} from "@angular/material/button";
 import {StatsdComponent} from './statsd/statsd.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {StatsdComponent} from './statsd/statsd.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
+    HttpClientModule,
     MatButtonModule
   ],
   providers: [],

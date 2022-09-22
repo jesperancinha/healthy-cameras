@@ -1,0 +1,6 @@
+{
+  "/camera-1-service/api/v1/hc": {
+    "target": "http://localhost:8000",
+    "secure": false
+  }
+}

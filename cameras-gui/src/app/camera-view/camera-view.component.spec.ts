@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CameraViewComponent } from './camera-view.component';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('CameraViewComponent', () => {
   let component: CameraViewComponent;
@@ -8,7 +9,10 @@ describe('CameraViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CameraViewComponent ]
+      declarations: [ CameraViewComponent ],
+      imports: [
+        HttpClientModule
+      ]
     })
     .compileComponents();
 

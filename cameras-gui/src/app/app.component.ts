@@ -12,7 +12,6 @@ export class AppComponent {
   title = 'cameras-gui';
 
   public buttons = routes;
-  basicMessage: string | undefined;
 
   public constructor(private router: Router,private basicAuthService:BasicAuthService) {
 

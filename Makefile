@@ -10,7 +10,9 @@ test:
 local: no-test
 	mkdir -p bin
 build-maven: no-test
-no-test:
+build-npm:
+	cd cameras-gui && yarn
+no-tst:
 	mvn clean install -DskipTests
 test-maven:
 	mvn test
@@ -59,7 +61,7 @@ dcup-auth:
 	docker-compose -f docker-compose-auth.yml up -d cameras-auth-service
 dcup: dcd dcup-base
 dcup-action: dcup hc-wait kong-config build-cameras-auth-service
-dcup-full-action: dcd docker-clean build-maven build-cypress dcup hc-wait kong-config build-cameras-auth-service
+dcup-full-action: dcd docker-clean build-maven build-npm build-cypress dcup hc-wait kong-config build-cameras-auth-service
 dcd: stop
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-auth.yml down
 cypress-open-docker:

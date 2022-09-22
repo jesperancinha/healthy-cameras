@@ -55,4 +55,4 @@ export const applicationRootCamera3: string = `${sanitizePrePath("/camera-3-serv
 export const applicationRootCamera4: string = `${sanitizePrePath("/camera-4-service")}${applicationRoot}`;
 export const applicationRootCamera5: string = `${sanitizePrePath("/camera-5-service")}${applicationRoot}`;
 export const applicationRootCamera6: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}`;
-export const applicationAuthAPI: string = `${sanitizePrePath("/cameras-auth-service/api/v1/cameras/auth/")}`;
+export const applicationAuthAPI: string = '/cameras-auth-service/api/v1/cameras/auth/'

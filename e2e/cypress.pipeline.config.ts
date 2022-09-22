@@ -15,4 +15,5 @@ module.exports = defineConfig({
             'graphiteHost': 'graphite'
         }
     },
+    chromeWebSecurity: false
 });

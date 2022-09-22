@@ -16,6 +16,8 @@ no-test:
 	mvn clean install -DskipTests
 test-maven:
 	mvn test
+test-npm:
+	cd cameras-gui && npm test
 docker:
 	docker-compose up -d --build --remove-orphans
 docker-databases: stop local
@@ -78,7 +80,7 @@ cypress-edge:
 	cd e2e && make cypress-edge
 install:
 	sudo apt-get install deck
-local-pipeline: dcd docker-clean build-maven build-cypress test-maven
+local-pipeline: dcd docker-clean build-maven build-npm build-cypress test-maven test-npm
 docker-stop-all:
 	docker ps -a --format '{{.ID}}' | xargs -I {}  docker stop {}
 docker-remove-all: docker-stop-all

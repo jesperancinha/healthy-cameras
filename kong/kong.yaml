@@ -53,6 +53,16 @@ services:
         protocols:
           - https
 
+  - name: cameras-auth-service
+    url: http://cameras-auth-service:8096/cameras-auth-service/api/v1/cameras/auth/
+    routes:
+      - name: cameras-auth-service
+        paths:
+          - /cameras-auth-service/api/v1/cameras/auth/
+        strip_path: true
+        protocols:
+          - http
+
 plugins:
   - name: prometheus
     enabled: true

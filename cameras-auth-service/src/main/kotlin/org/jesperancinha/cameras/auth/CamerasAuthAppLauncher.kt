@@ -18,11 +18,13 @@ import java.util.stream.StreamSupport
 @SpringBootApplication
 class CamerasAuthAppLauncher(
     @Value("\${server.port}")
-    val port: Long
+    val port: Long,
+    @Value("\${spring.webflux.base-path}")
+    val basePath: String
 ) : ApplicationRunner {
 
     override fun run(args: ApplicationArguments?) {
-        logger.info("Go to -> http://localhost:$port/api/v1/cameras/auth/ when running locally")
+        logger.info("Go to -> http://localhost:$port$basePath/ when running locally")
         logger.info("Go to -> https://localhost:8443/camera-6-service/api/v1/hc for the secured OAuth2 application")
     }
 

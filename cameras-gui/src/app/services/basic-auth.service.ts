@@ -12,7 +12,7 @@ export class BasicAuthService implements ProviderService<string> {
 
   }
 
-  findCameraBasicAuthMessage(credential: Map<string, string>) {
+  retrieveCameraImageRequest(credential: Map<string, string>) {
     const token = btoa(`${credential.get("username")}:${credential.get("password")}`)
     return this.http.get("/camera-1-service/api/v1/hc", {
       headers: {

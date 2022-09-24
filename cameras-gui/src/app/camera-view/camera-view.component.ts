@@ -31,7 +31,7 @@ export class CameraViewComponent<OUT> implements OnInit {
       this.params.set(entry.param.replace(`${this.prefix}-`, ""), entry.value);
     })
     console.log(this.params)
-    this.providerService?.findCameraBasicAuthMessage(this.params).subscribe(data => {
+    this.providerService?.retrieveCameraImageRequest(this.params).subscribe(data => {
       this.basicMessage = data
     })
   }

@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 // @ts-ignore
 import crypto from "crypto";
 import {ProviderService} from "./provider.service";
-import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class HmacAuthService implements ProviderService<string> {
     };
   }
 
-  findCameraBasicAuthMessage(input: Map<string, string>): Observable<string> {
+  retrieveCameraImageRequest(input: Map<string, string>): Observable<string> {
     return this.httpClient.get(input.get("path") || "", {
       headers: this.createCamera2HmacHeaders(input.get("method") || "", input.get("path") || ""),
       responseType: 'text'

@@ -39,7 +39,7 @@
 
 import * as crypto from "crypto";
 import * as jwt from "jsonwebtoken";
-import {authorizationRequest, withHeaders} from "./e2e";
+import {withHeaders} from "./e2e";
 import {stringify} from "querystring";
 
 Cypress.Commands.add('loginBasicAuth', (path: string) => {
@@ -114,7 +114,7 @@ Cypress.Commands.add('loginOAuth2ByProvisionKey', (path: string) => {
     cy.fixture('CC6KongOauth2').then(appConfig => {
         cy.fixture('CC6KongProvOauth2').then(data => {
             let oauthHost = Cypress.config().baseUrl.split('http://')[1].split(':')[0];
-                let oauth2AuthorizeUrl = `https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/authorize`;
+            let oauth2AuthorizeUrl = `https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/authorize`;
             cy.request({
                 url: oauth2AuthorizeUrl,
                 method: 'POST',
@@ -160,7 +160,7 @@ Cypress.Commands.add('loginOAuth2ByAccessCode', (path: string) => {
     cy.fixture('CC6KongOauth2').then(appConfig => {
         cy.fixture('CC6KongProvOauth2').then(data => {
             let oauthHost = Cypress.config().baseUrl.split('http://')[1].split(':')[0];
-                let oauth2AuthorizeUrl = `https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/authorize`;
+            let oauth2AuthorizeUrl = `https://${oauthHost}:8443/camera-6-service/api/v1/hc/oauth2/authorize`;
             cy.request({
                 url: oauth2AuthorizeUrl,
                 method: 'POST',

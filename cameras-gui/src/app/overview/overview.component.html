@@ -2,10 +2,10 @@
   <table style="width: 100%">
     <tr>
       <td>
-        <app-camera-view [providerService]="basicAuthService" [title]="'Basic Auth'"></app-camera-view>
+        <app-camera-view [providerService]="basicAuthService" [params]="baParams" [title]="'Basic Auth'"></app-camera-view>
       </td>
       <td>
-        <app-camera-view [providerService]="hmacAuthService" [title]="'HMAC Auth'"></app-camera-view>
+        <app-camera-view [providerService]="hmacAuthService" [params]="hmacParams" [title]="'HMAC Auth'"></app-camera-view>
       </td>
     </tr>
     <tr>

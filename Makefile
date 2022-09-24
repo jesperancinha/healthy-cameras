@@ -23,11 +23,14 @@ docker:
 docker-databases: stop local
 	docker build ./docker-psql/. -t postgres-image
 	docker run --name postgres-standalone -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=admin -e POSTGRES_MULTIPLE_DATABASES=vsa -p 5432:5432 -d postgres-image
+docker-clean:
+	docker-compose down -v
+	docker-compose rm -svf
 build-images:
 	docker build concert-demos-rest-service-mvc/. -t concert-demos-rest-service-mvc
 	docker build concert-demos-rest-service-webflux/. -t concert-demos-rest-service-webflux
 build-docker: stop no-test dcup
-stop:
+stop: docker-clean
 	docker ps -a -q --filter="name=kong" | xargs -I {} docker stop {}
 	docker ps -a -q --filter="name=kong" | xargs -I {} docker rm {}
 	docker ps -a -q --filter="name=camera" | xargs -I {} docker stop {}

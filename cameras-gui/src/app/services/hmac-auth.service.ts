@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
+// @ts-ignore
 import crypto from "crypto";
 import {ProviderService} from "./provider.service";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {HMACInput} from "./domain/hmac.input";
 
 @Injectable({
   providedIn: 'root'
 })
-export class HmacAuthService implements ProviderService {
+export class HmacAuthService implements ProviderService<HMACInput, string> {
 
   constructor(private httpClient: HttpClient) {
   }
@@ -28,10 +30,9 @@ export class HmacAuthService implements ProviderService {
     };
   }
 
-  findCameraBasicAuthMessage(username: string, password: string): Observable<string> {
-    const token = btoa(`${username}:${password}`)
-    return this.httpClient.get("/camera-2-service/api/v1/hc", {
-      headers: this.createCamera2HmacHeaders(username,password),
+  findCameraBasicAuthMessage(input: HMACInput): Observable<string> {
+    return this.httpClient.get(input.path, {
+      headers: this.createCamera2HmacHeaders(input.method, input.path),
       responseType: 'text'
     });
   }

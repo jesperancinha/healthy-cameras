@@ -1,7 +1,5 @@
 import {Observable} from "rxjs";
 
-export interface ProviderService {
-
-  findCameraBasicAuthMessage(username: string, password: string): Observable<string>;
-
+export interface ProviderService<IN, OUT> {
+  findCameraBasicAuthMessage(input :IN | undefined): Observable<OUT>;
 }

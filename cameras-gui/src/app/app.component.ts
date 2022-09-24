@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {routes} from "./app-routing.module";
 import {Router} from "@angular/router";
 import {BasicAuthService} from "./services/basic-auth.service";
+import {capitalizeText} from "./services/utils";
 
 @Component({
   selector: 'app-root',
@@ -13,20 +14,11 @@ export class AppComponent {
 
   public buttons = routes;
 
-  public constructor(private router: Router,private basicAuthService:BasicAuthService) {
+  public constructor(private router: Router) {
 
   }
 
-  getButtonText(path?: string) {
-    if (!path) {
-      return "Main";
-    }
-    if (path === "statsd") {
-      return "StatsD";
-    }
-    return path.toLowerCase()
-      .replace(/\w/, capital => capital.toUpperCase());
-  }
+  getButtonText = (path?: string) => capitalizeText(path || "")
 
   navigateTo(path?: string) {
     this.router.navigate([path]).then(_ => {

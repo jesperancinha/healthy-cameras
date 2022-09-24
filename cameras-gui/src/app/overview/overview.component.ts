@@ -10,14 +10,14 @@ import {HMACInput} from "../services/domain/hmac.input";
   styleUrls: ['./overview.component.scss']
 })
 export class OverviewComponent implements OnInit {
-  baParams: Credential = {
+  baParams: Map<string,string> = new Map(Object.entries({
     username: "cameraUser1",
     password: "administrator"
-  };
-  hmacParams: HMACInput = {
+  }));
+  hmacParams: Map<string,string> = new Map(Object.entries({
     method: "GET",
     path: "/camera-2-service/api/v1/hc"
-  };
+  }));
 
   constructor(public basicAuthService: BasicAuthService, public hmacAuthService: HmacAuthService) {
   }

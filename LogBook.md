@@ -9,6 +9,7 @@ ng generate component overview
 ng generate component statsd
 ng generate service basic-auth
 ng generate service hmac-auth
+ng generate service jwt-auth
 ```
 
 <ins>2022/09/21</ins>

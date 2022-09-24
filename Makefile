@@ -86,6 +86,7 @@ install:
 local-pipeline: dcd docker-clean build-maven build-npm build-cypress test-maven test-npm
 docker-stop-all:
 	docker ps -a --format '{{.ID}}' | xargs -I {}  docker stop {}
+	docker network prune
 docker-remove-all: docker-stop-all
 	docker network list --format '{{.ID}}' | xargs -I {} docker network rm  {} || echo 'Done!'
 	docker ps -a --format '{{.ID}}' | xargs -I {}  docker rm {}

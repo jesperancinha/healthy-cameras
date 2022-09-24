@@ -6,14 +6,14 @@ import {Credential} from "./domain/credential";
 @Injectable({
   providedIn: 'root'
 })
-export class BasicAuthService implements ProviderService<Credential, string> {
+export class BasicAuthService implements ProviderService<string> {
 
   constructor(private http: HttpClient) {
 
   }
 
-  findCameraBasicAuthMessage(credential: Credential) {
-    const token = btoa(`${credential.username}:${credential.password}`)
+  findCameraBasicAuthMessage(credential: Map<string, string>) {
+    const token = btoa(`${credential.get("username")}:${credential.get("password")}`)
     return this.http.get("/camera-1-service/api/v1/hc", {
       headers: {
         'Content-Type': 'application/text',

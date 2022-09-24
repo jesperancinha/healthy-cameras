@@ -1,1 +1,12 @@
 <p>{{title}} - {{basicMessage}}</p>
+<form>
+  <mat-card *ngFor="let param of currentState">
+    <mat-form-field>
+      <mat-label>{{param.name}}</mat-label>
+      <input matInput placeholder="{{param.param}}" value="{{param.value}}" name="{{param.param}}" [(ngModel)]="param.value">
+    </mat-form-field>
+  </mat-card>
+</form>
+<mat-card>
+  <button (click)="sendRequest()">Send Request</button>
+</mat-card>

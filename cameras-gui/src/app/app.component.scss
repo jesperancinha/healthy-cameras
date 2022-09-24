@@ -1,21 +1,25 @@
 mat-card {
   height: 100px;
+  border-radius: 0;
   mat-card {
     border-radius: 5px;
     width: min-content;
     float: right;
     height: min-content;
     background: darkolivegreen;
-    padding:0;
+    padding: 0;
     margin: 10px;
     color: black;
+
     button {
       color: black;
     }
+
     button:hover {
       background: greenyellow;
     }
   }
+
   mat-card-title {
     height: 100px;
     padding: 20px;

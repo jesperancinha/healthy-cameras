@@ -11,6 +11,9 @@ import {ControlComponent} from './control/control.component';
 import {MatButtonModule} from "@angular/material/button";
 import {StatsdComponent} from './statsd/statsd.component';
 import {HttpClientModule} from "@angular/common/http";
+import {MatInputModule} from "@angular/material/input";
+import {MatTableModule} from "@angular/material/table";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import {HttpClientModule} from "@angular/common/http";
     BrowserAnimationsModule,
     MatCardModule,
     HttpClientModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    MatTableModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

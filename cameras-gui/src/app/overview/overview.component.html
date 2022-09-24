@@ -13,7 +13,7 @@
         <app-camera-view [providerService]="jwtAuthService" [params]="jwtParams" [title]="'JWT Auth'" [prefix]="'jwt'"></app-camera-view>
       </td>
       <td>
-        <app-camera-view></app-camera-view>
+        <app-camera-view [providerService]="keyAuthService" [params]="keyParams" [title]="'ApiKey Auth'" [prefix]="'key'"></app-camera-view>
       </td>
     </tr>
     <tr>

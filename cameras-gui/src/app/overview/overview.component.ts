@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BasicAuthService} from "../services/basic-auth.service";
 import {HmacAuthService} from "../services/hmac-auth.service";
 import {JwtAuthService} from "../services/jwt-auth.service";
+import {KeyAuthService} from "../services/key-auth.service";
 
 @Component({
   selector: 'app-overview',
@@ -11,7 +12,8 @@ import {JwtAuthService} from "../services/jwt-auth.service";
 export class OverviewComponent implements OnInit {
   baParams: Map<string, string> = new Map(Object.entries({
     username: "cameraUser1",
-    password: "administrator"
+    password: "administrator",
+    path: "/camera-1-service/api/v1/hc"
   }));
   hmacParams: Map<string, string> = new Map(Object.entries({
     method: "GET",
@@ -19,13 +21,20 @@ export class OverviewComponent implements OnInit {
   }));
   jwtParams: Map<string, string> = new Map(Object.entries({
     secret: "",
-    issuer: ""
+    issuer: "",
+    path: "/camera-3-service/api/v1/hc"
+
+  }));
+  keyParams: Map<string, string> = new Map(Object.entries({
+    key: "",
+    path: "/camera-4-service/api/v1/hc"
   }));
 
   constructor(
     public basicAuthService: BasicAuthService,
     public hmacAuthService: HmacAuthService,
-    public jwtAuthService :JwtAuthService
+    public jwtAuthService :JwtAuthService,
+    public keyAuthService :KeyAuthService
   ) {
   }
 

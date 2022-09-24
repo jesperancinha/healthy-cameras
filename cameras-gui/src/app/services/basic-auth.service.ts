@@ -14,7 +14,7 @@ export class BasicAuthService implements ProviderService<string> {
 
   retrieveCameraImageRequest(credential: Map<string, string>) {
     const token = btoa(`${credential.get("username")}:${credential.get("password")}`)
-    return this.http.get("/camera-1-service/api/v1/hc", {
+    return this.http.get(credential.get("path") || "", {
       headers: {
         'Content-Type': 'application/text',
         'Authorization': `Basic ${token}`

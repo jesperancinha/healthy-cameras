@@ -25,12 +25,11 @@ export class CameraViewComponent<OUT> implements OnInit {
   }
 
   sendRequest() {
-    console.log(this.params)
     this.params.clear();
+    this.basicMessage = "...waiting for response" as any;
     this.currentState.forEach(entry => {
       this.params.set(entry.param.replace(`${this.prefix}-`, ""), entry.value);
     })
-    console.log(this.params)
     this.providerService?.retrieveCameraImageRequest(this.params).subscribe(data => {
       this.basicMessage = data
     })

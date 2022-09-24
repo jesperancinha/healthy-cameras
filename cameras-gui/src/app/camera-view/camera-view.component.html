@@ -1,4 +1,4 @@
-<p>{{title}} - {{basicMessage}}</p>
+<mat-card-title>{{title}}</mat-card-title>
 <form>
   <mat-card *ngFor="let param of currentState">
     <mat-form-field>
@@ -10,3 +10,4 @@
 <mat-card>
   <button (click)="sendRequest()">Send Request</button>
 </mat-card>
+<mat-card class="monitor">{{basicMessage}}</mat-card>

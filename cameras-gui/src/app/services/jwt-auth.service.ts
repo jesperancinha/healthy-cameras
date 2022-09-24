@@ -18,45 +18,29 @@ export class JwtAuthService implements ProviderService<string> {
   constructor(private httpClient: HttpClient) {
   }
 
-
-  base64url(source: any) {
-    let encodedSource = this.cryptoJS.enc.Base64.stringify(source);
-
-    encodedSource = encodedSource.replace(/=+$/, '');
-
-    encodedSource = encodedSource.replace(/\+/g, '-');
-    encodedSource = encodedSource.replace(/\//g, '_');
-
-    return encodedSource;
-  }
+  base64url = (source: any) => this.cryptoJS.enc.Base64.stringify(source)
+    .replace(/=+$/, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_');
 
   encodeToken(payload: any) {
-    var header = {
+    const header = {
       "alg": "HS256",
       "typ": "JWT"
     };
+    const encodedHeader = this.base64url(this.cryptoJS.enc.Utf8.parse(JSON.stringify(header)));
+    const encodedData = this.base64url(this.cryptoJS.enc.Utf8.parse(JSON.stringify(payload)));
 
-    var stringifiedHeader = this.cryptoJS.enc.Utf8.parse(JSON.stringify(header));
-    var encodedHeader = this.base64url(stringifiedHeader);
-
-    var stringifiedData = this.cryptoJS.enc.Utf8.parse(JSON.stringify(payload));
-    var encodedData = this.base64url(stringifiedData);
-
-    return encodedHeader + "." + encodedData;
+    return `${encodedHeader}.${encodedData}`;
   }
 
-  signToken(payload: any, key: string) {
-    var secret = key;
-    let token: any = this.encodeToken(payload);
-
-    var signature: any = this.cryptoJS.HmacSHA256(token, secret);
-    signature = this.base64url(signature);
-
-    var signedToken = token + "." + signature;
-    return signedToken;
+  signToken = (payload: any, secret: string) => {
+    const token: any = this.encodeToken(payload);
+    const signature = this.base64url(this.cryptoJS.HmacSHA256(token, secret));
+    return `${token}.${signature}`;
   }
 
-  createJwtHeader(secret: string, issuer: string) {
+  createJwtHeader = (secret: string, issuer: string) => {
     const signature = this.signToken({
       iss: issuer,
       expiresIn: "12h",
@@ -69,7 +53,7 @@ export class JwtAuthService implements ProviderService<string> {
 
   retrieveCameraImageRequest(input: Map<string, string>): Observable<string> {
     const headers = this.createJwtHeader(input.get("secret") || "", input.get("issuer") || "");
-    return this.httpClient.get("/camera-3-service/api/v1/hc", {
+    return this.httpClient.get(input.get("path") || "", {
       headers: headers,
       responseType: 'text'
     })

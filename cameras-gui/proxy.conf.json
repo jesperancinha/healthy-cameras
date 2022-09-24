@@ -10,5 +10,9 @@
   "/camera-3-service/api/v1/hc": {
     "target": "http://localhost:8000",
     "secure": false
+  },
+  "/camera-4-service/api/v1/hc": {
+    "target": "http://localhost:8000",
+    "secure": false
   }
 }

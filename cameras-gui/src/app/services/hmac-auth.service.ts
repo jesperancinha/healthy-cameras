@@ -29,7 +29,7 @@ export class HmacAuthService implements ProviderService<string> {
     };
   }
 
-  retrieveCameraImageRequest(input: Map<string, string>): Observable<string> {
+  retrieveWelcomeMessage(input: Map<string, string>): Observable<string> {
     return this.httpClient.get(input.get("path") || "", {
       headers: this.createCamera2HmacHeaders(input.get("method") || "", input.get("path") || ""),
       responseType: 'text'

@@ -51,7 +51,7 @@ export class JwtAuthService implements ProviderService<string> {
     };
   }
 
-  retrieveCameraImageRequest(input: Map<string, string>): Observable<string> {
+  retrieveWelcomeMessage(input: Map<string, string>): Observable<string> {
     const headers = this.createJwtHeader(input.get("secret") || "", input.get("issuer") || "");
     return this.httpClient.get(input.get("path") || "", {
       headers: headers,

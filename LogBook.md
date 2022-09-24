@@ -11,6 +11,8 @@ ng generate service basic-auth
 ng generate service hmac-auth
 ng generate service jwt-auth
 ng generate service key-auth
+ng generate service ldap-auth
+ng generate service oauth2-auth
 ```
 
 <ins>2022/09/21</ins>

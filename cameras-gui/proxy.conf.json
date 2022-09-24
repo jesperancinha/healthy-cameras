@@ -14,5 +14,17 @@
   "/camera-4-service/api/v1/hc": {
     "target": "http://localhost:8000",
     "secure": false
+  },
+  "/camera-5-service/api/v1/hc": {
+    "target": "http://localhost:8000",
+    "secure": false
+  },
+  "/camera-6-service/api/v1/hc": {
+    "target": "https://localhost:8443",
+    "secure": false
+  },
+  "/cameras-auth-service/api/v1/cameras/auth/": {
+    "target": "http://localhost:8000",
+    "secure": false
   }
 }

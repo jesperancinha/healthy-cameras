@@ -30,7 +30,7 @@ export class CameraViewComponent<OUT> implements OnInit {
     this.currentState.forEach(entry => {
       this.params.set(entry.param.replace(`${this.prefix}-`, ""), entry.value);
     })
-    this.providerService?.retrieveCameraImageRequest(this.params).subscribe(data => {
+    this.providerService?.retrieveWelcomeMessage(this.params).subscribe(data => {
       this.basicMessage = data
     })
   }

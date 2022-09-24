@@ -141,8 +141,7 @@ services:
     hostname: prometheus
     container_name: prometheus
     networks:
-      healthy-cameras:
-        ipv4_address: ${PROMETHEUS}
+      - healthy-cameras
     volumes:
       - ./docker-images/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus"
@@ -156,8 +155,7 @@ services:
     image: grafana/grafana
     container_name: grafana
     networks:
-      healthy-cameras:
-        ipv4_address: ${GRAFANA}
+      - healthy-cameras
     hostname: grafana
     volumes:
       - ./docker-images/grafana/provisioning/:/etc/grafana/provisioning
@@ -203,9 +201,6 @@ services:
     expose:
       - 8090
       - 8091
-    environment:
-      - GRAFANA=${GRAFANA}
-      - PROMETHEUS=${PROMETHEUS}
     deploy:
       resources:
         limits:
@@ -233,8 +228,7 @@ services:
       - 8125
       - 8126
     networks:
-      healthy-cameras:
-        ipv4_address: ${GRAPHITE}
+      - healthy-cameras
 
   kong-deck:
     hostname: kong-deck
@@ -267,9 +261,3 @@ services:
 
 networks:
   healthy-cameras:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: ${NETWORK_SUBNET}
-          gateway: ${GATEWAY}

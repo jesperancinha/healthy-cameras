@@ -96,5 +96,9 @@ build-cameras-auth-service: stop-cameras-auth-service
 	cp e2e/cypress/fixtures/CC6KongProvOauth2.json cameras-auth-service/target/CC6KongProvOauth2.json
 	docker-compose -f docker-compose-auth.yml build --no-cache cameras-auth-service
 	make dcup-auth
+build-nginx:
+	docker-compose rm nginx
+	docker-compose build --no-cache nginx
+	docker-compose up -d nginx
 stop-cameras-auth-service:
 	docker-compose -f docker-compose-auth.yml stop cameras-auth-service

@@ -72,8 +72,6 @@ make dcup
 
 [![alt img](./docs/grafana.setup.png)]()
 
-`http://192.168.0.31:9090
-`
 ## References
 
 #### Online

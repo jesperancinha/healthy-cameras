@@ -1,4 +1,4 @@
-import {EventEmitter, Inject, Injectable, Output} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {CAMERAS_HEALTH_STATUS_URLS} from "../app.module";
 import {CamerasHealthUrls} from "./domain/cameras.health.urls";
 
@@ -29,7 +29,6 @@ export class CameraSocketService {
         cameraStatus.set(cf.ref, error.type);
       }
       clientWebSocket.onmessage = function (messageEvent) {
-        console.log(messageEvent.data);
         cameraStatus.set(cf.ref, JSON.parse(messageEvent.data).status.status);
       }
       clientWebSocket.onclose = function (error) {

@@ -1,18 +1,21 @@
-<mat-card-title>{{title}}</mat-card-title>
-<mat-card>
-  <div class="red-sign" *ngIf="getStatus()!='UP'">Camera is unreachable</div>
-  <div class="green-sign" *ngIf="getStatus()==='UP'">Camera is On</div>
-</mat-card>
-<form>
-  <mat-card *ngFor="let param of currentState">
-    <mat-form-field>
-      <mat-label>{{param.name}}</mat-label>
-      <input matInput placeholder="{{param.param}}" value="{{param.value}}" name="{{param.param}}"
-             [(ngModel)]="param.value">
-    </mat-form-field>
+<mat-card style="height:550px;">
+  <mat-card-title>{{title}}</mat-card-title>
+  <mat-card>
+    <div class="red-sign" *ngIf="getStatus()!='UP'">Camera is unreachable</div>
+    <div class="green-sign" *ngIf="getStatus()==='UP'">Camera is On</div>
   </mat-card>
-</form>
-<mat-card class="logbutton">
-  <button mat-button (click)="sendRequest()">Send Request</button>
+  <mat-card class="monitor">{{basicMessage}}</mat-card>
+  <mat-card class="logbutton">
+    <button mat-button (click)="sendRequest()">Send Request</button>
+  </mat-card>
+  <form>
+    <mat-card *ngFor="let param of currentState">
+      <mat-form-field>
+        <mat-label>{{param.name}}</mat-label>
+        <input matInput placeholder="{{param.param}}" value="{{param.value}}" name="{{param.param}}"
+               [(ngModel)]="param.value">
+      </mat-form-field>
+    </mat-card>
+  </form>
+  <mat-card style="height: 5px;"></mat-card>
 </mat-card>
-<mat-card class="monitor">{{basicMessage}}</mat-card>

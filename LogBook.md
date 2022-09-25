@@ -13,6 +13,7 @@ ng generate service jwt-auth
 ng generate service key-auth
 ng generate service ldap-auth
 ng generate service oauth2-auth
+ng generate service camera-socket
 ```
 
 <ins>2022/09/21</ins>

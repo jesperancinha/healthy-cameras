@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {InjectionToken, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -14,6 +14,10 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatInputModule} from "@angular/material/input";
 import {MatTableModule} from "@angular/material/table";
 import {FormsModule} from "@angular/forms";
+import {CameraSocketService} from "./services/camera-socket.service";
+import {CamerasHealthUrls} from "./services/domain/cameras.health.urls";
+
+export const CAMERAS_HEALTH_STATUS_URLS = new InjectionToken<CamerasHealthUrls>('Cameras Url Health Socket Health Checks');
 
 @NgModule({
   declarations: [
@@ -34,7 +38,22 @@ import {FormsModule} from "@angular/forms";
     MatTableModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: CAMERAS_HEALTH_STATUS_URLS,
+      useValue: {
+        cameras: [
+          {url: "ws://localhost:8000/camera-1-service/api/v1/hc/camera-states-emitter", ref: 'ba'},
+          {url: "ws://localhost:8000/camera-2-service/api/v1/hc/camera-states-emitter", ref: 'hmac'},
+          {url: "ws://localhost:8000/camera-3-service/api/v1/hc/camera-states-emitter", ref: 'jwt'},
+          {url: "ws://localhost:8000/camera-4-service/api/v1/hc/camera-states-emitter", ref: 'key'},
+          {url: "ws://localhost:8000/camera-5-service/api/v1/hc/camera-states-emitter", ref: 'ldap'},
+          {url: "ws://localhost:8000/camera-6-service/api/v1/hc/camera-states-emitter", ref: 'oauth2'},
+        ]
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

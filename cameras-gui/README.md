@@ -7,6 +7,10 @@
 /render/?width=700&height=508&target=statsd.numStats&target=stats.statsd.camera-1-service.request.size&target=stats.statsd.camera-1-service.response.size
 ```
 
+## References
+
+- [Test WebSocket Servers](https://www.piesocket.com/websocket-tester)
+
 ---
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.

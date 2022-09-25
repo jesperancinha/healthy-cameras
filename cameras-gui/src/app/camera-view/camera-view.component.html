@@ -1,9 +1,11 @@
-<mat-card-title>{{title}}</mat-card-title>
+<mat-card-title>{{title}}-{{getStatus()}}</mat-card-title>
+<mat-card>{{getStatus()}}</mat-card>
 <form>
   <mat-card *ngFor="let param of currentState">
     <mat-form-field>
       <mat-label>{{param.name}}</mat-label>
-      <input matInput placeholder="{{param.param}}" value="{{param.value}}" name="{{param.param}}" [(ngModel)]="param.value">
+      <input matInput placeholder="{{param.param}}" value="{{param.value}}" name="{{param.param}}"
+             [(ngModel)]="param.value">
     </mat-form-field>
   </mat-card>
 </form>

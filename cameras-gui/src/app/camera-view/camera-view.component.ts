@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ProviderService} from "../services/provider.service";
 import {capitalizeText} from "../services/utils";
 import {DynamicControlData} from "../services/domain/dynamic.control.data";
+import {CameraSocketService} from "../services/camera-socket.service";
 
 @Component({
   selector: 'app-camera-view',
@@ -17,7 +18,7 @@ export class CameraViewComponent<OUT> implements OnInit {
   basicMessage: OUT | undefined;
   currentState: DynamicControlData[] = [];
 
-  constructor() {
+  constructor(public cameraSocketService: CameraSocketService) {
   }
 
   ngOnInit(): void {
@@ -36,7 +37,7 @@ export class CameraViewComponent<OUT> implements OnInit {
   }
 
   controlNames(): DynamicControlData[] {
-    return  this.calculateCurrentState();
+    return this.calculateCurrentState();
   }
 
   calculateCurrentState() {
@@ -51,4 +52,6 @@ export class CameraViewComponent<OUT> implements OnInit {
       });
     } else return [];
   }
+
+  getStatus = () => this.cameraSocketService.getStatus(this.prefix || "")
 }

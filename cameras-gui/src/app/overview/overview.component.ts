@@ -5,6 +5,7 @@ import {JwtAuthService} from "../services/jwt-auth.service";
 import {KeyAuthService} from "../services/key-auth.service";
 import {LdapAuthService} from "../services/ldap-auth.service";
 import {Oauth2AuthService} from "../services/oauth2-auth.service";
+import {CameraSocketService} from "../services/camera-socket.service";
 
 @Component({
   selector: 'app-overview',
@@ -49,8 +50,10 @@ export class OverviewComponent implements OnInit {
     public jwtAuthService :JwtAuthService,
     public keyAuthService :KeyAuthService,
     public ldapAuthService :LdapAuthService,
-    public oauth2AuthService :Oauth2AuthService
+    public oauth2AuthService :Oauth2AuthService,
+    public cameraSocketService: CameraSocketService,
   ) {
+    cameraSocketService.start();
   }
 
   ngOnInit(): void {

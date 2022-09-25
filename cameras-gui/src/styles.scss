@@ -22,3 +22,23 @@ mat-card .logbutton {
   }
 }
 
+
+.red-sign {
+  background: red;
+  height: 20px;
+  flex-direction: row;
+  border-radius: 10px;
+  width: 100%;
+  color: black;
+  padding: 3px;
+}
+
+.green-sign {
+  background: lawngreen;
+  height: 20px;
+  flex-direction: row;
+  border-radius: 10px;
+  width: 100%;
+  color: black;
+  padding: 3px;
+}

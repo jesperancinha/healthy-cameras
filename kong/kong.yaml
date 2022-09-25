@@ -27,6 +27,46 @@ services:
           - /camera-1-service/api/v1/hc/camera-states-emitter
         strip_path: true
 
+  - name: camera-2-socket-service
+    url: http://camera-2-service:8080/api/v1/hc/camera-states-emitter
+    routes:
+      - name: camera-2-service-socket-route
+        paths:
+          - /camera-2-service/api/v1/hc/camera-states-emitter
+        strip_path: true
+
+  - name: camera-3-socket-service
+    url: http://camera-3-service:8080/api/v1/hc/camera-states-emitter
+    routes:
+      - name: camera-3-service-socket-route
+        paths:
+          - /camera-3-service/api/v1/hc/camera-states-emitter
+        strip_path: true
+
+  - name: camera-4-socket-service
+    url: http://camera-4-service:8080/api/v1/hc/camera-states-emitter
+    routes:
+      - name: camera-4-service-socket-route
+        paths:
+          - /camera-4-service/api/v1/hc/camera-states-emitter
+        strip_path: true
+
+  - name: camera-5-socket-service
+    url: http://camera-1-service:8080/api/v1/hc/camera-states-emitter
+    routes:
+      - name: camera-5-service-socket-route
+        paths:
+          - /camera-5-service/api/v1/hc/camera-states-emitter
+        strip_path: true
+
+  - name: camera-6-socket-service
+    url: http://camera-6-service:8080/api/v1/hc/camera-states-emitter
+    routes:
+      - name: camera-6-service-socket-route
+        paths:
+          - /camera-6-service/api/v1/hc/camera-states-emitter
+        strip_path: true
+
   - name: camera-2-service
     url: http://camera-2-service:8080/api/v1/hc
     routes:

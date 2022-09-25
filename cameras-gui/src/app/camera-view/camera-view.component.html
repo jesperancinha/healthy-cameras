@@ -1,5 +1,8 @@
-<mat-card-title>{{title}}-{{getStatus()}}</mat-card-title>
-<mat-card>{{getStatus()}}</mat-card>
+<mat-card-title>{{title}}</mat-card-title>
+<mat-card>
+  <div class="red-sign" *ngIf="getStatus()!='UP'">Camera is unreachable</div>
+  <div class="green-sign" *ngIf="getStatus()==='UP'">Camera is On</div>
+</mat-card>
 <form>
   <mat-card *ngFor="let param of currentState">
     <mat-form-field>

@@ -33,6 +33,7 @@ export class CameraSocketService {
         cameraStatus.set(cf.ref, JSON.parse(messageEvent.data).status.status);
       }
       clientWebSocket.onclose = function (error) {
+        cameraStatus.set(cf.ref, "CLOSED");
       }
     })
   }

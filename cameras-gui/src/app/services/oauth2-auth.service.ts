@@ -14,22 +14,22 @@ export class Oauth2AuthService implements ProviderService<string> {
   }
 
   retrieveWelcomeMessage(input: Map<string, string>): Observable<string> {
-    const token = btoa(`${input.get("username")}:${input.get("password")}`)
-    return this.httpClient.get<ResponseToken>(input.get("pathOauth2") || "", {
-      headers: {
-        'Content-Type': 'application/text',
-        'Authorization': `Basic ${token}`
-      },
-      responseType: 'json'
-    }).pipe(flatMap(response => {
-      return this.httpClient.get(input.get("path") || "", {
+    return this.httpClient.post<ResponseToken>(input.get("pathOauth2") || "",
+      `username=${input.get("username")}&password=${input.get("password")}`,
+      {
         headers: {
-          'Content-Type': 'application/text',
-          'Authorization': `Bearer ${response.access_token}`,
-        },
-        responseType: 'text'
-      });
-    }))
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      })
+      .pipe(flatMap((response => {
+        return this.httpClient.get(input.get("path") || "", {
+          headers: {
+            'Content-Type': 'application/text',
+            'Authorization': `Bearer ${response.access_token}`,
+          },
+          responseType: 'text'
+        });
+      })));
   }
 }
 

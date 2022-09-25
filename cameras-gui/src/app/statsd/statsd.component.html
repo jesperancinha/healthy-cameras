@@ -1,1 +1,10 @@
-<p>statsd works!</p>
+<mat-card style="width: inherit">
+  <div style="width: 100%">
+    <img
+      src="/render/?width=1000&height=500&target=statsd.numStats&target=stats.statsd.camera-1-service.request.size&target=stats.statsd.camera-1-service.response.size"
+      alt="Graphite Graph">
+  </div>
+</mat-card>
+<mat-card>
+  <button mat-button (click)="refresh()">Refresh</button>
+</mat-card>

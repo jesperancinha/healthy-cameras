@@ -12,4 +12,7 @@ export class StatsdComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  refresh() {
+    window.location.reload();
+  }
 }

@@ -39,7 +39,7 @@ export class OverviewComponent implements OnInit {
   oauth2Params: Map<string, string> = new Map(Object.entries({
     username: "admin",
     password: "admin",
-    pathOauth2: "/cameras-auth-service/api/v1/cameras/auth/",
+    pathOauth2: "/cameras-auth-service/api/v1/cameras/auth/login",
     path: "/camera-6-service/api/v1/hc"
   }));
 

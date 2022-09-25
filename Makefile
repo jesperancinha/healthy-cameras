@@ -30,7 +30,7 @@ build-images:
 	docker build concert-demos-rest-service-mvc/. -t concert-demos-rest-service-mvc
 	docker build concert-demos-rest-service-webflux/. -t concert-demos-rest-service-webflux
 build-docker: stop no-test dcup
-stop: docker-clean
+stop:
 	docker ps -a -q --filter="name=kong" | xargs -I {} docker stop {}
 	docker ps -a -q --filter="name=kong" | xargs -I {} docker rm {}
 	docker ps -a -q --filter="name=camera" | xargs -I {} docker stop {}
@@ -43,6 +43,8 @@ stop: docker-clean
 	docker ps -a -q --filter="name=nginx" | xargs -I {} docker rm {}
 	docker ps -a -q --filter="name=graphite" | xargs -I {} docker stop {}
 	docker ps -a -q --filter="name=graphite" | xargs -I {} docker rm {}
+	docker ps -a -q --filter="name=cameras-auth-service" | xargs -I {} docker stop {}
+	docker ps -a -q --filter="name=cameras-auth-service" | xargs -I {} docker rm {}
 docker-clean: stop
 update-snyk:
 	npm i -g snyk
@@ -67,7 +69,7 @@ dcup-auth:
 dcup: dcd dcup-base
 dcup-action: dcup hc-wait kong-config build-cameras-auth-service
 dcup-full-action: dcd docker-clean build-maven build-npm build-cypress dcup hc-wait kong-config build-cameras-auth-service
-dcd: stop
+dcd: stop docker-clean
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-auth.yml down
 cypress-open-docker:
 	cd e2e && yarn && npm run cypress:open:docker

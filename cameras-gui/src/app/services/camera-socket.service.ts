@@ -20,24 +20,30 @@ export class CameraSocketService {
   start() {
     const cameraStatus = this.cameraStatus;
     this.camerasConfig.cameras.forEach(cf => {
-      const clientWebSocket = new WebSocket(cf.url);
-      clientWebSocket.onopen = function () {
-        clientWebSocket.send("Accepted!");
-      }
-      clientWebSocket.onerror = function (error) {
-        console.error(error);
-        cameraStatus.set(cf.ref, error.type);
-      }
-      clientWebSocket.onmessage = function (messageEvent) {
-        cameraStatus.set(cf.ref, JSON.parse(messageEvent.data).status.status);
-      }
-      clientWebSocket.onclose = function (error) {
-        cameraStatus.set(cf.ref, "CLOSED");
-      }
+      createCameraSocket(cf, cameraStatus);
     })
   }
 
   getStatus(ref: string) {
     return this.cameraStatus.get(ref);
+  }
+}
+
+function createCameraSocket(cf: { url: string; ref: string }, cameraStatus: Map<string, string>) {
+  const clientWebSocket = new WebSocket(cf.url);
+  clientWebSocket.onopen = function () {
+    clientWebSocket.send("Accepted!");
+  }
+  clientWebSocket.onerror = function (error) {
+    cameraStatus.set(cf.ref, error.type);
+    createCameraSocket(cf, cameraStatus)
+
+  }
+  clientWebSocket.onmessage = function (messageEvent) {
+    cameraStatus.set(cf.ref, JSON.parse(messageEvent.data).status.status);
+  }
+  clientWebSocket.onclose = function (error) {
+    cameraStatus.set(cf.ref, "CLOSED");
+    createCameraSocket(cf, cameraStatus)
   }
 }

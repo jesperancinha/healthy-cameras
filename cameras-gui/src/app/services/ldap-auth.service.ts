@@ -11,13 +11,23 @@ export class LdapAuthService implements ProviderService<string> {
   constructor(private httpClient: HttpClient) {
   }
 
-  retrieveWelcomeMessage(input: Map<string, string>): Observable<string> {
-    const credentials = btoa(`${input.get("username")}:${input.get("password")}`);
-    return this.httpClient.get(input.get("path") || "", {
-      headers: {
-        "Authorization": `ldap ${credentials}`
-      },
-      responseType: 'text'
-    })
+  retrieveWelcomeMessage = (input: Map<string, string>): Observable<string> => this.httpClient.get(input.get("path") || "", {
+    headers: {
+      "Authorization": `ldap ${(this.getCredentials(input))}`
+    },
+    responseType: 'text'
+  })
+
+
+  private getCredentials(input: Map<string, string>) {
+    return btoa(`${input.get("username")}:${input.get("password")}`);
   }
+
+  getImage = (input: Map<string, string>): Observable<ArrayBuffer> =>
+    this.httpClient.get(`${input.get("path") || ""}/camera`, {
+      headers: {
+        "Authorization": `ldap ${this.getCredentials(input)}`
+      },
+      responseType: 'arraybuffer'
+    });
 }

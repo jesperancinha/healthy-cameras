@@ -8,14 +8,18 @@
   <mat-card class="logbutton">
     <button mat-button (click)="sendRequest()">Send Request</button>
   </mat-card>
-  <form>
-    <mat-card *ngFor="let param of currentState">
-      <mat-form-field>
-        <mat-label>{{param.name}}</mat-label>
-        <input matInput placeholder="{{param.param}}" value="{{param.value}}" name="{{param.param}}"
-               [(ngModel)]="param.value">
-      </mat-form-field>
-    </mat-card>
-  </form>
-  <mat-card style="height: 5px;"></mat-card>
+  <mat-card style="top: 0px; float: right; margin-bottom: -150px" *ngIf="imageSrc">
+    <img [src]="imageSrc" alt="{{prefix}}-camera" width="200px"/>
+  </mat-card>
+  <mat-card style="width: 300px">
+    <form>
+      <mat-card *ngFor="let param of currentState">
+        <mat-form-field>
+          <mat-label>{{param.name}}</mat-label>
+          <input matInput placeholder="{{param.param}}" value="{{param.value}}" name="{{param.param}}"
+                 [(ngModel)]="param.value">
+        </mat-form-field>
+      </mat-card>
+    </form>
+  </mat-card>
 </mat-card>

@@ -13,23 +13,36 @@ export class Oauth2AuthService implements ProviderService<string> {
   constructor(private httpClient: HttpClient) {
   }
 
-  retrieveWelcomeMessage(input: Map<string, string>): Observable<string> {
-    return this.httpClient.post<ResponseToken>(input.get("pathOauth2") || "",
-      `username=${input.get("username")}&password=${input.get("password")}`,
-      {
+  getImage = (input: Map<string, string>): Observable<ArrayBuffer> => this.httpClient.post<ResponseToken>(input.get("pathOauth2") || "",
+    `username=${input.get("username")}&password=${input.get("password")}`,
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    })
+    .pipe(flatMap((response => this.httpClient.get(`${input.get("path") || ""}/camera`, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
+          'Content-Type': 'application/text',
+          'Authorization': `Bearer ${response.access_token}`,
+        },
+        responseType: 'arraybuffer'
       })
-      .pipe(flatMap((response => {
-        return this.httpClient.get(input.get("path") || "", {
-          headers: {
-            'Content-Type': 'application/text',
-            'Authorization': `Bearer ${response.access_token}`,
-          },
-          responseType: 'text'
-        });
-      })));
-  }
+    )));
+
+  retrieveWelcomeMessage = (input: Map<string, string>): Observable<string> => this.httpClient.post<ResponseToken>(input.get("pathOauth2") || "",
+    `username=${input.get("username")}&password=${input.get("password")}`,
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    })
+    .pipe(flatMap((response => this.httpClient.get(input.get("path") || "", {
+        headers: {
+          'Content-Type': 'application/text',
+          'Authorization': `Bearer ${response.access_token}`,
+        },
+        responseType: 'text'
+      })
+    )));
 }
 

@@ -18,6 +18,12 @@ export class JwtAuthService implements ProviderService<string> {
   constructor(private httpClient: HttpClient) {
   }
 
+  getImage = (input: Map<string, string>): Observable<ArrayBuffer> =>
+    this.httpClient.get(`${input.get("path") || ""}/camera`, {
+      headers: this.createJwtHeader(input.get("secret") || "", input.get("issuer") || ""),
+      responseType: 'arraybuffer'
+    });
+
   base64url = (source: any) => this.cryptoJS.enc.Base64.stringify(source)
     .replace(/=+$/, '')
     .replace(/\+/g, '-')

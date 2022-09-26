@@ -20,9 +20,6 @@ test-npm:
 	cd cameras-gui && npm test
 docker:
 	docker-compose up -d --build --remove-orphans
-docker-databases: stop local
-	docker build ./docker-psql/. -t postgres-image
-	docker run --name postgres-standalone -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=admin -e POSTGRES_MULTIPLE_DATABASES=vsa -p 5432:5432 -d postgres-image
 docker-clean:
 	docker-compose down -v
 	docker-compose rm -svf

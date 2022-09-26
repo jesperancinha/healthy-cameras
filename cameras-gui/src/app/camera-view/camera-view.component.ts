@@ -3,6 +3,7 @@ import {ProviderService} from "../services/provider.service";
 import {capitalizeText} from "../services/utils";
 import {DynamicControlData} from "../services/domain/dynamic.control.data";
 import {CameraSocketService} from "../services/camera-socket.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-camera-view',
@@ -17,9 +18,10 @@ export class CameraViewComponent<OUT> implements OnInit {
   @Input() prefix: string | undefined;
   basicMessage: OUT | undefined;
   currentState: DynamicControlData[] = [];
-  emptyMessage : OUT | undefined;
+  emptyMessage: OUT | undefined;
+  imageSrc: any;
 
-  constructor(public cameraSocketService: CameraSocketService) {
+  constructor(public cameraSocketService: CameraSocketService, private domSanitizer: DomSanitizer) {
     this.emptyMessage = this.basicMessage;
   }
 
@@ -36,6 +38,7 @@ export class CameraViewComponent<OUT> implements OnInit {
     this.providerService?.retrieveWelcomeMessage(this.params).subscribe(data => {
       this.basicMessage = data
     })
+    this.providerService?.getImage(this.params).subscribe(response => this.imageSrc = 'data:image/png;base64,' + btoa(String.fromCharCode(...new Uint8Array(response))));
   }
 
   controlNames(): DynamicControlData[] {
@@ -57,7 +60,7 @@ export class CameraViewComponent<OUT> implements OnInit {
 
   getStatus = () => {
     const status = this.cameraSocketService.getStatus(this.prefix || "");
-    if(status!= 'UP'){
+    if (status != 'UP') {
       this.basicMessage = this.emptyMessage;
     }
     return status;

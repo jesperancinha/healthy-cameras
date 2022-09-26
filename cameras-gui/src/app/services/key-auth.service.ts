@@ -19,4 +19,12 @@ export class KeyAuthService implements ProviderService<string> {
       responseType: 'text'
     })
   }
+
+  getImage = (input: Map<string, string>): Observable<ArrayBuffer> =>
+    this.httpClient.get(`${input.get("path") || ""}/camera`, {
+      headers: {
+        apiKey: input.get("key") || ""
+      },
+      responseType: 'arraybuffer'
+    });
 }

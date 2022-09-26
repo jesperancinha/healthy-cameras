@@ -20,9 +20,6 @@ test-npm:
 	cd cameras-gui && npm test
 docker:
 	docker-compose up -d --build --remove-orphans
-docker-clean:
-	docker-compose down -v
-	docker-compose rm -svf
 build-images:
 	docker-compose build
 build-docker: stop no-test dcup
@@ -42,6 +39,8 @@ stop:
 	docker ps -a -q --filter="name=cameras-auth-service" | xargs -I {} docker stop {}
 	docker ps -a -q --filter="name=cameras-auth-service" | xargs -I {} docker rm {}
 docker-clean: stop
+	docker-compose down -v
+	docker-compose rm -svf
 update-snyk:
 	npm i -g snyk
 update:

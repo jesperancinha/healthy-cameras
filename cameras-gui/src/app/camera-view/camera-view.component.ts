@@ -17,8 +17,10 @@ export class CameraViewComponent<OUT> implements OnInit {
   @Input() prefix: string | undefined;
   basicMessage: OUT | undefined;
   currentState: DynamicControlData[] = [];
+  emptyMessage : OUT | undefined;
 
   constructor(public cameraSocketService: CameraSocketService) {
+    this.emptyMessage = this.basicMessage;
   }
 
   ngOnInit(): void {
@@ -53,5 +55,11 @@ export class CameraViewComponent<OUT> implements OnInit {
     } else return [];
   }
 
-  getStatus = () => this.cameraSocketService.getStatus(this.prefix || "")
+  getStatus = () => {
+    const status = this.cameraSocketService.getStatus(this.prefix || "");
+    if(status!= 'UP'){
+      this.basicMessage = this.emptyMessage;
+    }
+    return status;
+  }
 }

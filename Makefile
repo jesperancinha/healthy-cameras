@@ -27,8 +27,7 @@ docker-clean:
 	docker-compose down -v
 	docker-compose rm -svf
 build-images:
-	docker build concert-demos-rest-service-mvc/. -t concert-demos-rest-service-mvc
-	docker build concert-demos-rest-service-webflux/. -t concert-demos-rest-service-webflux
+	docker-compose build
 build-docker: stop no-test dcup
 stop:
 	docker ps -a -q --filter="name=kong" | xargs -I {} docker stop {}
@@ -50,12 +49,12 @@ update-snyk:
 	npm i -g snyk
 update:
 	npm install -g npm-check-updates
-	cd concert-demos-gui && npx browserslist --update-db && ncu -u && yarn
+	cd cameras-gui && npx browserslist --update-db && ncu -u && yarn
 kong-deck:
 	bash kong_wait.sh
 	cd kong && deck sync
 audit:
-	cd concert-demos-gui && npm audit fix && yarn
+	cd cameras-gui && npm audit fix && yarn
 hc-wait:
 	bash hc_wait.sh
 kong-config:

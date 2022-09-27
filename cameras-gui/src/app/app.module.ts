@@ -14,7 +14,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatInputModule} from "@angular/material/input";
 import {MatTableModule} from "@angular/material/table";
 import {FormsModule} from "@angular/forms";
-import {CameraSocketService} from "./services/camera-socket.service";
 import {CamerasHealthUrls} from "./services/domain/cameras.health.urls";
 
 export const CAMERAS_HEALTH_STATUS_URLS = new InjectionToken<CamerasHealthUrls>('Cameras Url Health Socket Health Checks');

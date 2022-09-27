@@ -11,7 +11,7 @@ local: no-test
 	mkdir -p bin
 build-maven: no-test
 build-npm:
-	cd cameras-gui && yarn
+	cd cameras-gui && yarn && npm run build
 no-test:
 	mvn clean install -DskipTests
 test-maven:

@@ -200,7 +200,6 @@ services:
       context: docker-images/nginx/.
     expose:
       - 8090
-      - 8091
     deploy:
       resources:
         limits:
@@ -209,6 +208,8 @@ services:
           memory: 300M
     networks:
       - healthy-cameras
+    volumes:
+      - ${PWD}/cameras-gui/dist/cameras-gui:/usr/share/nginx/html
     depends_on:
       kong-database:
         condition: service_healthy

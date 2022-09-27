@@ -10,7 +10,7 @@ COPY target/camera-service.jar ${runningFolder}/camera-service.jar
 
 COPY entrypoint.sh ${runningFolder}
 
-COPY mock-cameras cameras
+COPY cameras cameras
 
 EXPOSE 8080
 

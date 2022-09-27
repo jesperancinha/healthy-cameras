@@ -1,7 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {routes} from "./app-routing.module";
 import {Router} from "@angular/router";
-import {BasicAuthService} from "./services/basic-auth.service";
 import {capitalizeText} from "./services/utils";
 
 @Component({

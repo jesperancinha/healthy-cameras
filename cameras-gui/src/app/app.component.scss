@@ -1,36 +1,47 @@
 mat-card {
+  width: 100%;
   border-radius: 0;
+  padding: 0;
+  mat-card {
+    width: fit-content;
+    float: right;
+    height: 30px;
+    border-radius: 0;
+    margin: 0;
+    padding:0;
+
+    mat-card {
+      border-radius: 20px;
+      width: min-content;
+      float: right;
+      height: min-content;
+      background: darkolivegreen;
+      padding: 0;
+      margin: 10px;
+      color: black;
+
+      button {
+        color: black;
+        border-radius: 20px;
+      }
+
+      button:hover {
+        background: greenyellow;
+        border-radius: 20px;
+      }
+    }
+
+    mat-card-title {
+      height: 30px;
+      padding: 20px;
+      width: max-content;
+      float: left;
+    }
+  }
 }
 
-mat-card {
-  height: 30px;
-  border-radius: 0;
-  mat-card {
-    border-radius: 20px;
-    width: min-content;
-    float: right;
-    height: min-content;
-    background: darkolivegreen;
-    padding: 0;
-    margin: 10px;
-    color: black;
-
-    button {
-      color: black;
-      border-radius: 20px;
-    }
-
-    button:hover {
-      background: greenyellow;
-      border-radius: 20px;
-    }
-  }
-
-  mat-card-title {
-    height: 30px;
-    padding: 20px;
-    width: max-content;
-    float: left;
-  }
-
+mat-card-title {
+  height: 35px;
+  padding-top: 20px;
+  padding-left: 10px;
 }

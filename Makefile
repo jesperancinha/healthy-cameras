@@ -71,13 +71,13 @@ cypress-open-docker:
 	cd e2e && yarn && npm run cypress:open:docker
 cypress-open:
 	cd e2e && yarn && npm run cypress
-cypress-electron:
+cypress-electron: status-containers
 	cd e2e && make cypress-electron
-cypress-chrome:
+cypress-chrome: status-containers
 	cd e2e && make cypress-chrome
-cypress-firefox:
+cypress-firefox: status-containers
 	cd e2e && make cypress-firefox
-cypress-edge:
+cypress-edge: status-containers
 	cd e2e && make cypress-edge
 install:
 	sudo apt-get install deck
@@ -105,3 +105,5 @@ build-nginx:
 	docker-compose up -d nginx
 stop-cameras-auth-service:
 	docker-compose -f docker-compose-auth.yml stop cameras-auth-service
+status-containers:
+	docker ps

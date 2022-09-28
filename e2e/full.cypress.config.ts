@@ -6,5 +6,12 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
     includeShadowDom: true,
+    env: {
+      'grafanaHost': 'grafana',
+      'prometheusHost': 'prometheus',
+      'graphiteHost': 'graphite',
+      'nginxHost': 'nginx:8090'
+    }
   },
+  chromeWebSecurity: false
 });

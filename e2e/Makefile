@@ -4,6 +4,8 @@ cypress-open:
 	npm run cypress
 cypress-electron:
 	docker-compose -f ../docker-compose.yml -f docker-compose.yml up --exit-code-from e2e-electron e2e-electron
+cypress-electron-full:
+	docker-compose -f ../docker-compose.yml -f docker-compose.yml up --exit-code-from e2e-electron-full e2e-electron-full
 cypress-chrome:
 	docker-compose -f ../docker-compose.yml -f docker-compose.yml up --exit-code-from e2e-chrome e2e-chrome
 cypress-firefox:

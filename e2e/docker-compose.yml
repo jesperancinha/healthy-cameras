@@ -8,6 +8,17 @@ services:
     networks:
       - healthy-cameras
 
+  e2e-electron-full:
+    image: "cypress/included:10.8.0"
+    working_dir: /e2e
+    command: "--browser electron --config-file full.cypress.config.ts --config baseUrl=http://kong:8000"
+    volumes:
+      - ./e2e:/e2e
+      - ./e2e/cypress/videos:/e2e/cypress/videos
+      - ./e2e/cypress/screenshots:/e2e/cypress/screenshots
+    networks:
+      - healthy-cameras
+
   e2e-chrome:
     image: "cypress/included:10.8.0"
     working_dir: /e2e

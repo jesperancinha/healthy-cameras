@@ -12,7 +12,8 @@ module.exports = defineConfig({
         env: {
             'grafanaHost': 'grafana',
             'prometheusHost': 'prometheus',
-            'graphiteHost': 'graphite'
+            'graphiteHost': 'graphite',
+            'nginxHost': 'nginx:8090'
         }
     },
     chromeWebSecurity: false

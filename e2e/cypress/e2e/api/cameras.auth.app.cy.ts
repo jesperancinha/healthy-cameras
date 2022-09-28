@@ -1,7 +1,7 @@
 import {applicationAuthAPI, applicationRootCamera6} from "../../support/e2e";
-import exp = require("constants");
 
-describe('Camera 6 API tests (OAuth2)', () => {
+
+describe('Camera OAuth2 Tests', () => {
 
     beforeEach(() => {
         cy.visit(`${applicationAuthAPI}`);
@@ -13,9 +13,16 @@ describe('Camera 6 API tests (OAuth2)', () => {
         cy.get('input[placeholder="Password"]').type("admin");
 
         cy.get('button[type="submit"]').click();
-        cy.wait('@authentication').then(response => {
-            expect(response.response.statusCode).to.be.eq(200);
-            let authorizationCode = response.response.body.access_token;
+
+        cy.request({
+            url: applicationAuthAPI,
+            body: `username=admin&password=admin`,
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).then(response => {
+            expect(response.status).to.be.eq(200);
+            let authorizationCode = response.body.access_token;
             cy.log(authorizationCode);
             let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6}`;
             cy.request(
@@ -25,7 +32,7 @@ describe('Camera 6 API tests (OAuth2)', () => {
                         "Authorization": `bearer ${authorizationCode}`
                     }
                 }).then(response => {
-                    expect(response.body).to.contain("Welcome to Healthy cameras")
+                expect(response.body).to.contain("Welcome to Healthy cameras")
             })
         })
     })

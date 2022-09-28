@@ -29,16 +29,17 @@ export class JwtAuthService implements ProviderService<string> {
     .replace(/\+/g, '-')
     .replace(/\//g, '_');
 
-  encodeToken(payload: any) {
+  encodeToken = (payload: any) => {
     const header = {
       "alg": "HS256",
       "typ": "JWT"
     };
-    const encodedHeader = this.base64url(this.cryptoJS.enc.Utf8.parse(JSON.stringify(header)));
-    const encodedData = this.base64url(this.cryptoJS.enc.Utf8.parse(JSON.stringify(payload)));
-
+    const encodedHeader = this.encodeObject(header);
+    const encodedData = this.encodeObject(payload);
     return `${encodedHeader}.${encodedData}`;
   }
+
+  private encodeObject = <T>(object: T) => this.base64url(this.cryptoJS.enc.Utf8.parse(JSON.stringify(object)));
 
   signToken = (payload: any, secret: string) => {
     const token: any = this.encodeToken(payload);

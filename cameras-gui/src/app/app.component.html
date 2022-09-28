@@ -5,8 +5,18 @@
       <button mat-button (click)="navigateTo(button.path)">{{getButtonText(button.path)}}</button>
     </mat-card>
   </mat-card>
+  <mat-card>
+    <mat-card>
+      <button mat-button (click)="navigateToExternal('http://localhost:8000')">Kong Facing App</button>
+    </mat-card>
+  </mat-card>
+  <mat-card>
+    <mat-card>
+      <button mat-button (click)="navigateToExternal('http://localhost:8090')">NGINX Facing App</button>
+    </mat-card>
+  </mat-card>
   <mat-card-title>
-    Welcome to the Healthy Cameras Site
+    Welcome to the Healthy Cameras Site ({{getCurrentApp()}})
   </mat-card-title>
 </mat-card>
 <router-outlet></router-outlet>

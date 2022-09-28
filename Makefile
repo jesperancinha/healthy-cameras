@@ -100,6 +100,7 @@ build-cameras-auth-service: stop-cameras-auth-service
 	make dcup-auth
 build-nginx:
 	docker-compose rm nginx
+	make build-npm
 	docker-compose build --no-cache nginx
 	docker-compose up -d nginx
 stop-cameras-auth-service:

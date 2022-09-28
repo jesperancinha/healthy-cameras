@@ -19,8 +19,11 @@ export class AppComponent {
 
   getButtonText = (path?: string) => capitalizeText(path || "")
 
-  navigateTo(path?: string) {
-    this.router.navigate([path]).then(_ => {
-    })
-  }
+  navigateTo = (path?: string) => this.router.navigate([path]).then(_ => {
+  })
+
+  navigateToExternal = (externalUrl: string) => window.location.href = externalUrl;
+
+  getCurrentApp = () => window.location.href.indexOf("8000") > -1? "Kong" : "NGINX";
 }
+

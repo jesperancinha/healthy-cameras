@@ -13,7 +13,7 @@ export class Oauth2AuthService implements ProviderService<string> {
   constructor(private httpClient: HttpClient) {
   }
 
-  getImage = (input: Map<string, string>): Observable<ArrayBuffer> => this.httpClient.post<ResponseToken>(input.get("pathOauth2") || "",
+  getImage = (input: Map<string, string>): Observable<ArrayBuffer> => this.httpClient.post<ResponseToken>(input.get("pathAuth") || "",
     `username=${input.get("username")}&password=${input.get("password")}`,
     {
       headers: {
@@ -29,7 +29,7 @@ export class Oauth2AuthService implements ProviderService<string> {
       })
     )));
 
-  retrieveWelcomeMessage = (input: Map<string, string>): Observable<string> => this.httpClient.post<ResponseToken>(input.get("pathOauth2") || "",
+  retrieveWelcomeMessage = (input: Map<string, string>): Observable<string> => this.httpClient.post<ResponseToken>(input.get("pathAuth") || "",
     `username=${input.get("username")}&password=${input.get("password")}`,
     {
       headers: {

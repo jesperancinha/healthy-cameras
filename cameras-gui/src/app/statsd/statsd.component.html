@@ -1,10 +1,18 @@
 <mat-card style="width: inherit">
   <div style="width: 100%">
     <img
-      src="/render/?width=1000&height=500&target=stats.statsd.service.camera-1-service.request.size&target=stats.statsd.service.camera-1-service.response.size"
+      src="/render/?width=1000&height=500&target=stats_counts.statsd.service.camera-1-service.request.size&target=stats_counts.statsd.service.camera-1-service.response.size&from=-{{minRange}}minutes&datetime{{timestamp}}"
       alt="Graphite Graph">
   </div>
 </mat-card>
 <mat-card>
   <button mat-button (click)="refresh()">Refresh</button>
+  <mat-form-field appearance="fill">
+    <mat-label>{{minRange}}</mat-label>
+    <mat-select  [(ngModel)]="minRange">
+      <mat-option *ngFor="let minRange of minuteRanges" [value]="minRange">
+        {{minRange}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </mat-card>

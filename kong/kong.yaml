@@ -3,6 +3,14 @@ _format_version: "2.1"
 _transform: true
 
 services:
+  - name: camera-gui
+    url: http://nginx:8090/
+    routes:
+      - name: "hc"
+        paths:
+          - /
+        strip_path: true
+
   - name: camera-1-service
     url: http://camera-1-service:8080/api/v1/hc
     routes:
@@ -115,6 +123,16 @@ services:
       - name: cameras-auth-service
         paths:
           - /cameras-auth-service/api/v1/cameras/auth/
+        strip_path: true
+        protocols:
+          - http
+
+  - name: render
+    url: http://graphite:8085/render/
+    routes:
+      - name: graphite-service
+        paths:
+          - /render/
         strip_path: true
         protocols:
           - http

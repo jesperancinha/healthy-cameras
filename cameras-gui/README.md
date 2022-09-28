@@ -7,6 +7,12 @@
 /render/?width=700&height=508&target=statsd.numStats&target=stats.statsd.camera-1-service.request.size&target=stats.statsd.camera-1-service.response.size
 ```
 
+##### HMAC tests
+
+```shell
+curl http://localhost:4200/camera-2-service/api/v1/hc -H 'Authorization: hmac username="{{USERNAME}}", algorithm="hmac-sha256", headers="x-date request-line digest", signature="{{SIGNATURE}}"' -H 'x-date: Wed, 28 Sep 2022 09:17:55 GMT'
+```
+
 ## References
 
 - [Test WebSocket Servers](https://www.piesocket.com/websocket-tester)

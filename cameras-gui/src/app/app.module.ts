@@ -15,6 +15,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatTableModule} from "@angular/material/table";
 import {FormsModule} from "@angular/forms";
 import {CamerasHealthUrls} from "./services/domain/cameras.health.urls";
+import {MatSelectModule} from "@angular/material/select";
 
 export const CAMERAS_HEALTH_STATUS_URLS = new InjectionToken<CamerasHealthUrls>('Cameras Url Health Socket Health Checks');
 
@@ -35,7 +36,8 @@ export const CAMERAS_HEALTH_STATUS_URLS = new InjectionToken<CamerasHealthUrls>(
     MatButtonModule,
     MatInputModule,
     MatTableModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule
   ],
   providers: [
     {

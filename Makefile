@@ -60,11 +60,16 @@ dcup-light:
 dcup-base:
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml build camera-1-service camera-2-service camera-3-service camera-4-service camera-5-service camera-6-service
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+dcup-isolated-base:
+	docker-compose -f docker-compose.yml -f docker-compose-pipeline.override.yml build camera-1-service camera-2-service camera-3-service camera-4-service camera-5-service camera-6-service
+	docker-compose -f docker-compose.yml -f docker-compose-pipeline.override.yml up -d
 dcup-auth:
 	docker-compose -f docker-compose-auth.yml up -d cameras-auth-service
 dcup: dcd dcup-base
+dcup-isolated: dcd dcup-isolated-base
 dcup-action: dcup hc-wait kong-config build-cameras-auth-service
 dcup-full-action: dcd docker-clean build-maven build-npm build-cypress dcup hc-wait kong-config build-cameras-auth-service
+dcup-full-isolated-action: dcd docker-clean build-maven build-npm build-cypress dcup-isolated hc-wait kong-config build-cameras-auth-service
 dcd: stop docker-clean
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-auth.yml down
 cypress-open-docker:

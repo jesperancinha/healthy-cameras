@@ -1,0 +1,4 @@
+services:
+  kong:
+    ports:
+      - "8001:8001"

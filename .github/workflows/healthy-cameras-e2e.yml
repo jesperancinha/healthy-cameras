@@ -14,7 +14,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Start Docker
-        run: make dcup-full-action
+        run: make dcup-full-isolated-action
 
       - name: Run Cypress
         run: make cypress-electron
@@ -30,7 +30,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Start Docker
-        run: make dcup-full-action
+        run: make dcup-full-isolated-action
 
       - name: Run Cypress
         run: make cypress-chrome
@@ -46,7 +46,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Start Docker
-        run: make dcup-full-action
+        run: make dcup-full-isolated-action
 
       - name: Run Cypress
         run: make cypress-firefox
@@ -63,7 +63,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Start Docker
-        run: make dcup-full-action
+        run: make dcup-full-isolated-action
 
       - name: Run Cypress
         run: make cypress-edge

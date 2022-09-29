@@ -112,3 +112,6 @@ stop-cameras-auth-service:
 	docker-compose -f docker-compose-auth.yml stop cameras-auth-service
 status-containers:
 	docker ps
+	docker-compose logs kong
+	docker-compose logs kong-deck
+

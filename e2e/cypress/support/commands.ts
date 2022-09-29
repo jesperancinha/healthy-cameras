@@ -42,6 +42,13 @@ import * as jwt from "jsonwebtoken";
 import {withHeaders} from "./e2e";
 import {stringify} from "querystring";
 
+const basicAuth = 'Basic Auth';
+const hmacAuth = 'HMAC Auth';
+const jwtAuth = 'JWT Auth';
+const apiKeyAuth = 'ApiKey Auth';
+const ldapAuth = 'LDAP Auth';
+const oAuth2Auth = 'OAuth2 Auth';
+
 Cypress.Commands.add('loginBasicAuth', (path: string) => {
     cy.visit(path, {
         auth: {
@@ -224,6 +231,59 @@ Cypress.on('uncaught:exception', (err) => {
     }
     return true;
 })
+
+Cypress.Commands.add('inputOnCamera', (camera: string, name:string, value:string) => {
+    cy.get('mat-card-title').contains(camera).siblings().find(`input[name="${name}"]`).type(value);
+});
+
+Cypress.Commands.add('sendRequest', (camera: string) => {
+    cy.get('mat-card-title').contains(camera).siblings().find('button').contains('Send Request').click();
+});
+
+Cypress.Commands.add('isCameraOn', (camera: string) => {
+    cy.get('mat-card-title').contains(camera).siblings().eq(0).contains('Camera is On');
+});
+
+Cypress.Commands.add('checkCameras', () => {
+    cy.isCameraOn(basicAuth);
+    cy.isCameraOn(hmacAuth);
+    cy.isCameraOn(jwtAuth);
+    cy.isCameraOn(apiKeyAuth);
+    cy.isCameraOn(ldapAuth);
+    cy.isCameraOn(oAuth2Auth);
+});
+
+Cypress.Commands.add('clickOptionTabs', () => {
+    cy.get('button').contains('Main').click();
+    cy.get('button').contains('StatsD').click();
+    cy.get('button').contains('Control').click();
+    cy.get('button').contains('Overview').click();
+});
+
+Cypress.Commands.add('logAll', () => {
+    cy.sendRequest(basicAuth);
+    cy.sendRequest(hmacAuth);
+
+    cy.fixture('CC3KongToken').then(data => {
+        let kongToken = data.data[0];
+        let secret = kongToken.secret;
+        let key = kongToken.key;
+        cy.inputOnCamera(jwtAuth,'jwt-secret', secret)
+        cy.inputOnCamera(jwtAuth,'jwt-issuer', key)
+        cy.sendRequest(jwtAuth);
+
+    });
+
+    cy.fixture('CC4KongKeys').then(data => {
+        const apikey = data.data[0].key
+        cy.inputOnCamera(apiKeyAuth,'key-key', apikey)
+        cy.sendRequest(apiKeyAuth);
+    });
+
+    cy.sendRequest(ldapAuth);
+    cy.sendRequest(oAuth2Auth);
+});
+
 
 export function createCamera2HmacHeaders(method: string, path: string): Partial<any> {
     const username = 'cameraUser2', secret = 'dragon', algorithm = 'hmac-sha256';

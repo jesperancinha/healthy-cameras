@@ -1,191 +1,221 @@
-# a very minimal declarative config file
-_format_version: "2.1"
+_format_version: "3.0"
 _transform: true
-
-services:
-  - name: camera-gui
-    url: http://nginx:8090/
-    routes:
-      - name: "hc"
-        paths:
-          - /
-        strip_path: true
-
-  - name: camera-1-service
-    url: http://camera-1-service:8080/api/v1/hc
-    routes:
-      - name: camera-1-service-route
-        paths:
-          - /camera-1-service/api/v1/hc
-        strip_path: true
-
-  - name: camera-1-open-service
-    url: http://camera-1-service:8080/api/v1/hc/actuator
-    routes:
-      - name: camera-1-service-open-route
-        paths:
-          - /camera-1-service/api/v1/hc/actuator
-        strip_path: true
-
-  - name: camera-1-socket-service
-    url: http://camera-1-service:8080/api/v1/hc/camera-states-emitter
-    routes:
-      - name: camera-1-service-socket-route
-        paths:
-          - /camera-1-service/api/v1/hc/camera-states-emitter
-        strip_path: true
-
-  - name: camera-2-socket-service
-    url: http://camera-2-service:8080/api/v1/hc/camera-states-emitter
-    routes:
-      - name: camera-2-service-socket-route
-        paths:
-          - /camera-2-service/api/v1/hc/camera-states-emitter
-        strip_path: true
-
-  - name: camera-3-socket-service
-    url: http://camera-3-service:8080/api/v1/hc/camera-states-emitter
-    routes:
-      - name: camera-3-service-socket-route
-        paths:
-          - /camera-3-service/api/v1/hc/camera-states-emitter
-        strip_path: true
-
-  - name: camera-4-socket-service
-    url: http://camera-4-service:8080/api/v1/hc/camera-states-emitter
-    routes:
-      - name: camera-4-service-socket-route
-        paths:
-          - /camera-4-service/api/v1/hc/camera-states-emitter
-        strip_path: true
-
-  - name: camera-5-socket-service
-    url: http://camera-1-service:8080/api/v1/hc/camera-states-emitter
-    routes:
-      - name: camera-5-service-socket-route
-        paths:
-          - /camera-5-service/api/v1/hc/camera-states-emitter
-        strip_path: true
-
-  - name: camera-6-socket-service
-    url: http://camera-6-service:8080/api/v1/hc/camera-states-emitter
-    routes:
-      - name: camera-6-service-socket-route
-        paths:
-          - /camera-6-service/api/v1/hc/camera-states-emitter
-        strip_path: true
-
-  - name: camera-2-service
-    url: http://camera-2-service:8080/api/v1/hc
-    routes:
-      - name: camera-2-service-route
-        paths:
-          - /camera-2-service/api/v1/hc
-        strip_path: true
-
-  - name: camera-3-service
-    url: http://camera-3-service:8080/api/v1/hc
-    routes:
-      - name: camera-3-service-route
-        paths:
-          - /camera-3-service/api/v1/hc
-        strip_path: true
-
-  - name: camera-4-service
-    url: http://camera-4-service:8080/api/v1/hc
-    routes:
-      - name: camera-4-service-route
-        paths:
-          - /camera-4-service/api/v1/hc
-        strip_path: true
-
-  - name: camera-5-service
-    url: http://camera-5-service:8080/api/v1/hc
-    routes:
-      - name: camera-5-service-route
-        paths:
-          - /camera-5-service/api/v1/hc
-        strip_path: true
-
-  - name: camera-6-service
-    url: http://camera-6-service:8080/api/v1/hc
-    routes:
-      - name: camera-6-service-route
-        paths:
-          - /camera-6-service/api/v1/hc
-        strip_path: true
-        protocols:
-          - https
-          - http
-
-  - name: cameras-auth-service
-    url: http://cameras-auth-service:8096/cameras-auth-service/api/v1/cameras/auth/
-    routes:
-      - name: cameras-auth-service
-        paths:
-          - /cameras-auth-service/api/v1/cameras/auth/
-        strip_path: true
-        protocols:
-          - http
-
-  - name: render
-    url: http://graphite:8085/render/
-    routes:
-      - name: graphite-service
-        paths:
-          - /render/
-        strip_path: true
-        protocols:
-          - http
-
 plugins:
-  - name: prometheus
-    enabled: true
+- enabled: true
+  name: prometheus
+  protocols:
+  - grpc
+  - grpcs
+  - http
+  - https
+- config:
+    host: graphite
+    metrics:
+    - name: request_count
+      sample_rate: 1
+      stat_type: counter
+    - name: request_size
+      sample_rate: 1
+      stat_type: histogram
+    - name: response_size
+      sample_rate: 1
+      stat_type: histogram
+    port: 8125
+    prefix: statsd
+  enabled: true
+  name: statsd
+  service: camera-1-service
+- config:
+    hide_credentials: true
+  enabled: true
+  name: basic-auth
+  service: camera-1-service
+- config:
+    hide_credentials: true
+  enabled: true
+  name: hmac-auth
+  service: camera-2-service
+- enabled: true
+  name: jwt
+  service: camera-3-service
+- enabled: true
+  name: key-auth
+  service: camera-4-service
+- config:
+    attribute: cn
+    base_dn: dc=example,dc=org
+    header_type: ldap
+    hide_credentials: true
+    ldap_host: openldap
+    ldap_port: 1389
+  enabled: true
+  name: ldap-auth
+  service: camera-5-service
+services:
+- host: nginx
+  name: camera-gui
+  path: /
+  port: 8090
+  protocol: http
+  routes:
+  - name: hc
+    paths:
+    - /
+    strip_path: true
+- host: camera-1-service
+  name: camera-1-service
+  path: /api/v1/hc
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-1-service-route
+    paths:
+    - /camera-1-service/api/v1/hc
+    strip_path: true
+- host: camera-1-service
+  name: camera-1-open-service
+  path: /api/v1/hc/actuator
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-1-service-open-route
+    paths:
+    - /camera-1-service/api/v1/hc/actuator
+    strip_path: true
+- host: camera-1-service
+  name: camera-1-socket-service
+  path: /api/v1/hc/camera-states-emitter
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-1-service-socket-route
+    paths:
+    - /camera-1-service/api/v1/hc/camera-states-emitter
+    strip_path: true
+- host: camera-2-service
+  name: camera-2-socket-service
+  path: /api/v1/hc/camera-states-emitter
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-2-service-socket-route
+    paths:
+    - /camera-2-service/api/v1/hc/camera-states-emitter
+    strip_path: true
+- host: camera-3-service
+  name: camera-3-socket-service
+  path: /api/v1/hc/camera-states-emitter
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-3-service-socket-route
+    paths:
+    - /camera-3-service/api/v1/hc/camera-states-emitter
+    strip_path: true
+- host: camera-4-service
+  name: camera-4-socket-service
+  path: /api/v1/hc/camera-states-emitter
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-4-service-socket-route
+    paths:
+    - /camera-4-service/api/v1/hc/camera-states-emitter
+    strip_path: true
+- host: camera-1-service
+  name: camera-5-socket-service
+  path: /api/v1/hc/camera-states-emitter
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-5-service-socket-route
+    paths:
+    - /camera-5-service/api/v1/hc/camera-states-emitter
+    strip_path: true
+- host: camera-6-service
+  name: camera-6-socket-service
+  path: /api/v1/hc/camera-states-emitter
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-6-service-socket-route
+    paths:
+    - /camera-6-service/api/v1/hc/camera-states-emitter
+    strip_path: true
+- host: camera-2-service
+  name: camera-2-service
+  path: /api/v1/hc
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-2-service-route
+    paths:
+    - /camera-2-service/api/v1/hc
+    strip_path: true
+- host: camera-3-service
+  name: camera-3-service
+  path: /api/v1/hc
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-3-service-route
+    paths:
+    - /camera-3-service/api/v1/hc
+    strip_path: true
+- host: camera-4-service
+  name: camera-4-service
+  path: /api/v1/hc
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-4-service-route
+    paths:
+    - /camera-4-service/api/v1/hc
+    strip_path: true
+- host: camera-5-service
+  name: camera-5-service
+  path: /api/v1/hc
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-5-service-route
+    paths:
+    - /camera-5-service/api/v1/hc
+    strip_path: true
+- host: camera-6-service
+  name: camera-6-service
+  path: /api/v1/hc
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-6-service-route
+    paths:
+    - /camera-6-service/api/v1/hc
     protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-  - name: statsd
-    service: camera-1-service
-    enabled: true
-    config:
-      host: graphite
-      port: 8125
-      metrics:
-        - name: request_count
-          stat_type: counter
-          sample_rate: 1
-        - name: request_size
-          stat_type: histogram
-          sample_rate: 1
-        - name: response_size
-          stat_type: histogram
-          sample_rate: 1
-      prefix: statsd
-  - name: basic-auth
-    service: camera-1-service
-    enabled: true
-    config:
-      hide_credentials: true
-  - name: hmac-auth
-    service: camera-2-service
-    enabled: true
-    config:
-      hide_credentials: true
-  - name: jwt
-    service: camera-3-service
-    enabled: true
-  - name: key-auth
-    service: camera-4-service
-    enabled: true
-  - name: ldap-auth
-    service: camera-5-service
-    enabled: true
-    config:
-      hide_credentials: true
-      ldap_host: openldap
-      ldap_port: 1389
-      header_type: ldap
-      base_dn: dc=example,dc=org
-      attribute: cn
+    - https
+    - http
+    strip_path: true
+- host: cameras-auth-service
+  name: cameras-auth-service
+  path: /cameras-auth-service/api/v1/cameras/auth/
+  port: 8096
+  protocol: http
+  routes:
+  - name: cameras-auth-service
+    paths:
+    - /cameras-auth-service/api/v1/cameras/auth/
+    protocols:
+    - http
+    strip_path: true
+- host: graphite
+  name: render
+  path: /render/
+  port: 8085
+  protocol: http
+  routes:
+  - name: graphite-service
+    paths:
+    - /render/
+    protocols:
+    - http
+    strip_path: true

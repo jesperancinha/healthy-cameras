@@ -114,4 +114,3 @@ status-containers:
 	docker ps
 	docker-compose logs kong
 	docker-compose logs kong-deck
-

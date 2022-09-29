@@ -12,6 +12,6 @@ describe('Swagger tests spec for Camera 3', () => {
         cy.get('h2', {timeout: 10000}).contains('OpenAPI definition', {timeout: 10000}).should('not.be.null');
         cy.wait(1000);
 
-        cy.get('div[class="servers"] > label > select > option').should('have.value', `http://localhost:8000${applicationRootCamera1}`);
+        cy.get('div[class="servers"] > label > select > option').should('have.value', `http://localhost:8000${applicationRootCamera3}`);
     })
 })

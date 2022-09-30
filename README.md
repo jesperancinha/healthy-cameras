@@ -68,14 +68,11 @@ make dcup
 -   [Metrics in Kong - http://localhost:8001/metrics](http://localhost:8001/metrics)
 -   [Graphite Page - http://localhost:8085](http://localhost:8085)
 
-##### Configuring Grafana
-
-[![alt img](./docs/grafana.setup.png)]()
-
 ## References
 
 #### Online
 
+-   [Kubernetes Documentation / Concepts Services / Load Balancing / Networking Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 -   [A Deep Dive Into the Four Types of Prometheus Metrics](https://www.timescale.com/blog/four-types-prometheus-metrics-to-collect/)
 -   [Defining custom metrics in a Spring Boot application using Micrometer](https://autsoft.net/defining-custom-metrics-in-a-spring-boot-application-using-micrometer/)
 -   [Kong Blog Posts](https://github.com/danielkocot/kong-blogposts)

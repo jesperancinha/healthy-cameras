@@ -46,3 +46,7 @@ CC6KongProvOauth2.json
 
 ## Build
 target
+
+## Draw IO
+*.bkp
+

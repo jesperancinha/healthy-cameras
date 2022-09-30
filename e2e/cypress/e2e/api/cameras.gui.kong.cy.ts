@@ -6,18 +6,18 @@ describe('Kong Facing application tests', () => {
         cy.visit(`${rootPath}`);
     })
 
-    it("should check all cameras", ()=>{
+    it("should check all cameras", () => {
         cy.contains('Welcome to the Healthy Cameras Site (Kong)').should('exist');
         cy.checkCameras();
     })
 
-    it("should click all option menus", ()=>{
+    it("should click all option menus", () => {
         cy.contains('Welcome to the Healthy Cameras Site (Kong)').should('exist');
         cy.checkCameras();
         cy.clickOptionTabs();
     })
 
-    it("should Log all cameras", ()=>{
+    it("should Log all cameras", () => {
         cy.contains('Welcome to the Healthy Cameras Site (Kong)').should('exist');
         cy.checkCameras();
         cy.logAll();

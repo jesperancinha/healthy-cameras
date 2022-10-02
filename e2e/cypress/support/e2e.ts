@@ -79,5 +79,6 @@ export const applicationRootCamera6: string = `${sanitizePrePath("/camera-6-serv
 export const applicationRootCamera6UserId: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${userId}`;
 export const applicationRootCamera6ConsumerId: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${consumerId}`;
 export const applicationRootCamera6CredentialId: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${credentialId}`;
+export const applicationRootCamera6AccessPoint: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}/whatever`;
 export const applicationRootCamera6Headers: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${headers}`;
 export const applicationAuthAPI: string = '/cameras-auth-service/api/v1/cameras/auth/'

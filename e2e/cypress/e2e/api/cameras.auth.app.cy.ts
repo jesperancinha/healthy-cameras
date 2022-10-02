@@ -1,6 +1,6 @@
 import {
     applicationAuthAPI,
-    applicationRootCamera6,
+    applicationRootCamera6, applicationRootCamera6AccessPoint,
     applicationRootCamera6ConsumerId, applicationRootCamera6CredentialId, applicationRootCamera6Headers,
     applicationRootCamera6UserId
 } from "../../support/e2e";
@@ -137,6 +137,17 @@ describe('Camera OAuth2 Tests', () => {
                     expect(allHeaders["x-authenticated-userid"]).to.be.eq('camera6');
                 });
             })
+            camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6AccessPoint}`;
+            cy.request(
+                {
+                    url: camera6Endpoint,
+                    headers: {
+                        "Authorization": `bearer ${authorizationCode}`
+                    }
+                }).then(response => {
+                cy.log(JSON.stringify(response));
+                expect(response.body).to.be.eq("admin")
+            })
 
         })
     })
@@ -171,6 +182,17 @@ describe('Camera OAuth2 Tests', () => {
                     expect(allHeaders["x-authenticated-userid"]).to.be.eq('camera6');
                 });
             })
+            // camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6AccessPoint}`;
+            // cy.request(
+            //     {
+            //         url: camera6Endpoint,
+            //         headers: {
+            //             "Authorization": `bearer ${authorizationCode}`
+            //         }
+            //     }).then(response => {
+            //     cy.log(JSON.stringify(response));
+            //     expect(response.body).to.be.eq("TEST")
+            // })
 
         })
     })

@@ -1,9 +1,9 @@
 import {
-    applicationRootCamera4ConsumerId,
-    applicationRootCamera5,
-    applicationRootCamera5CredentialId
+    applicationRootCamera4ConsumerId, applicationRootCamera4CredentialId, applicationRootCamera4UserId,
+    applicationRootCamera5, applicationRootCamera5ConsumerId,
+    applicationRootCamera5CredentialId, applicationRootCamera5UserId
 } from "../../support/e2e";
-import {createKeyHeder, createLDAPHeaders} from "../../support/commands";
+import {createKeyHeder, createLDAPHeaders, findKeyCredential} from "../../support/commands";
 
 describe('Camera 5 API tests (LDAP)', () => {
 
@@ -23,16 +23,34 @@ describe('Camera 5 API tests (LDAP)', () => {
         }
     })
 
-    it('should read consumer name', () => {
-        createKeyHeder().then(headers => {
-            cy.request({
-                url: applicationRootCamera5CredentialId,
-                headers: createLDAPHeaders()
-            }).then(response => {
-                console.log(JSON.stringify(response));
-                expect(response.body).to.be.eq('admin');
-            })
+    it('should read credential name', () => {
+        cy.request({
+            url: applicationRootCamera5CredentialId,
+            headers: createLDAPHeaders()
+        }).then(response => {
+            console.log(JSON.stringify(response));
+            expect(response.body).to.be.eq('admin');
         })
     })
 
+
+    it('should read no user', () => {
+        cy.request({
+            url: applicationRootCamera5UserId,
+            headers: createLDAPHeaders()
+        }).then(response => {
+            console.log(JSON.stringify(response));
+            expect(response.body).to.be.eq('');
+        })
+    })
+
+    it('should read no consumer', () => {
+        cy.request({
+            url: applicationRootCamera5ConsumerId,
+            headers: createLDAPHeaders()
+        }).then(response => {
+            console.log(JSON.stringify(response));
+            expect(response.body).to.be.eq('')
+        })
+    })
 });

@@ -1,4 +1,10 @@
-import {applicationAuthAPI, applicationRootCamera6, applicationRootCamera6UserId} from "../../support/e2e";
+import {
+    applicationAuthAPI,
+    applicationRootCamera6,
+    applicationRootCamera6ConsumerId, applicationRootCamera6CredentialId,
+    applicationRootCamera6UserId
+} from "../../support/e2e";
+import {loginAuthAPI} from "../../support/commands";
 
 
 describe('Camera OAuth2 Tests', () => {
@@ -14,13 +20,7 @@ describe('Camera OAuth2 Tests', () => {
 
         cy.get('button[type="submit"]').click();
 
-        cy.request({
-            url: applicationAuthAPI,
-            body: `username=admin&password=admin`,
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            }
-        }).then(response => {
+        loginAuthAPI().then(response => {
             expect(response.status).to.be.eq(200);
             let authorizationCode = response.body.access_token;
             cy.log(authorizationCode);
@@ -36,20 +36,14 @@ describe('Camera OAuth2 Tests', () => {
             })
         })
     })
-    it('should login and see logged entity', () => {
+    it('should login and see user', () => {
         cy.intercept('GET', "**/api/v1/cameras/auth/**").as("authentication")
         cy.get('input[placeholder="Username"]').type("admin");
         cy.get('input[placeholder="Password"]').type("admin");
 
         cy.get('button[type="submit"]').click();
 
-        cy.request({
-            url: applicationAuthAPI,
-            body: `username=admin&password=admin`,
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            }
-        }).then(response => {
+        loginAuthAPI().then(response => {
             expect(response.status).to.be.eq(200);
             let authorizationCode = response.body.access_token;
             cy.log(authorizationCode);
@@ -63,6 +57,55 @@ describe('Camera OAuth2 Tests', () => {
                 }).then(response => {
                     cy.log(JSON.stringify(response));
                     expect(response.body).to.be.eq("camera6")
+            })
+        })
+    })
+
+    it('should login and see consumer', () => {
+        cy.intercept('GET', "**/api/v1/cameras/auth/**").as("authentication")
+        cy.get('input[placeholder="Username"]').type("admin");
+        cy.get('input[placeholder="Password"]').type("admin");
+
+        cy.get('button[type="submit"]').click();
+
+        loginAuthAPI().then(response => {
+            expect(response.status).to.be.eq(200);
+            let authorizationCode = response.body.access_token;
+            cy.log(authorizationCode);
+            let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6ConsumerId}`;
+            cy.request(
+                {
+                    url: camera6Endpoint,
+                    headers: {
+                        "Authorization": `bearer ${authorizationCode}`
+                    }
+                }).then(response => {
+                    cy.log(JSON.stringify(response));
+                    expect(response.body).to.be.eq("camera6")
+            })
+        })
+    })
+    it('should login and see credential', () => {
+        cy.intercept('GET', "**/api/v1/cameras/auth/**").as("authentication")
+        cy.get('input[placeholder="Username"]').type("admin");
+        cy.get('input[placeholder="Password"]').type("admin");
+
+        cy.get('button[type="submit"]').click();
+
+        loginAuthAPI().then(response => {
+            expect(response.status).to.be.eq(200);
+            let authorizationCode = response.body.access_token;
+            cy.log(authorizationCode);
+            let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6CredentialId}`;
+            cy.request(
+                {
+                    url: camera6Endpoint,
+                    headers: {
+                        "Authorization": `bearer ${authorizationCode}`
+                    }
+                }).then(response => {
+                    cy.log(JSON.stringify(response));
+                    expect(response.body).to.be.eq("CAMERA06CLIENTID")
             })
         })
     })

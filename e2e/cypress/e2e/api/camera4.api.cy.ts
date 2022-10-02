@@ -1,9 +1,15 @@
 import {
-    applicationRootCamera2ConsumerId,
+    applicationRootCamera2ConsumerId, applicationRootCamera3CredentialId, applicationRootCamera3UserId,
     applicationRootCamera4,
-    applicationRootCamera4ConsumerId
+    applicationRootCamera4ConsumerId, applicationRootCamera4CredentialId, applicationRootCamera4UserId
 } from "../../support/e2e";
-import {createCamera2HmacHeaders, createKeyHeder} from "../../support/commands";
+import {
+    createCamera2HmacHeaders,
+    createJWTToken,
+    createKeyHeder,
+    findJWTCredential,
+    findKeyCredential
+} from "../../support/commands";
 
 /**
  * When running `make dcup-full-action` at the root of the project, a file called `CC4KongKeys.json` will be created as a fixture.
@@ -39,4 +45,29 @@ describe('Camera 4 API tests (KEY)', () => {
         })
     })
 
+    it('should read no user', () => {
+        createKeyHeder().then(headers => {
+            cy.request({
+                method: 'GET',
+                url: applicationRootCamera4UserId,
+                headers: headers
+            }).then(response => {
+                console.log(JSON.stringify(response));
+                expect(response.body).to.be.eq('');
+            })
+        })
+    })
+
+    it('should read credential', () => {
+        createKeyHeder().then(headers => {
+            cy.request({
+                url: applicationRootCamera4CredentialId,
+                headers: headers,
+            }).then(response => {
+                console.log(JSON.stringify(response));
+                findKeyCredential()
+                    .then(credential => expect(response.body).to.be.eq(credential))
+            })
+        })
+    })
 });

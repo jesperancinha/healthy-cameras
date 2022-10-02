@@ -1,4 +1,8 @@
-import {applicationRootCamera1, applicationRootCamera1ConsumerId} from "../../support/e2e";
+import {
+    applicationRootCamera1,
+    applicationRootCamera1ConsumerId, applicationRootCamera1CredentialId,
+    applicationRootCamera1UserId
+} from "../../support/e2e";
 
 describe('Camera 1 API tests (Basic Auth)', () => {
 
@@ -18,7 +22,7 @@ describe('Camera 1 API tests (Basic Auth)', () => {
     })
     it('should read consumer name', () => {
         cy.request({
-            method:'GET',
+            method: 'GET',
             url: applicationRootCamera1ConsumerId,
             headers: {
                 'Content-Type': 'application/text',
@@ -27,6 +31,34 @@ describe('Camera 1 API tests (Basic Auth)', () => {
         }).then(response => {
             console.log(JSON.stringify(response));
             expect(response.body).to.be.eq('camera1');
+        })
+    })
+
+    it('should read no user', () => {
+        cy.request({
+            method: 'GET',
+            url: applicationRootCamera1UserId,
+            headers: {
+                'Content-Type': 'application/text',
+                'Authorization': `Basic ${btoa("cameraUser1:administrator")}`
+            },
+        }).then(response => {
+            console.log(JSON.stringify(response));
+            expect(response.body).to.be.eq('');
+        })
+    })
+
+    it('should read credential', () => {
+        cy.request({
+            method: 'GET',
+            url: applicationRootCamera1CredentialId,
+            headers: {
+                'Content-Type': 'application/text',
+                'Authorization': `Basic ${btoa("cameraUser1:administrator")}`
+            },
+        }).then(response => {
+            console.log(JSON.stringify(response));
+            expect(response.body).to.be.eq('cameraUser1');
         })
     })
 })

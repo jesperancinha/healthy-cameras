@@ -48,22 +48,34 @@ export function withFormAndHeaders(req) {
 }
 
 const applicationRoot = '/api/v1/hc'
-const userInfo = '/userid'
-const consumerInfo = '/consumerid'
-const credentialInfo = '/credentialid'
+const userId = '/userid'
+const consumerId = '/consumerid'
+const credentialId = '/credentialid'
 const sanitizePrePath = (prePath: string) => `${Cypress.config().baseUrl.endsWith("8000") ? prePath : ""}`;
 export const rootPath: string = "";
 export const nginxPath: string = `http://${Cypress.env('nginxHost') ? Cypress.env('nginxHost') : 'localhost:8090'}/`;
 export const applicationRootCamera1: string = `${sanitizePrePath("/camera-1-service")}${applicationRoot}`;
-export const applicationRootCamera1ConsumerId: string = `${sanitizePrePath("/camera-1-service")}${applicationRoot}${consumerInfo}`;
+export const applicationRootCamera1UserId: string = `${sanitizePrePath("/camera-1-service")}${applicationRoot}${userId}`;
+export const applicationRootCamera1ConsumerId: string = `${sanitizePrePath("/camera-1-service")}${applicationRoot}${consumerId}`;
+export const applicationRootCamera1CredentialId: string = `${sanitizePrePath("/camera-1-service")}${applicationRoot}${credentialId}`;
 export const applicationRootCamera2: string = `${sanitizePrePath("/camera-2-service")}${applicationRoot}`;
-export const applicationRootCamera2ConsumerId: string = `${sanitizePrePath("/camera-2-service")}${applicationRoot}${consumerInfo}`;
+export const applicationRootCamera2UserId: string = `${sanitizePrePath("/camera-2-service")}${applicationRoot}${userId}`;
+export const applicationRootCamera2ConsumerId: string = `${sanitizePrePath("/camera-2-service")}${applicationRoot}${consumerId}`;
+export const applicationRootCamera2CredentialId: string = `${sanitizePrePath("/camera-2-service")}${applicationRoot}${credentialId}`;
 export const applicationRootCamera3: string = `${sanitizePrePath("/camera-3-service")}${applicationRoot}`;
-export const applicationRootCamera3ConsumerId: string = `${sanitizePrePath("/camera-3-service")}${applicationRoot}${consumerInfo}`;
+export const applicationRootCamera3UserId: string = `${sanitizePrePath("/camera-3-service")}${applicationRoot}${userId}`;
+export const applicationRootCamera3ConsumerId: string = `${sanitizePrePath("/camera-3-service")}${applicationRoot}${consumerId}`;
+export const applicationRootCamera3CredentialId: string = `${sanitizePrePath("/camera-3-service")}${applicationRoot}${credentialId}`;
 export const applicationRootCamera4: string = `${sanitizePrePath("/camera-4-service")}${applicationRoot}`;
-export const applicationRootCamera4ConsumerId: string = `${sanitizePrePath("/camera-4-service")}${applicationRoot}${consumerInfo}`;
+export const applicationRootCamera4UserId: string = `${sanitizePrePath("/camera-4-service")}${applicationRoot}${userId}`;
+export const applicationRootCamera4ConsumerId: string = `${sanitizePrePath("/camera-4-service")}${applicationRoot}${consumerId}`;
+export const applicationRootCamera4CredentialId: string = `${sanitizePrePath("/camera-4-service")}${applicationRoot}${credentialId}`;
 export const applicationRootCamera5: string = `${sanitizePrePath("/camera-5-service")}${applicationRoot}`;
-export const applicationRootCamera5CredentialId: string = `${sanitizePrePath("/camera-5-service")}${applicationRoot}${credentialInfo}`;
+export const applicationRootCamera5UserId: string = `${sanitizePrePath("/camera-5-service")}${applicationRoot}${userId}`;
+export const applicationRootCamera5ConsumerId: string = `${sanitizePrePath("/camera-5-service")}${applicationRoot}${consumerId}`;
+export const applicationRootCamera5CredentialId: string = `${sanitizePrePath("/camera-5-service")}${applicationRoot}${credentialId}`;
 export const applicationRootCamera6: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}`;
-export const applicationRootCamera6UserId: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${userInfo}`;
+export const applicationRootCamera6UserId: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${userId}`;
+export const applicationRootCamera6ConsumerId: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${consumerId}`;
+export const applicationRootCamera6CredentialId: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${credentialId}`;
 export const applicationAuthAPI: string = '/cameras-auth-service/api/v1/cameras/auth/'

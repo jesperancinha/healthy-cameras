@@ -39,7 +39,7 @@
 
 import * as crypto from "crypto";
 import * as jwt from "jsonwebtoken";
-import {withHeaders} from "./e2e";
+import {applicationAuthAPI, withHeaders} from "./e2e";
 import {stringify} from "querystring";
 
 const basicAuth = 'Basic Auth';
@@ -275,12 +275,16 @@ export function createCamera2HmacHeaders(method: string, path: string): Partial<
     };
 }
 
+export const findKeyCredential = () => cy.fixture('CC4KongKeys').then(data => data.data[0].id)
+
 export const createKeyHeder = () => cy.fixture('CC4KongKeys').then(data => {
     const apikey = data.data[0].key
     return {
         apikey: apikey
     };
 });
+
+export const findJWTCredential = () => cy.fixture('CC3KongToken').then(data => data.data[0].key)
 
 export const createJWTToken = () => cy.fixture('CC3KongToken').then(data => {
     let kongToken = data.data[0];
@@ -308,3 +312,11 @@ export function createLDAPHeaders() {
         "Authorization": `ldap ${credentials}`
     };
 }
+
+export const loginAuthAPI = () => cy.request({
+    url: applicationAuthAPI,
+    body: `username=admin&password=admin`,
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+});

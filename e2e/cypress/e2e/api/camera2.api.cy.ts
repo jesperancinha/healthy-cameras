@@ -1,4 +1,8 @@
-import {applicationRootCamera2} from "../../support/e2e";
+import {
+    applicationRootCamera1UserInfo,
+    applicationRootCamera2,
+    applicationRootCamera2UserInfo
+} from "../../support/e2e";
 import {createCamera2HmacHeaders} from "../../support/commands";
 
 
@@ -29,5 +33,15 @@ describe('Camera 2 API tests (HMAC)', () => {
                 expect(response.body).to.contain("Welcome to Healthy cameras!");
             })
         }
+    })
+
+    it('should read consumer name', () => {
+        cy.request({
+            url: applicationRootCamera2UserInfo,
+            headers: createCamera2HmacHeaders("GET", applicationRootCamera2UserInfo)
+        }).then(response => {
+            console.log(JSON.stringify(response));
+            expect(response.body).to.be.eq('camera2');
+        })
     })
 })

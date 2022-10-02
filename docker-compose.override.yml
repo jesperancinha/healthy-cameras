@@ -16,6 +16,14 @@ services:
     ports:
       - "8083:8080"
 
+  camera-5-service:
+    ports:
+      - "8084:8080"
+
+  camera-6-service:
+    ports:
+      - "8086:8080"
+
   kong-database:
     ports:
       - "5432:5432"

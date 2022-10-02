@@ -55,7 +55,7 @@ Cypress.Commands.add('loginBasicAuth', (path: string) => {
             username: `cameraUser1`,
             password: `administrator`,
         },
-    })
+    });
 })
 
 Cypress.Commands.add('loginHmacAuth', (path: string) => {

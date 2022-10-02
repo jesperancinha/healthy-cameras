@@ -99,6 +99,11 @@ make dcup
           src="https://img.youtube.com/vi/hrYqGXU-a6E/0.jpg" 
           style="width:20%;">
       </a>
+     <a title="Getting Started with Kong Ingress Controller for Kubernetes" href="https://www.youtube.com/watch?v=AIYIHZbDziI">
+     <img 
+          src="https://img.youtube.com/vi/AIYIHZbDziI/0.jpg" 
+          style="width:20%;">
+      </a>
 </div>
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈

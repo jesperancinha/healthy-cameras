@@ -1,4 +1,9 @@
-import {applicationRootCamera4} from "../../support/e2e";
+import {
+    applicationRootCamera2ConsumerId,
+    applicationRootCamera4,
+    applicationRootCamera4ConsumerId
+} from "../../support/e2e";
+import {createCamera2HmacHeaders, createKeyHeder} from "../../support/commands";
 
 /**
  * When running `make dcup-full-action` at the root of the project, a file called `CC4KongKeys.json` will be created as a fixture.
@@ -20,6 +25,18 @@ describe('Camera 4 API tests (KEY)', () => {
             cy.loginKey(applicationRootCamera4);
             cy.contains('Welcome to Healthy cameras!').should('exist');
         }
+    })
+
+    it('should read consumer name', () => {
+        createKeyHeder().then(headers => {
+            cy.request({
+                url: applicationRootCamera4ConsumerId ,
+                headers:headers
+            }).then(response => {
+                console.log(JSON.stringify(response));
+                expect(response.body).to.be.eq('camera4');
+            })
+        })
     })
 
 });

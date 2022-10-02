@@ -68,49 +68,24 @@ Cypress.Commands.add('loginHmacAuth', (path: string) => {
 })
 
 Cypress.Commands.add('loginJWT', (path: string) => {
-    cy.fixture('CC3KongToken').then(data => {
-        let kongToken = data.data[0];
-        let secret = kongToken.secret;
-        let key = kongToken.key;
-        const token = jwt.sign(
-            {
-                algorithm: "HS256",
-                type: "JWT",
-            },
-            secret,
-            {
-                issuer: key,
-                expiresIn: "12h",
-                algorithm: "HS256"
-            });
-        let headers = {
-            "Authorization": `Bearer ${token}`
-        };
+    createJWTToken().then(headers => {
         cy.intercept("*", withHeaders(headers))
         cy.visit(path, {
             method: "GET",
             headers: headers
         });
-    });
+    })
 })
 
 Cypress.Commands.add("loginKey", (path: string) => {
-    cy.fixture('CC4KongKeys').then(data => {
-        const apikey = data.data[0].key
-        return {
-            apikey: apikey
-        };
-    }).then(headers => {
+    createKeyHeder().then(headers => {
         cy.intercept("*", withHeaders(headers))
         cy.visit(path)
     });
 })
 
 Cypress.Commands.add('loginLDAP', (path: string) => {
-    const credentials = btoa("admin:password");
-    let headers = {
-        "Authorization": `ldap ${credentials}`
-    };
+    let headers = createLDAPHeaders();
     cy.intercept("*", withHeaders(headers))
     cy.visit(path, {
         headers: headers
@@ -232,7 +207,7 @@ Cypress.on('uncaught:exception', (err) => {
     return true;
 })
 
-Cypress.Commands.add('inputOnCamera', (camera: string, name:string, value:string) => {
+Cypress.Commands.add('inputOnCamera', (camera: string, name: string, value: string) => {
     cy.get('mat-card-title').contains(camera).siblings().find(`input[name="${name}"]`).type(value);
 });
 
@@ -268,15 +243,15 @@ Cypress.Commands.add('logAll', () => {
         let kongToken = data.data[0];
         let secret = kongToken.secret;
         let key = kongToken.key;
-        cy.inputOnCamera(jwtAuth,'jwt-secret', secret)
-        cy.inputOnCamera(jwtAuth,'jwt-issuer', key)
+        cy.inputOnCamera(jwtAuth, 'jwt-secret', secret)
+        cy.inputOnCamera(jwtAuth, 'jwt-issuer', key)
         cy.sendRequest(jwtAuth);
 
     });
 
     cy.fixture('CC4KongKeys').then(data => {
         const apikey = data.data[0].key
-        cy.inputOnCamera(apiKeyAuth,'key-key', apikey)
+        cy.inputOnCamera(apiKeyAuth, 'key-key', apikey)
         cy.sendRequest(apiKeyAuth);
     });
 
@@ -297,5 +272,39 @@ export function createCamera2HmacHeaders(method: string, path: string): Partial<
         'Authorization': authorization,
         'X-Date': dateFormat,
         'Content-Type': 'application/json',
+    };
+}
+
+export const createKeyHeder = () => cy.fixture('CC4KongKeys').then(data => {
+    const apikey = data.data[0].key
+    return {
+        apikey: apikey
+    };
+});
+
+export const createJWTToken = () => cy.fixture('CC3KongToken').then(data => {
+    let kongToken = data.data[0];
+    let secret = kongToken.secret;
+    let key = kongToken.key;
+    const token = jwt.sign(
+        {
+            algorithm: "HS256",
+            type: "JWT",
+        },
+        secret,
+        {
+            issuer: key,
+            expiresIn: "12h",
+            algorithm: "HS256"
+        });
+    return {
+        "Authorization": `Bearer ${token}`
+    }
+});
+
+export function createLDAPHeaders() {
+    const credentials = btoa("admin:password");
+    return {
+        "Authorization": `ldap ${credentials}`
     };
 }

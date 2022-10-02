@@ -1,5 +1,6 @@
-import {applicationRootCamera3, applicationRootCamera3UserInfo} from "../../support/e2e";
+import {applicationRootCamera3, applicationRootCamera3ConsumerId} from "../../support/e2e";
 import * as jwt from "jsonwebtoken";
+import {createJWTToken} from "../../support/commands";
 
 /**
  * When running `make dcup-full-action` at the root of the project, a file called `CC3KongToken.json` will be created as a fixture.
@@ -30,27 +31,9 @@ describe('Camera 3 API tests (JWT)', () => {
     })
 
     it('should read consumer name', () => {
-        cy.fixture('CC3KongToken').then(data => {
-            let kongToken = data.data[0];
-            let secret = kongToken.secret;
-            let key = kongToken.key;
-            const token = jwt.sign(
-                {
-                    algorithm: "HS256",
-                    type: "JWT",
-                },
-                secret,
-                {
-                    issuer: key,
-                    expiresIn: "12h",
-                    algorithm: "HS256"
-                });
-            let headers = {
-                "Authorization": `Bearer ${token}`
-            };
-
+        createJWTToken().then(headers => {
             cy.request({
-                url: applicationRootCamera3UserInfo,
+                url: applicationRootCamera3ConsumerId,
                 headers: headers,
             }).then(response => {
                 console.log(JSON.stringify(response));

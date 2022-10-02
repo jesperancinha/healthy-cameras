@@ -1,4 +1,9 @@
-import {applicationRootCamera5} from "../../support/e2e";
+import {
+    applicationRootCamera4ConsumerId,
+    applicationRootCamera5,
+    applicationRootCamera5CredentialId
+} from "../../support/e2e";
+import {createKeyHeder, createLDAPHeaders} from "../../support/commands";
 
 describe('Camera 5 API tests (LDAP)', () => {
 
@@ -16,6 +21,18 @@ describe('Camera 5 API tests (LDAP)', () => {
             cy.loginLDAP(applicationRootCamera5);
             cy.contains('Welcome to Healthy cameras!').should('exist');
         }
+    })
+
+    it('should read consumer name', () => {
+        createKeyHeder().then(headers => {
+            cy.request({
+                url: applicationRootCamera5CredentialId,
+                headers: createLDAPHeaders()
+            }).then(response => {
+                console.log(JSON.stringify(response));
+                expect(response.body).to.be.eq('admin');
+            })
+        })
     })
 
 });

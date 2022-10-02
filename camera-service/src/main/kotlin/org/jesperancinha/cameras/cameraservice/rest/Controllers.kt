@@ -33,7 +33,7 @@ class CameraController(
     suspend fun findConsumerId(@RequestHeader("x-consumer-username") consumerId: String?) =
         ResponseEntity.ok(consumerId)
 
-    @GetMapping(value = ["/credentialId"])
+    @GetMapping(value = ["/credentialid"])
     @ResponseBody
     suspend fun findCredentialId(@RequestHeader("x-credential-identifier") credentialId: String?) =
         ResponseEntity.ok(credentialId)

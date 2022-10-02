@@ -1,4 +1,4 @@
-import {applicationRootCamera1, applicationRootCamera1UserInfo} from "../../support/e2e";
+import {applicationRootCamera1, applicationRootCamera1ConsumerId} from "../../support/e2e";
 
 describe('Camera 1 API tests (Basic Auth)', () => {
 
@@ -19,7 +19,7 @@ describe('Camera 1 API tests (Basic Auth)', () => {
     it('should read consumer name', () => {
         cy.request({
             method:'GET',
-            url: applicationRootCamera1UserInfo,
+            url: applicationRootCamera1ConsumerId,
             headers: {
                 'Content-Type': 'application/text',
                 'Authorization': `Basic ${btoa("cameraUser1:administrator")}`

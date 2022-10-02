@@ -1,4 +1,4 @@
-import {applicationAuthAPI, applicationRootCamera6, applicationRootCamera6UserInfo} from "../../support/e2e";
+import {applicationAuthAPI, applicationRootCamera6, applicationRootCamera6UserId} from "../../support/e2e";
 
 
 describe('Camera OAuth2 Tests', () => {
@@ -53,7 +53,7 @@ describe('Camera OAuth2 Tests', () => {
             expect(response.status).to.be.eq(200);
             let authorizationCode = response.body.access_token;
             cy.log(authorizationCode);
-            let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6UserInfo}`;
+            let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6UserId}`;
             cy.request(
                 {
                     url: camera6Endpoint,

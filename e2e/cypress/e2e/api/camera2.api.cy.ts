@@ -1,7 +1,7 @@
 import {
-    applicationRootCamera1UserInfo,
+    applicationRootCamera1ConsumerId,
     applicationRootCamera2,
-    applicationRootCamera2UserInfo
+    applicationRootCamera2ConsumerId
 } from "../../support/e2e";
 import {createCamera2HmacHeaders} from "../../support/commands";
 
@@ -37,8 +37,8 @@ describe('Camera 2 API tests (HMAC)', () => {
 
     it('should read consumer name', () => {
         cy.request({
-            url: applicationRootCamera2UserInfo,
-            headers: createCamera2HmacHeaders("GET", applicationRootCamera2UserInfo)
+            url: applicationRootCamera2ConsumerId,
+            headers: createCamera2HmacHeaders("GET", applicationRootCamera2ConsumerId)
         }).then(response => {
             console.log(JSON.stringify(response));
             expect(response.body).to.be.eq('camera2');

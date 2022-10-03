@@ -19,6 +19,10 @@ data class Event(
     val id: String, val dateTime: String, val status: Status
 )
 
+/**
+ * This component is responsible for finding out if the current camera is on or not.
+ * It communicates with the FE via reactive websockets
+ */
 @Component
 class ReactiveWebSocketHandler(
     val healthIndicator: PingHealthIndicator

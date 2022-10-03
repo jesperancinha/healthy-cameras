@@ -108,6 +108,10 @@ build-nginx:
 	make build-npm
 	docker-compose build --no-cache nginx
 	docker-compose up -d nginx
+build-graphite:
+	docker-compose rm graphite
+	docker-compose build --no-cache graphite
+	docker-compose up -d graphite
 stop-cameras-auth-service:
 	docker-compose -f docker-compose-auth.yml stop cameras-auth-service
 status-containers:

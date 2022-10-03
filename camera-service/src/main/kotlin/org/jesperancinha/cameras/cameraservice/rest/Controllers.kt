@@ -18,8 +18,7 @@ import reactor.kotlin.core.publisher.toMono
 class CameraController(
     val cameraService: CameraService,
     @Value("\${hc.camera.number}")
-    val cameraNumber: Long,
-    val securityService: SecurityService
+    val cameraNumber: Long
 ) {
 
     @GetMapping

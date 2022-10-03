@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.web.bind.annotation.*
-import reactor.core.publisher.Mono
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestHeader
+import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.RestController
 import reactor.kotlin.core.publisher.toMono
 
 @RestController
@@ -47,8 +49,35 @@ class CameraController(
     @ResponseBody
     suspend fun findAllHeaders(@RequestHeader headers: Map<String, String>?) = ResponseEntity.ok(headers)
 
-    @GetMapping(value = ["/whatever"])
+    @GetMapping(value = ["/scopes/admin"])
     @ResponseBody
-    @PreAuthorize("@securityService.checkHeader(#scope)")
-    fun test(@RequestHeader("x-authenticated-scope") scope: String) = ResponseEntity.ok(scope).toMono()
+    @PreAuthorize("@securityService.checkAdminHeader(#scope)")
+    fun findScopeAdminInfo(@RequestHeader("x-authenticated-scope") scope: String) = findScopeAdminInfo()
+
+    @GetMapping(value = ["/scopes/observer"])
+    @ResponseBody
+    @PreAuthorize("@securityService.checkObserverHeader(#scope)")
+    fun findScopeObserverInfo(@RequestHeader("x-authenticated-scope") scope: String) = findScopeObserverInfo()
+
+    @GetMapping(value = ["/scopes/visitor"])
+    @ResponseBody
+    @PreAuthorize("@securityService.checkVisitorHeader(#scope)")
+    fun findScopeVisitorInfo(@RequestHeader("x-authenticated-scope") scope: String) = findScopeVisitorInfo()
+
+    @GetMapping(value = ["/scopes/researcher"])
+    @ResponseBody
+    @PreAuthorize("@securityService.checkResearcherHeader(#scope)")
+    fun findScopeResearcherInfo(@RequestHeader("x-authenticated-scope") scope: String) = findScopeResearcherInfo()
+
 }
+
+private fun findScopeAdminInfo() = findScopeInfo("admin")
+
+private fun findScopeObserverInfo() = findScopeInfo("observer")
+
+private fun findScopeVisitorInfo() = findScopeInfo("visitor")
+
+private fun findScopeResearcherInfo() = findScopeInfo("researcher")
+
+private fun findScopeInfo(scope: String) =
+    ResponseEntity.ok("This is the info for users with scope $scope.").toMono()

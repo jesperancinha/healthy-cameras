@@ -5,6 +5,7 @@ import io.micrometer.core.instrument.Gauge
 import io.micrometer.core.instrument.MeterRegistry
 import kotlinx.coroutines.runBlocking
 import org.jesperancinha.cameras.cameraservice.service.CameraService
+import org.jesperancinha.cameras.cameraservice.service.SecurityService.Companion.logger
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -26,7 +27,7 @@ class MetricsConfiguration(
     @Value("\${hc.camera.number}")
     val cameraNumber: Long
 ) {
-    private val failList: MutableList<Long> = mutableListOf()
+    private val last10FileDeltaNSReading: MutableList<Double> = mutableListOf()
 
     /**
      * You should see all fails happening every 10 seconds if your sampling rate in graphite is configured for 10 seconds
@@ -56,9 +57,18 @@ class MetricsConfiguration(
      */
     @Bean
     fun gaugeMetric(meterRegistry: MeterRegistry) =
-        Gauge.builder("camera.image.read.time", failList)
-        {
+        Gauge.builder("camera.image.read.time", last10FileDeltaNSReading)
+        { last10Records ->
+            logger.debug("$last10FileDeltaNSReading")
             measureNanoTime { runBlocking { cameraService.getImageByteArrayByCameraNumber(cameraNumber) } }.toDouble()
+                .let { record ->
+                    last10Records.add(record)
+                    if (last10Records.size == 11) {
+                        last10Records.removeFirst()
+                    }
+                    logger.info("Refreshed ${last10Records.size} metrics. Last value read is ${last10Records.last()} ns")
+                    record
+                }
         }
             .tag("type", "image_read_ns")
             .description("Time to read one image from camera in ns")

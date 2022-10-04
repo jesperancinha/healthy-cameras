@@ -60,6 +60,9 @@ or
 make dcup
 ```
 
+-   [StatsD @ Etsy](https://www.etsy.com/codeascraft/measure-anything-measure-everything)
+-   [statsd / statsd  @ GitHub](https://github.com/statsd/statsd)
+-   [What is StatsD exactly? @ Datadog](https://www.datadoghq.com/blog/statsd/)
 -   [Prometheus on port 9090 - http://localhost:9090/](http://localhost:9090/)
 -   [Grafana on port 3000 - http://localhost:3000/](http://localhost:3000/)
 -   [Prometheus' metrics raw in the Camera Service on port 8080 - http://localhost:8080/actuator/prometheus](http://localhost:8080/actuator/prometheus)

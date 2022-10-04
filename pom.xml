@@ -27,6 +27,7 @@
         <springdoc-openapi-webflux-core.version>1.6.11</springdoc-openapi-webflux-core.version>
         <testcontainers.version>1.17.4</testcontainers.version>
         <postgresql.version>42.5.0</postgresql.version>
+        <micrometer-registry-statsd.version>1.9.4</micrometer-registry-statsd.version>
     </properties>
 
     <dependencyManagement>
@@ -42,6 +43,11 @@
                 <groupId>io.r2dbc</groupId>
                 <artifactId>r2dbc-postgresql</artifactId>
                 <version>${r2dbc-postgresql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-registry-statsd</artifactId>
+                <version>${micrometer-registry-statsd.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.postgresql</groupId>

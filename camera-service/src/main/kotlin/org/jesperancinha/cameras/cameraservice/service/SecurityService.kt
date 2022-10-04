@@ -1,18 +1,10 @@
 package org.jesperancinha.cameras.cameraservice.service
 
 import io.micrometer.core.instrument.Counter
-import io.micrometer.core.instrument.Gauge
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import org.apache.tomcat.util.net.DispatchType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import kotlin.system.measureTimeMillis
 
 @Service
 class SecurityService(

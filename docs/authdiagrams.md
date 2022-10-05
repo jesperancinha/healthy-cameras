@@ -47,7 +47,7 @@ sequenceDiagram
     links Kong Gateway:{"Home": "https://konghq.com/", "StatsD": "https://docs.konghq.com/hub/kong-inc/statsd/", "JWT": "https://docs.konghq.com/hub/kong-inc/jwt/"}
     links Camera 3:{"Spring Boot": "https://spring.io/projects/spring-boot", "Spring Reactive": "https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html"} 
     
-    Camera 3 User-->>Kong Gateway: Sends JWT pre-created token with previously signed for validation
+    Camera 3 User-->>Kong Gateway: Sends JWT pre-created token previously signed for validation
     Kong Gateway-->>Camera 3: User accepted
     Camera 3-->>Kong Gateway: Response
     Kong Gateway-->>Camera 3 User: Data + Images (200)

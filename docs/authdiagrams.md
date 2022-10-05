@@ -119,7 +119,7 @@ sequenceDiagram
     Kong Gateway AP-->>Camera 6 User: Returns bearer token back to user
     Camera 6 User-->>Kong Gateway C6: user gains access
     Kong Gateway C6-->>Camera 6: Access granted
-    Camera 6-->>Kong Gateway C6: Authenticated request
+    Camera 6-->>Kong Gateway C6: Authorized request
     Kong Gateway C6-->>Camera 6 User: Accesses Data + Images (200) with bearer token
 ```
 

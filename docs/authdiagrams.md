@@ -77,6 +77,7 @@ sequenceDiagram
 sequenceDiagram
     participant Camera 5 User
     participant Kong Gateway
+    participant LDAP Service
     participant Camera 5
     autonumber
 
@@ -84,6 +85,8 @@ sequenceDiagram
     links Camera 5:{"Spring Boot": "https://spring.io/projects/spring-boot", "Spring Reactive": "https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html"} 
     
     Camera 5 User-->>Kong Gateway: Form request with username:password base64 encoded or just form fields
+    Kong Gateway-->>LDAP Service: User authenticates
+    LDAP Service-->>Kong Gateway: User granted permission
     Kong Gateway-->>Camera 5: User accepted
     Camera 5-->>Kong Gateway: Response
     Kong Gateway-->>Camera 5 User: Data + Images (200)

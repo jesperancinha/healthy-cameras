@@ -30,7 +30,7 @@ import kotlin.system.measureNanoTime
         private val last10FileDeltaNSReading: MutableList<Double> = mutableListOf()
 
         /**
-         * You should see all fails happening every 10 seconds if your sampling rate in graphite is configured for 10 seconds
+         * You should see all fails happening every 10 seconds if your polling rate is every 10 seconds
          * For every 10 seconds you'll get all fails in that period
          */
         @Bean
@@ -41,8 +41,8 @@ import kotlin.system.measureNanoTime
             .register(meterRegistry)
 
         /**
-         * You should see all fails happening every 10 seconds if your sampling rate in graphite is configured for 10 seconds
-         * For every 10 seconds you'll get all fails in that period
+         * You should see all fails happening every 10 seconds if your polling rate is every 10 seconds
+         * For every 10 seconds you'll get all heartbeats in the period
          */
         @Bean
         @Qualifier("heartBeats")

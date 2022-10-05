@@ -85,7 +85,6 @@ sequenceDiagram
     
     Camera 5 User-->>Kong Gateway: Form request with username:password base64 encoded or just form fields
     Kong Gateway-->>Camera 5: User accepted
-    Kong Gateway-->>Camera 5 User: User rejected (401)
     Camera 5-->>Kong Gateway: Response
     Kong Gateway-->>Camera 5 User: Data + Images (200)
 ```

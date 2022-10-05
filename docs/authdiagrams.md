@@ -9,7 +9,7 @@ sequenceDiagram
     participant Camera 1
     autonumber
 
-    links Kong Gateway:{"Home": "https://konghq.com/", "StatsD": "https://docs.konghq.com/hub/kong-inc/statsd/"}
+    links Kong Gateway:{"Home": "https://konghq.com/", "StatsD": "https://docs.konghq.com/hub/kong-inc/statsd/", "Basic Auth": "https://docs.konghq.com/hub/kong-inc/basic-auth/"}
     links Camera 1:{"Spring Boot": "https://spring.io/projects/spring-boot", "Spring Reactive": "https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html"} 
     Camera 1 User-->>Kong Gateway: Form request with username:password base64 encoded or just form fields
     Kong Gateway-->>Camera 1: User accepted
@@ -26,7 +26,7 @@ sequenceDiagram
     participant Kong Gateway
     participant Camera 2
     
-    links Kong Gateway:{"Home": "https://konghq.com/", "StatsD": "https://docs.konghq.com/hub/kong-inc/statsd/"}
+    links Kong Gateway:{"Home": "https://konghq.com/", "StatsD": "https://docs.konghq.com/hub/kong-inc/statsd/", "HMAC":"https://docs.konghq.com/hub/kong-inc/hmac-auth/"}
     links Camera 2:{"Spring Boot": "https://spring.io/projects/spring-boot", "Spring Reactive": "https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html"} 
     
     Camera 2 User-->>Kong Gateway: Sends HMAC token as standard with secret as ecnrypting element
@@ -34,5 +34,23 @@ sequenceDiagram
     Kong Gateway-->>Camera 2 User: User rejected (401)
     Camera 2-->>Kong Gateway: Response
     Kong Gateway-->>Camera 2 User: Data + Images (200)
+```
+
+## JWT Authentication
+
+```mermaid
+sequenceDiagram
+    participant Camera 3 User
+    participant Kong Gateway
+    participant Camera 3
+    
+    links Kong Gateway:{"Home": "https://konghq.com/", "StatsD": "https://docs.konghq.com/hub/kong-inc/statsd/", "JWT": "https://docs.konghq.com/hub/kong-inc/jwt/"}
+    links Camera 3:{"Spring Boot": "https://spring.io/projects/spring-boot", "Spring Reactive": "https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html"} 
+    
+    Camera 3 User-->>Kong Gateway: Sends HMAC token as standard with secret as ecnrypting element
+    Kong Gateway-->>Camera 3: User accepted
+    Kong Gateway-->>Camera 3 User: User rejected (401)
+    Camera 3-->>Kong Gateway: Response
+    Kong Gateway-->>Camera 3 User: Data + Images (200)
 ```
 

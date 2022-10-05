@@ -13,7 +13,6 @@ sequenceDiagram
     links Camera 1:{"Spring Boot": "https://spring.io/projects/spring-boot", "Spring Reactive": "https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html"} 
     Camera 1 User-->>Kong Gateway: Form request with username:password base64 encoded or just form fields
     Kong Gateway-->>Camera 1: User accepted
-    Kong Gateway-->>Camera 1 User: User rejected (401)
     Camera 1-->>Kong Gateway: Response
     Kong Gateway-->>Camera 1 User: Data + Images (200)
 ```
@@ -32,7 +31,6 @@ sequenceDiagram
     
     Camera 2 User-->>Kong Gateway: Sends HMAC token as standard with secret as ecnrypting element
     Kong Gateway-->>Camera 2: User accepted
-    Kong Gateway-->>Camera 2 User: User rejected (401)
     Camera 2-->>Kong Gateway: Response
     Kong Gateway-->>Camera 2 User: Data + Images (200)
 ```
@@ -51,7 +49,6 @@ sequenceDiagram
     
     Camera 3 User-->>Kong Gateway: Sends JWT pre-created token with previously signed for validation
     Kong Gateway-->>Camera 3: User accepted
-    Kong Gateway-->>Camera 3 User: User rejected (401)
     Camera 3-->>Kong Gateway: Response
     Kong Gateway-->>Camera 3 User: Data + Images (200)
 ```
@@ -70,7 +67,6 @@ sequenceDiagram
     
     Camera 4 User-->>Kong Gateway: Send the API key to gain access
     Kong Gateway-->>Camera 4: User accepted
-    Kong Gateway-->>Camera 4 User: User rejected (401)
     Camera 4-->>Kong Gateway: Response
     Kong Gateway-->>Camera 4 User: Data + Images (200)
 ```
@@ -122,6 +118,8 @@ sequenceDiagram
     Authentication Provider-->>Kong Gateway AP: Returns bearer token back to user
     Kong Gateway AP-->>Camera 6 User: Returns bearer token back to user
     Camera 6 User-->>Kong Gateway C6: user gains access
-    Kong Gateway C6-->>Camera 6: Accesses Data + Images (200) with bearer token
+    Kong Gateway C6-->>Camera 6: Access granted
+    Camera 6-->>Kong Gateway C6: Authenticated request
+    Kong Gateway C6-->>Camera 6 User: Accesses Data + Images (200) with bearer token
 ```
 

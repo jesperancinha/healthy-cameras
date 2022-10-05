@@ -2,7 +2,7 @@
 
 ## Auth
 
-- [Auth Diagrams](./AuthDiagrams.md)
+- [Auth Diagrams](./authdiagrams.md)
 
 ## References
 

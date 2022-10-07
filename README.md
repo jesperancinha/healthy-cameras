@@ -60,9 +60,6 @@ or
 make dcup
 ```
 
--   [StatsD @ Etsy](https://www.etsy.com/codeascraft/measure-anything-measure-everything)
--   [statsd / statsd  @ GitHub](https://github.com/statsd/statsd)
--   [What is StatsD exactly? @ Datadog](https://www.datadoghq.com/blog/statsd/)
 -   [Prometheus on port 9090 - http://localhost:9090/](http://localhost:9090/)
 -   [Grafana on port 3000 - http://localhost:3000/](http://localhost:3000/)
 -   [Prometheus' metrics raw in the Camera Service on port 8080 - http://localhost:8080/actuator/prometheus](http://localhost:8080/actuator/prometheus)
@@ -75,6 +72,9 @@ make dcup
 
 #### Online
 
+-   [StatsD @ Etsy](https://www.etsy.com/codeascraft/measure-anything-measure-everything)
+-   [statsd / statsd  @ GitHub](https://github.com/statsd/statsd)
+-   [What is StatsD exactly? @ Datadog](https://www.datadoghq.com/blog/statsd/)
 -   [Kubernetes Documentation / Concepts Services / Load Balancing / Networking Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 -   [A Deep Dive Into the Four Types of Prometheus Metrics](https://www.timescale.com/blog/four-types-prometheus-metrics-to-collect/)
 -   [Defining custom metrics in a Spring Boot application using Micrometer](https://autsoft.net/defining-custom-metrics-in-a-spring-boot-application-using-micrometer/)

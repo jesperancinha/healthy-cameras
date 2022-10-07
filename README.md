@@ -42,9 +42,7 @@
 
 ## Introduction
 
-🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 !!! [Under construction...](https://github.com/jesperancinha/project-signer/blob/master/project-signer-templates/UnderConstruction.md) !!! 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
-
-Demo on Kong in a system where several cameras watch over a building, and we need to constantly monitor their status
+Demo on Kong in a system where several cameras watch over a plant, and we need to constantly monitor their status
 
 ## How to run
 

@@ -1,9 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ProviderService} from "../services/provider.service";
 import {capitalizeText} from "../services/utils";
 import {DynamicControlData} from "../services/domain/dynamic.control.data";
 import {CameraSocketService} from "../services/camera-socket.service";
-import {DomSanitizer} from "@angular/platform-browser";
 
 const WAITING_MESSAGE = "...waiting for response";
 
@@ -20,6 +19,7 @@ export class CameraViewComponent<OUT> implements OnInit {
   @Input() prefix: string | undefined;
   basicMessage: string | undefined;
   errorMessage: string | undefined | null;
+  sentInfo: string | undefined | null;
   currentState: DynamicControlData[] = [];
   emptyMessage: string | undefined;
   imageSrc: any;
@@ -33,12 +33,13 @@ export class CameraViewComponent<OUT> implements OnInit {
     this.providerService?.eventEmitter().subscribe(sendInfo => {
       this.basicMessage = this.basicMessage?.replace(WAITING_MESSAGE, "");
       this.basicMessage = `${this.basicMessage}\n${JSON.stringify(sendInfo)}`;
+      this.sentInfo = sendInfo;
     })
   }
 
   sendRequest() {
     this.params.clear();
-    this.errorMessage = null;
+    this.clearLogs();
     this.basicMessage = WAITING_MESSAGE;
     this.currentState.forEach(entry => {
       this.params.set(entry.param.replace(`${this.prefix}-`, ""), entry.value);
@@ -47,7 +48,7 @@ export class CameraViewComponent<OUT> implements OnInit {
       data => {
         this.basicMessage = `${data}\n\n${this.basicMessage}`;
       }, error => {
-        this.errorMessage = JSON.stringify(error);
+        this.errorMessage = `Error sending data: ${this.sentInfo}. Server Message is: ${JSON.stringify(error)}`;
       })
     this.providerService?.getImage(this.params).subscribe(response => this.imageSrc = 'data:image/png;base64,' + btoa(String.fromCharCode(...new Uint8Array(response))));
   }
@@ -75,5 +76,10 @@ export class CameraViewComponent<OUT> implements OnInit {
       this.basicMessage = this.emptyMessage;
     }
     return status;
+  }
+
+  clearLogs() {
+    this.errorMessage = null;
+    this.basicMessage = "";
   }
 }

@@ -4,10 +4,11 @@
     <div class="red-sign" *ngIf="getStatus()!='UP'">Camera is unreachable</div>
     <div class="green-sign" *ngIf="getStatus()==='UP'">Camera is On</div>
   </mat-card>
-  <mat-card class="monitor">{{basicMessage}}</mat-card>
+  <mat-card *ngIf="!errorMessage" class="monitor" cdk-scrollable>{{basicMessage}}</mat-card>
   <mat-card *ngIf="errorMessage" class="error">{{errorMessage}}</mat-card>
   <mat-card class="logbutton">
     <button mat-button (click)="sendRequest()">Send Request</button>
+    <button mat-button (click)="clearLogs()">Clear logs</button>
   </mat-card>
   <mat-card style="top: 0px; float: right; margin-bottom: -150px" *ngIf="imageSrc">
     <img [src]="imageSrc" alt="{{prefix}}-camera" width="200px"/>

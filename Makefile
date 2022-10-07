@@ -55,7 +55,7 @@ hc-wait:
 	bash hc_wait.sh
 kong-config:
 	cd kong && make kong-config
-dcup-light:
+dcup-light: dcd
 	docker-compose up -d kong-database kong kong-migration kong-deck camera-1-service
 	make kong-config
 dcup-base:

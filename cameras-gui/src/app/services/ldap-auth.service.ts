@@ -22,17 +22,10 @@ export class LdapAuthService implements ProviderService<string> {
     return this.newHeaderEvent;
   }
 
-  retrieveWelcomeMessage = (input: Map<string, string>): Observable<string> => this.httpClient.get(input.get("path") || "", {
-    headers: this.emit({
-      "Authorization": `ldap ${(this.getCredentials(input))}`
-    }),
-    responseType: 'text'
-  })
-
-
   private getCredentials(input: Map<string, string>) {
     return btoa(`${input.get("username")}:${input.get("password")}`);
   }
+
 
   getImage = (input: Map<string, string>): Observable<ArrayBuffer> =>
     this.httpClient.get(`${input.get("path") || ""}/camera`, {
@@ -41,4 +34,11 @@ export class LdapAuthService implements ProviderService<string> {
       },
       responseType: 'arraybuffer'
     });
+
+  retrieveWelcomeMessage = (input: Map<string, string>): Observable<string> => this.httpClient.get(input.get("path") || "", {
+    headers: this.emit({
+      "Authorization": `ldap ${(this.getCredentials(input))}`
+    }),
+    responseType: 'text'
+  })
 }

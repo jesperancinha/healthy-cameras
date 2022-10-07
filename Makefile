@@ -66,7 +66,9 @@ dcup-light-camera-4: dcd
 	make kong-config
 dcup-light-camera-5: dcd
 	docker-compose up -d kong-database kong kong-migration kong-deck openldap camera-5-service
-	make kong-config
+dcup-light-camera-6: dcd
+	docker-compose up -d kong-database kong kong-migration kong-deck camera-6-service
+	make kong-config build-cameras-auth-service
 dcup-base:
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml build camera-1-service camera-2-service camera-3-service camera-4-service camera-5-service camera-6-service
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d

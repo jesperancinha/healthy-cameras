@@ -47,32 +47,32 @@ class TokenService(
         WebClient.builder().clientConnector(ReactorClientHttpConnector(httpClient)).build()
     }
 
-    fun createToken(
-        principal: UsernamePasswordAuthenticationToken, ctr: ClientTokenRequest
-    ): Mono<ResponseEntity<BearerTokenEnriched>> = principal.authorities.map { it.authority }[0].let { scope ->
-        webFluxClient.post().uri(authUrl).header(CONTENT_TYPE, APPLICATION_FORM_URLENCODED_VALUE)
-            .accept(MediaType.APPLICATION_JSON).body(createAuthFormRequestBody(scope))
-            .retrieve().bodyToMono(ResAuthorizeBody::class.java).map { authorizeBody ->
-                logger.info("Response redirect uri: ${authorizeBody.redirectUri}")
-                logger.info("Input redirect uri: ${ctr.redirectUri}")
-                if (validate) {
-                    authorizeBody.validate(ctr)
-                }
-                webFluxClient.post().uri(tokenUrl).body(
-                    createTokenFormRequestBody(scope, authorizeBody)
-                ).retrieve().bodyToMono(BearerToken::class.java).map { bearerToken ->
-                    bearerToken.enrich(authorizeBody.redirectUri)
-                }
+fun createToken(
+    principal: UsernamePasswordAuthenticationToken, ctr: ClientTokenRequest
+): Mono<ResponseEntity<BearerTokenEnriched>> = principal.authorities.map { it.authority }[0].let { scope ->
+    webFluxClient.post().uri(authUrl).header(CONTENT_TYPE, APPLICATION_FORM_URLENCODED_VALUE)
+        .accept(MediaType.APPLICATION_JSON).body(createAuthFormRequestBody(scope))
+        .retrieve().bodyToMono(ResAuthorizeBody::class.java).map { authorizeBody ->
+            logger.info("Response redirect uri: ${authorizeBody.redirectUri}")
+            logger.info("Input redirect uri: ${ctr.redirectUri}")
+            if (validate) {
+                authorizeBody.validate(ctr)
             }
-            .flatMap { it }
-            .map {
-                ResponseEntity
-                    .status(HttpStatus.OK)
-                    .header("Authorization", "bearer ${it.accessToken}")
-                    .location(URI.create(it.redirectUri))
-                    .body(it)
+            webFluxClient.post().uri(tokenUrl).body(
+                createTokenFormRequestBody(scope, authorizeBody)
+            ).retrieve().bodyToMono(BearerToken::class.java).map { bearerToken ->
+                bearerToken.enrich(authorizeBody.redirectUri)
             }
-    }
+        }
+        .flatMap { it }
+        .map {
+            ResponseEntity
+                .status(HttpStatus.OK)
+                .header("Authorization", "bearer ${it.accessToken}")
+                .location(URI.create(it.redirectUri))
+                .body(it)
+        }
+}
 
     private fun createTokenFormRequestBody(
         scope: String,

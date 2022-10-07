@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {ProviderService} from "./provider.service";
 import {Observable} from "rxjs/internal/Observable";
 import {HttpClient} from "@angular/common/http";
@@ -8,13 +8,24 @@ import {HttpClient} from "@angular/common/http";
 })
 export class LdapAuthService implements ProviderService<string> {
 
+  private newHeaderEvent = new EventEmitter<string>();
+
   constructor(private httpClient: HttpClient) {
   }
 
+  emit = <T>(info: T): T => {
+    this.newHeaderEvent.emit(JSON.stringify(info))
+    return info;
+  }
+
+  eventEmitter(): EventEmitter<string> {
+    return this.newHeaderEvent;
+  }
+
   retrieveWelcomeMessage = (input: Map<string, string>): Observable<string> => this.httpClient.get(input.get("path") || "", {
-    headers: {
+    headers: this.emit({
       "Authorization": `ldap ${(this.getCredentials(input))}`
-    },
+    }),
     responseType: 'text'
   })
 

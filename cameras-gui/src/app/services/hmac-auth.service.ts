@@ -1,4 +1,4 @@
- import {Injectable} from '@angular/core';
+ import {EventEmitter, Injectable} from '@angular/core';
 // @ts-ignore
 import crypto from "crypto";
 import {ProviderService} from "./provider.service";
@@ -10,7 +10,18 @@ import {Observable} from 'rxjs/internal/Observable';
 })
 export class HmacAuthService implements ProviderService<string> {
 
+  private newHeaderEvent = new EventEmitter<string>();
+
   constructor(private httpClient: HttpClient) {
+  }
+
+  emit = <T> (info: T): T => {
+    this.newHeaderEvent.emit(JSON.stringify(info))
+    return info;
+  }
+
+  eventEmitter(): EventEmitter<string> {
+    return this.newHeaderEvent;
   }
 
   getImage = (input: Map<string, string>): Observable<ArrayBuffer> => this.httpClient.get(`${input.get("path") || ""}/camera`, {
@@ -35,7 +46,7 @@ export class HmacAuthService implements ProviderService<string> {
   }
 
   retrieveWelcomeMessage = (input: Map<string, string>): Observable<string> => this.httpClient.get(input.get("path") || "", {
-    headers: this.createCamera2HmacHeaders(input.get("method") || "", input.get("path") || ""),
+    headers: this.emit(this.createCamera2HmacHeaders(input.get("method") || "", input.get("path") || "")),
     responseType: 'text'
   });
 }

@@ -36,8 +36,6 @@ function createCameraSocket(cf: { url: string; ref: string }, cameraStatus: Map<
   }
   clientWebSocket.onerror = function (error) {
     cameraStatus.set(cf.ref, error.type);
-    createCameraSocket(cf, cameraStatus)
-
   }
   clientWebSocket.onmessage = function (messageEvent) {
     cameraStatus.set(cf.ref, JSON.parse(messageEvent.data).status.status);

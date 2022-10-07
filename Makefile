@@ -56,7 +56,8 @@ hc-wait:
 kong-config:
 	cd kong && make kong-config
 dcup-light:
-	docker-compose up -d kong-database
+	docker-compose up -d kong-database kong kong-migration kong-deck camera-1-service
+	make kong-config
 dcup-base:
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml build camera-1-service camera-2-service camera-3-service camera-4-service camera-5-service camera-6-service
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d

@@ -1,9 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ProviderService} from "../services/provider.service";
 import {capitalizeText} from "../services/utils";
 import {DynamicControlData} from "../services/domain/dynamic.control.data";
 import {CameraSocketService} from "../services/camera-socket.service";
 import {DomSanitizer} from "@angular/platform-browser";
+
+const WAITING_MESSAGE = "...waiting for response";
 
 @Component({
   selector: 'app-camera-view',
@@ -16,27 +18,31 @@ export class CameraViewComponent<OUT> implements OnInit {
   @Input() params: Map<string, string> = new Map();
   @Input() title: string | undefined;
   @Input() prefix: string | undefined;
-  basicMessage: OUT | undefined;
+  basicMessage: string | undefined;
   currentState: DynamicControlData[] = [];
-  emptyMessage: OUT | undefined;
+  emptyMessage: string | undefined;
   imageSrc: any;
 
-  constructor(public cameraSocketService: CameraSocketService, private domSanitizer: DomSanitizer) {
+  constructor(public cameraSocketService: CameraSocketService) {
     this.emptyMessage = this.basicMessage;
   }
 
   ngOnInit(): void {
     this.currentState = this.controlNames();
+    this.providerService?.eventEmitter().subscribe(sendInfo => {
+      this.basicMessage = this.basicMessage?.replace(WAITING_MESSAGE,"");
+      this.basicMessage = `${this.basicMessage}\n${JSON.stringify(sendInfo)}`;
+    })
   }
 
   sendRequest() {
     this.params.clear();
-    this.basicMessage = "...waiting for response" as any;
+    this.basicMessage = WAITING_MESSAGE;
     this.currentState.forEach(entry => {
       this.params.set(entry.param.replace(`${this.prefix}-`, ""), entry.value);
     })
     this.providerService?.retrieveWelcomeMessage(this.params).subscribe(data => {
-      this.basicMessage = data
+      this.basicMessage = `${data}\n\n${this.basicMessage}`;
     })
     this.providerService?.getImage(this.params).subscribe(response => this.imageSrc = 'data:image/png;base64,' + btoa(String.fromCharCode(...new Uint8Array(response))));
   }

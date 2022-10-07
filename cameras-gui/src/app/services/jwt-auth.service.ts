@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {ProviderService} from "./provider.service";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
@@ -13,9 +13,20 @@ import CryptoJS from 'crypto-js'
 })
 export class JwtAuthService implements ProviderService<string> {
 
+  private newHeaderEvent = new EventEmitter<string>();
+
   private cryptoJS = CryptoJS;
 
   constructor(private httpClient: HttpClient) {
+  }
+
+  emit = <T>(info: T): T => {
+    this.newHeaderEvent.emit(JSON.stringify(info))
+    return info;
+  }
+
+  eventEmitter(): EventEmitter<string> {
+    return this.newHeaderEvent;
   }
 
   getImage = (input: Map<string, string>): Observable<ArrayBuffer> =>
@@ -58,11 +69,8 @@ export class JwtAuthService implements ProviderService<string> {
     };
   }
 
-  retrieveWelcomeMessage(input: Map<string, string>): Observable<string> {
-    const headers = this.createJwtHeader(input.get("secret") || "", input.get("issuer") || "");
-    return this.httpClient.get(input.get("path") || "", {
-      headers: headers,
-      responseType: 'text'
-    })
-  }
+  retrieveWelcomeMessage = (input: Map<string, string>): Observable<string> => this.httpClient.get(input.get("path") || "", {
+    headers: this.emit(this.createJwtHeader(input.get("secret") || "", input.get("issuer") || "")),
+    responseType: 'text'
+  })
 }

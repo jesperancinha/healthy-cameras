@@ -19,6 +19,7 @@ export class CameraViewComponent<OUT> implements OnInit {
   @Input() title: string | undefined;
   @Input() prefix: string | undefined;
   basicMessage: string | undefined;
+  errorMessage: string | undefined | null;
   currentState: DynamicControlData[] = [];
   emptyMessage: string | undefined;
   imageSrc: any;
@@ -30,20 +31,24 @@ export class CameraViewComponent<OUT> implements OnInit {
   ngOnInit(): void {
     this.currentState = this.controlNames();
     this.providerService?.eventEmitter().subscribe(sendInfo => {
-      this.basicMessage = this.basicMessage?.replace(WAITING_MESSAGE,"");
+      this.basicMessage = this.basicMessage?.replace(WAITING_MESSAGE, "");
       this.basicMessage = `${this.basicMessage}\n${JSON.stringify(sendInfo)}`;
     })
   }
 
   sendRequest() {
     this.params.clear();
+    this.errorMessage = null;
     this.basicMessage = WAITING_MESSAGE;
     this.currentState.forEach(entry => {
       this.params.set(entry.param.replace(`${this.prefix}-`, ""), entry.value);
     })
-    this.providerService?.retrieveWelcomeMessage(this.params).subscribe(data => {
-      this.basicMessage = `${data}\n\n${this.basicMessage}`;
-    })
+    this.providerService?.retrieveWelcomeMessage(this.params).subscribe(
+      data => {
+        this.basicMessage = `${data}\n\n${this.basicMessage}`;
+      }, error => {
+        this.errorMessage = JSON.stringify(error);
+      })
     this.providerService?.getImage(this.params).subscribe(response => this.imageSrc = 'data:image/png;base64,' + btoa(String.fromCharCode(...new Uint8Array(response))));
   }
 

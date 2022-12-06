@@ -23,11 +23,10 @@
         <omni-coveragereporter-maven-plugin.version>0.3.0</omni-coveragereporter-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <r2dbc-postgresql.version>0.8.13.RELEASE</r2dbc-postgresql.version>
-        <springdoc-openapi-webflux-ui.version>1.6.13</springdoc-openapi-webflux-ui.version>
-        <springdoc-openapi-webflux-core.version>1.6.13</springdoc-openapi-webflux-core.version>
         <testcontainers.version>1.17.6</testcontainers.version>
         <postgresql.version>42.5.1</postgresql.version>
         <micrometer-registry-statsd.version>1.10.2</micrometer-registry-statsd.version>
+        <springdoc-openapi-starter-webflux-ui.version>2.0.0</springdoc-openapi-starter-webflux-ui.version>
     </properties>
 
     <dependencyManagement>
@@ -61,13 +60,8 @@
             </dependency>
             <dependency>
                 <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-webflux-ui</artifactId>
-                <version>${springdoc-openapi-webflux-ui.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-webflux-core</artifactId>
-                <version>${springdoc-openapi-webflux-core.version}</version>
+                <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+                <version>${springdoc-openapi-starter-webflux-ui.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>

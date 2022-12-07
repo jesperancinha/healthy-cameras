@@ -83,6 +83,16 @@ services:
     - /camera-1-service/api/v1/hc/actuator
     strip_path: true
 - host: camera-1-service
+  name: camera-1-open-service
+  path: /api/v1/hc/webjars
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-1-service-open-route
+    paths:
+    - /camera-1-service/api/v1/hc/webjars
+    strip_path: true
+- host: camera-1-service
   name: camera-1-socket-service
   path: /api/v1/hc/camera-states-emitter
   port: 8080

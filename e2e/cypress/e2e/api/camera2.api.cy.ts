@@ -16,10 +16,10 @@ describe('Camera 2 API tests (HMAC)', () => {
         cy.contains("Welcome to Healthy cameras!").should('exist');
     })
 
-    it('should reload 10 times and fail', () => {
+    it('should reload 10 times and succeed', () => {
         for (let i = 0; i < 10; i++) {
-            cy.reload(createCamera2HmacHeaders("GET", applicationRootCamera2));
-            cy.contains('Unauthorized').should('exist');
+            cy.loginHmacAuth(applicationRootCamera2);
+            cy.contains("Welcome to Healthy cameras!").should('exist');
         }
     })
 

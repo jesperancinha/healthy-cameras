@@ -51,10 +51,8 @@ const oAuth2Auth = 'OAuth2 Auth';
 
 Cypress.Commands.add('loginBasicAuth', (path: string) => {
     cy.visit(path, {
-        auth: {
-            username: `cameraUser1`,
-            password: `administrator`,
-        },
+        method: 'GET',
+        headers: createBasicHeaders()
     });
 })
 
@@ -306,6 +304,12 @@ export const createJWTToken = () => cy.fixture('CC3KongToken').then(data => {
     }
 });
 
+export function createBasicHeaders() {
+    const credentials = btoa("cameraUser1:administrator");
+    return {
+        "Authorization": `basic ${credentials}`
+    };
+}
 export function createLDAPHeaders() {
     const credentials = btoa("admin:password");
     return {

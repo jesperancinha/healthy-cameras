@@ -83,14 +83,23 @@ services:
     - /camera-1-service/api/v1/hc/actuator
     strip_path: true
 - host: camera-1-service
-  name: camera-1-open-service
+  name: camera-1-open-service-webjars
   path: /api/v1/hc/webjars
   port: 8080
   protocol: http
   routes:
-  - name: camera-1-service-open-route
+  - name: camera-1-service-open-webjars
     paths:
     - /camera-1-service/api/v1/hc/webjars
+- host: camera-1-service
+  name: camera-1-open-service-v3
+  path: /api/v1/hc/v3
+  port: 8080
+  protocol: http
+  routes:
+  - name: camera-1-service-open-v3
+    paths:
+    - /camera-1-service/api/v1/hc/v3
     strip_path: true
 - host: camera-1-service
   name: camera-1-socket-service
@@ -103,6 +112,25 @@ services:
     - /camera-1-service/api/v1/hc/camera-states-emitter
     strip_path: true
 - host: camera-2-service
+  name: camera-2-open-service-v3
+  path: /api/v1/hc/v3
+  port: 8080
+  protocol: http
+  routes:
+    - name: camera-2-service-open-v3
+      paths:
+        - /camera-2-service/api/v1/hc/v3
+      strip_path: true
+- host: camera-2-service
+  name: camera-2-open-service-webjars
+  path: /api/v1/hc/webjars
+  port: 8080
+  protocol: http
+  routes:
+    - name: camera-2-service-open-webjars
+      paths:
+        - /camera-2-service/api/v1/hc/webjars
+- host: camera-2-service
   name: camera-2-socket-service
   path: /api/v1/hc/camera-states-emitter
   port: 8080
@@ -113,6 +141,25 @@ services:
     - /camera-2-service/api/v1/hc/camera-states-emitter
     strip_path: true
 - host: camera-3-service
+  name: camera-3-open-service-v3
+  path: /api/v1/hc/v3
+  port: 8080
+  protocol: http
+  routes:
+    - name: camera-3-service-open-v3
+      paths:
+        - /camera-3-service/api/v1/hc/v3
+      strip_path: true
+- host: camera-3-service
+  name: camera-3-open-service-webjars
+  path: /api/v1/hc/webjars
+  port: 8080
+  protocol: http
+  routes:
+    - name: camera-3-service-open-webjars
+      paths:
+        - /camera-3-service/api/v1/hc/webjars
+- host: camera-3-service
   name: camera-3-socket-service
   path: /api/v1/hc/camera-states-emitter
   port: 8080
@@ -122,6 +169,25 @@ services:
     paths:
     - /camera-3-service/api/v1/hc/camera-states-emitter
     strip_path: true
+- host: camera-4-service
+  name: camera-4-open-service-v4
+  path: /api/v1/hc/v3
+  port: 8080
+  protocol: http
+  routes:
+    - name: camera-4-service-open-v4
+      paths:
+        - /camera-4-service/api/v1/hc/v3
+      strip_path: true
+- host: camera-4-service
+  name: camera-4-open-service-webjars
+  path: /api/v1/hc/webjars
+  port: 8080
+  protocol: http
+  routes:
+    - name: camera-4-service-open-webjars
+      paths:
+        - /camera-4-service/api/v1/hc/webjars
 - host: camera-4-service
   name: camera-4-socket-service
   path: /api/v1/hc/camera-states-emitter

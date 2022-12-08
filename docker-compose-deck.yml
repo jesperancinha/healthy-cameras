@@ -1,0 +1,15 @@
+services:
+  kong-deck:
+    hostname: kong-deck
+    container_name: kong-deck
+    image: kong/deck
+    volumes:
+      - ${PWD}/kong:/deck
+    command: "sync --kong-addr http://kong:8001 -s /deck/kong.yaml"
+    networks:
+      - healthy-cameras
+    depends_on:
+      kong:
+        condition: service_healthy
+      kong-migration:
+        condition: service_completed_successfully

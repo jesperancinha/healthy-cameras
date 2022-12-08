@@ -78,7 +78,7 @@ dcup-isolated-base:
 	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-deck.yml -f docker-compose-pipeline.override.yml build camera-1-service camera-2-service camera-3-service camera-4-service camera-5-service camera-6-service
 	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-deck.yml -f docker-compose-pipeline.override.yml up -d
 dcup-auth:
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose-auth.yml up -d cameras-auth-service
+	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-auth.yml up -d cameras-auth-service
 dcup: dcd dcup-base
 create-network:
 	docker network create healthy-cameras_healthy-cameras

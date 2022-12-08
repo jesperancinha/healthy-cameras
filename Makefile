@@ -24,7 +24,7 @@ docker:
 build-images:
 	docker-compose -p ${GITHUB_RUN_ID} build
 build-docker: stop no-test dcup
-stop:
+stop: stop-auth-service
 	docker ps -a -q --filter="name=kong" | xargs -I {} docker stop {}
 	docker ps -a -q --filter="name=kong" | xargs -I {} docker rm {}
 	docker ps -a -q --filter="name=camera" | xargs -I {} docker stop {}
@@ -37,6 +37,7 @@ stop:
 	docker ps -a -q --filter="name=nginx" | xargs -I {} docker rm {}
 	docker ps -a -q --filter="name=graphite" | xargs -I {} docker stop {}
 	docker ps -a -q --filter="name=graphite" | xargs -I {} docker rm {}
+stop-auth-service:
 	docker ps -a -q --filter="name=cameras-auth-service" | xargs -I {} docker stop {}
 	docker ps -a -q --filter="name=cameras-auth-service" | xargs -I {} docker rm {}
 docker-clean: stop
@@ -83,8 +84,8 @@ create-network:
 	docker network create healthy-cameras_healthy-cameras
 dcup-isolated: dcd dcup-isolated-base
 dcup-action: dcup hc-wait kong-config build-cameras-auth-service
-dcup-full-action: dcd docker-clean build-maven build-npm build-cypress dcup hc-wait kong-config create-network build-cameras-auth-service
-dcup-full-isolated-action: dcd docker-clean build-maven build-npm build-cypress dcup-isolated hc-wait kong-config create-network build-cameras-auth-service
+dcup-full-action: dcd docker-clean build-maven build-npm build-cypress dcup hc-wait build-cameras-auth-service kong-config
+dcup-full-isolated-action: dcd docker-clean build-maven build-npm build-cypress dcup-isolated hc-wait build-cameras-auth-service kong-config
 dcd: stop docker-clean
 	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-auth.yml down
 cypress-open-docker:
@@ -114,10 +115,10 @@ run-cameras-auth:
 cameras-auth-prov-key:
 	cd cameras-auth-service && make cameras-auth-prov-key
 build-cameras-auth-service: stop-cameras-auth-service
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose-auth.yml rm cameras-auth-service
+	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-auth.yml rm cameras-auth-service
 	cd cameras-auth-service && mvn clean install -DskipTests
 	cp e2e/cypress/fixtures/CC6KongProvOauth2.json cameras-auth-service/target/CC6KongProvOauth2.json
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose-auth.yml build --no-cache cameras-auth-service
+	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-auth.yml build --no-cache cameras-auth-service
 	make dcup-auth
 build-nginx:
 	docker-compose -p ${GITHUB_RUN_ID} rm nginx
@@ -128,8 +129,7 @@ build-graphite:
 	docker-compose -p ${GITHUB_RUN_ID} rm graphite
 	docker-compose -p ${GITHUB_RUN_ID} build --no-cache graphite
 	docker-compose -p ${GITHUB_RUN_ID} up -d graphite
-stop-cameras-auth-service:
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose-auth.yml stop cameras-auth-service
+stop-cameras-auth-service: stop-auth-service
 status-containers:
 	docker ps
 	docker-compose -p ${GITHUB_RUN_ID} logs kong

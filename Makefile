@@ -132,5 +132,5 @@ build-graphite:
 stop-cameras-auth-service: stop-auth-service
 status-containers:
 	docker ps
-	docker-compose -p ${GITHUB_RUN_ID} logs kong
-	docker-compose -p ${GITHUB_RUN_ID} logs kong-deck
+	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-deck.yml logs kong
+	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-deck.yml logs kong-deck

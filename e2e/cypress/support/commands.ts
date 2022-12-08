@@ -318,7 +318,8 @@ export function createLDAPHeaders() {
 }
 
 export const loginAuthAPI = () => cy.request({
-    url: applicationAuthAPI,
+    method: "POST",
+    url: `${applicationAuthAPI}/login`,
     body: `username=admin&password=admin`,
     headers: {
         "Content-Type": "application/x-www-form-urlencoded"

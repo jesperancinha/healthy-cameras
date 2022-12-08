@@ -7,10 +7,14 @@ import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 
 class AuthorizeBody(
+    @JsonProperty("client_id")
     val clientId: String,
     val scope: String,
+    @JsonProperty("provision_key")
     val provisionKey: String,
+    @JsonProperty("authenticated_userid")
     val authenticatedUserId: String,
+    @JsonProperty("response_type")
     val responseType: String
 )
 

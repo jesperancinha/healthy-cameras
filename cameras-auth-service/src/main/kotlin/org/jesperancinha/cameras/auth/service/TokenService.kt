@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders.CONTENT_TYPE
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE
+import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.http.ResponseEntity
 import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -51,7 +52,7 @@ class TokenService(
         principal: UsernamePasswordAuthenticationToken, ctr: ClientTokenRequest
     ): Mono<ResponseEntity<BearerTokenEnriched>> = principal.authorities.map { it.authority }[0].let { scope ->
         webFluxClient.post().uri(authUrl).header(CONTENT_TYPE, APPLICATION_FORM_URLENCODED_VALUE)
-            .accept(MediaType.APPLICATION_JSON).body(createAuthFormRequestBody(scope))
+            .accept(APPLICATION_JSON).body(createAuthFormRequestBody(scope))
             .retrieve().bodyToMono(ResAuthorizeBody::class.java).map { authorizeBody ->
                 logger.info("Response redirect uri: ${authorizeBody.redirectUri}")
                 logger.info("Input redirect uri: ${ctr.redirectUri}")

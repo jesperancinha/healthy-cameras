@@ -89,4 +89,4 @@ export const applicationRootCamera6AccessPointObserver: string = `${sanitizePreP
 export const applicationRootCamera6AccessPointVistor: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${scopes}/${scopeVisitor}`;
 export const applicationRootCamera6AccessPointResearcher: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${scopes}/${scopeResearcher}`;
 export const applicationRootCamera6Headers: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${headers}`;
-export const applicationAuthAPI: string = '/cameras-auth-service/api/v1/cameras/auth/'
+export const applicationAuthAPI: string = '/cameras-auth-service/api/v1/cameras/auth/login'

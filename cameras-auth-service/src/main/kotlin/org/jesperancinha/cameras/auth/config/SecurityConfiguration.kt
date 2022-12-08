@@ -15,7 +15,10 @@ import org.springframework.security.core.userdetails.*
 import org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder
 import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.security.web.server.SecurityWebFilterChain
+import org.springframework.security.web.server.authentication.RedirectServerAuthenticationSuccessHandler
+import org.springframework.security.web.server.authentication.WebFilterChainServerAuthenticationSuccessHandler
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
@@ -27,10 +30,9 @@ import java.util.StringJoiner
  */
 @Configuration
 class SecurityConfiguration {
-
     @Bean
-    fun securityWebFilterChain(httpSecurity: ServerHttpSecurity): SecurityWebFilterChain {
-        return httpSecurity
+    fun securityWebFilterChain(httpSecurity: ServerHttpSecurity): SecurityWebFilterChain =
+        httpSecurity
             .csrf().disable()
             .authorizeExchange()
             .pathMatchers("/webjars/**")
@@ -45,10 +47,11 @@ class SecurityConfiguration {
             .permitAll()
             .anyExchange()
             .authenticated()
-            .and().formLogin()
+            .and()
+            .formLogin()
             .and()
             .build()
-    }
+
 }
 
 @Component

@@ -1,7 +1,6 @@
 import {
     applicationAuthAPI,
     applicationRootCamera6,
-    applicationRootCamera6AccessPoint,
     applicationRootCamera6AccessPointAdmin,
     applicationRootCamera6AccessPointObserver, applicationRootCamera6AccessPointVistor,
     applicationRootCamera6ConsumerId,
@@ -16,18 +15,18 @@ describe('Camera OAuth2 Tests', () => {
 
     beforeEach(() => {
         cy.visit(`${applicationAuthAPI}`);
+        cy.intercept('GET', "**/cameras-auth-service/api/v1/cameras/auth/**").as('getAuth')
+        cy.intercept('POST', "**/api/v1/cameras/auth/**").as('authentication')
     })
 
     it('should login and see welcome message', () => {
-        cy.intercept('GET', "**/api/v1/cameras/auth/**").as("authentication")
         cy.get('input[placeholder="Username"]').type("admin");
         cy.get('input[placeholder="Password"]').type("admin");
         cy.get('button[type="submit"]').click();
-
-        loginAuthAPI().then(response => {
-            expect(response.status).to.be.eq(200);
-            let authorizationCode = response.body.access_token;
-            cy.log(authorizationCode);
+        cy.wait('@getAuth').then(interceptor => {
+            expect(interceptor.response.statusCode).to.be.oneOf([200, 302]);
+            let authorizationCode = interceptor.response.body.access_token;
+            cy.log(interceptor.response.body);
             let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6}`;
             cy.request(
                 {
@@ -41,15 +40,14 @@ describe('Camera OAuth2 Tests', () => {
         })
     })
     it('should login and see user', () => {
-        cy.intercept('GET', "**/api/v1/cameras/auth/**").as("authentication")
         cy.get('input[placeholder="Username"]').type("admin");
         cy.get('input[placeholder="Password"]').type("admin");
         cy.get('button[type="submit"]').click();
 
-        loginAuthAPI().then(response => {
-            expect(response.status).to.be.eq(200);
-            let authorizationCode = response.body.access_token;
-            cy.log(authorizationCode);
+        cy.wait('@getAuth').then(interceptor => {
+            expect(interceptor.response.statusCode).to.be.oneOf([200, 302]);
+            let authorizationCode = interceptor.response.body.access_token;
+            cy.log(interceptor.response.body);
             let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6UserId}`;
             cy.request(
                 {
@@ -65,15 +63,14 @@ describe('Camera OAuth2 Tests', () => {
     })
 
     it('should login and see consumer', () => {
-        cy.intercept('GET', "**/api/v1/cameras/auth/**").as("authentication")
         cy.get('input[placeholder="Username"]').type("admin");
         cy.get('input[placeholder="Password"]').type("admin");
         cy.get('button[type="submit"]').click();
 
-        loginAuthAPI().then(response => {
-            expect(response.status).to.be.eq(200);
-            let authorizationCode = response.body.access_token;
-            cy.log(authorizationCode);
+        cy.wait('@getAuth').then(interceptor => {
+            expect(interceptor.response.statusCode).to.be.oneOf([200, 302]);
+            let authorizationCode = interceptor.response.body.access_token;
+            cy.log(interceptor.response.body);
             let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6ConsumerId}`;
             cy.request(
                 {
@@ -89,15 +86,14 @@ describe('Camera OAuth2 Tests', () => {
     })
 
     it('should login and see credential', () => {
-        cy.intercept('GET', "**/api/v1/cameras/auth/**").as("authentication")
         cy.get('input[placeholder="Username"]').type("admin");
         cy.get('input[placeholder="Password"]').type("admin");
         cy.get('button[type="submit"]').click();
 
-        loginAuthAPI().then(response => {
-            expect(response.status).to.be.eq(200);
-            let authorizationCode = response.body.access_token;
-            cy.log(authorizationCode);
+        cy.wait('@getAuth').then(interceptor => {
+            expect(interceptor.response.statusCode).to.be.oneOf([200, 302]);
+            let authorizationCode = interceptor.response.body.access_token;
+            cy.log(interceptor.response.body);
             let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6CredentialId}`;
             cy.request(
                 {
@@ -113,15 +109,14 @@ describe('Camera OAuth2 Tests', () => {
     })
 
     it('should login and see all headers for admin', () => {
-        cy.intercept('GET', "**/api/v1/cameras/auth/**").as("authentication")
         cy.get('input[placeholder="Username"]').type("admin");
         cy.get('input[placeholder="Password"]').type("admin");
         cy.get('button[type="submit"]').click();
 
-        loginAuthAPI().then(response => {
-            expect(response.status).to.be.eq(200);
-            let authorizationCode = response.body.access_token;
-            cy.log(authorizationCode);
+        cy.wait('@getAuth').then(interceptor => {
+            expect(interceptor.response.statusCode).to.be.oneOf([200, 302]);
+            let authorizationCode = interceptor.response.body.access_token;
+            cy.log(interceptor.response.body);
             let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6Headers}`;
             cy.request(
                 {
@@ -170,15 +165,14 @@ describe('Camera OAuth2 Tests', () => {
     })
 
     it('should login and see all headers for officer', () => {
-        cy.intercept('GET', "**/api/v1/cameras/auth/**").as("authentication")
         cy.get('input[placeholder="Username"]').type("officer");
         cy.get('input[placeholder="Password"]').type("admin");
         cy.get('button[type="submit"]').click();
 
-        loginAuthAPI().then(response => {
-            expect(response.status).to.be.eq(200);
-            let authorizationCode = response.body.access_token;
-            cy.log(authorizationCode);
+        cy.wait('@getAuth').then(interceptor => {
+            expect(interceptor.response.statusCode).to.be.oneOf([200, 302]);
+            let authorizationCode = interceptor.response.body.access_token;
+            cy.log(interceptor.response.body);
             let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6Headers}`;
             cy.request(
                 {
@@ -227,15 +221,14 @@ describe('Camera OAuth2 Tests', () => {
     })
 
     it('should login and see all headers for edwin', () => {
-        cy.intercept('GET', "**/api/v1/cameras/auth/**").as("authentication")
         cy.get('input[placeholder="Username"]').type("edwin");
         cy.get('input[placeholder="Password"]').type("admin");
         cy.get('button[type="submit"]').click();
 
-        loginAuthAPI().then(response => {
-            expect(response.status).to.be.eq(200);
-            let authorizationCode = response.body.access_token;
-            cy.log(authorizationCode);
+        cy.wait('@getAuth').then(interceptor => {
+            expect(interceptor.response.statusCode).to.be.oneOf([200, 302]);
+            let authorizationCode = interceptor.response.body.access_token;
+            cy.log(interceptor.response.body);
             let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6Headers}`;
             cy.request(
                 {
@@ -271,15 +264,14 @@ describe('Camera OAuth2 Tests', () => {
     })
 
     it('should login and see all headers for johannes', () => {
-        cy.intercept('GET', "**/api/v1/cameras/auth/**").as("authentication")
         cy.get('input[placeholder="Username"]').type("johannes");
         cy.get('input[placeholder="Password"]').type("admin");
         cy.get('button[type="submit"]').click();
 
-        loginAuthAPI().then(response => {
-            expect(response.status).to.be.eq(200);
-            let authorizationCode = response.body.access_token;
-            cy.log(authorizationCode);
+        cy.wait('@getAuth').then(interceptor => {
+            expect(interceptor.response.statusCode).to.be.oneOf([200, 302]);
+            let authorizationCode = interceptor.response.body.access_token;
+            cy.log(interceptor.response.body);
             let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6Headers}`;
             cy.request(
                 {
@@ -305,15 +297,14 @@ describe('Camera OAuth2 Tests', () => {
     })
 
     it('should login and see all headers for lucy', () => {
-        cy.intercept('GET', "**/api/v1/cameras/auth/**").as("authentication")
         cy.get('input[placeholder="Username"]').type("lucy");
         cy.get('input[placeholder="Password"]').type("admin");
         cy.get('button[type="submit"]').click();
 
-        loginAuthAPI().then(response => {
-            expect(response.status).to.be.eq(200);
-            let authorizationCode = response.body.access_token;
-            cy.log(authorizationCode);
+        cy.wait('@getAuth').then(interceptor => {
+            expect(interceptor.response.statusCode).to.be.oneOf([200, 302]);
+            let authorizationCode = interceptor.response.body.access_token;
+            cy.log(interceptor.response.body);
             let camera6Endpoint = `${Cypress.config().baseUrl.replace("http", "https").replace("8000", "8443")}/${applicationRootCamera6Headers}`;
             cy.request(
                 {
@@ -333,8 +324,7 @@ describe('Camera OAuth2 Tests', () => {
                     expect(allHeaders["x-authenticated-scope"]).to.be.eq('researcher');
                     expect(allHeaders["x-authenticated-userid"]).to.be.eq('camera6');
                 });
-            })
-
-        })
-    })
+            });
+        });
+    });
 });

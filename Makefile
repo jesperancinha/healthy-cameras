@@ -84,8 +84,8 @@ create-network:
 	docker network create healthy-cameras_healthy-cameras
 dcup-isolated: dcd dcup-isolated-base
 dcup-action: dcup hc-wait kong-config build-cameras-auth-service
-dcup-full-action: dcd docker-clean build-maven build-npm build-cypress dcup hc-wait build-cameras-auth-service kong-config
-dcup-full-isolated-action: dcd docker-clean build-maven build-npm build-cypress dcup-isolated hc-wait build-cameras-auth-service kong-config
+dcup-full-action: dcd docker-clean build-maven build-npm build-cypress dcup hc-wait kong-config build-cameras-auth-service
+dcup-full-isolated-action: dcd docker-clean build-maven build-npm build-cypress dcup-isolated hc-wait kong-config build-cameras-auth-service
 dcd: stop docker-clean
 	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-auth.yml down
 cypress-open-docker:

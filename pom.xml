@@ -26,7 +26,7 @@
         <testcontainers.version>1.17.6</testcontainers.version>
         <postgresql.version>42.5.1</postgresql.version>
         <micrometer-registry-statsd.version>1.10.2</micrometer-registry-statsd.version>
-        <springdoc-openapi-starter-webflux-ui.version>2.0.0</springdoc-openapi-starter-webflux-ui.version>
+        <springdoc-openapi-starter-webflux-ui.version>2.0.2</springdoc-openapi-starter-webflux-ui.version>
     </properties>
 
     <dependencyManagement>

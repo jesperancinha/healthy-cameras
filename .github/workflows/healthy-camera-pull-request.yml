@@ -18,6 +18,9 @@ jobs:
           with:
             node-version: '16'
 
+        - name: Build Node
+          run: make build-npm
+
         - name: Test Node
           run: make test-npm
 

@@ -14,6 +14,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2d1524195d9f45e5b666c44e39440c92)](https://www.codacy.com/gh/jesperancinha/healthy-cameras/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jesperancinha/healthy-cameras&amp;utm_campaign=Badge_Grade)
 [![Known Vulnerabilities](https://snyk.io/test/github/jesperancinha/healthy-cameras/badge.svg)](https://snyk.io/test/github/jesperancinha/healthy-cameras)
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/2d1524195d9f45e5b666c44e39440c92)](https://www.codacy.com/gh/jesperancinha/healthy-cameras/dashboard?utm_source=github.com&utm_medium=referral&utm_content=jesperancinha/healthy-cameras&utm_campaign=Badge_Coverage)
 [![Coverage Status](https://coveralls.io/repos/github/jesperancinha/healthy-cameras/badge.svg?branch=main)](https://coveralls.io/github/jesperancinha/healthy-cameras?branch=main)
 [![codecov](https://codecov.io/github/jesperancinha/healthy-cameras/branch/main/graph/badge.svg?token=lhP00hiGrC)](https://codecov.io/github/jesperancinha/healthy-cameras)
 

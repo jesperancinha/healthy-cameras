@@ -93,8 +93,8 @@
 	</dependencies>
 
 	<build>
-		<finalName>${artifactId}</finalName>
-		<sourceDirectory>src/main/kotlin</sourceDirectory>
+		<finalName>${project.artifactId}</finalName>
+		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
 		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
 		<plugins>
 			<plugin>
@@ -175,6 +175,17 @@
 				<configuration>
 					<source>${maven-compiler-plugin.source}</source>
 					<target>${maven-compiler-plugin.target}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<includes>
+						<include>**/*Test</include>
+						<include>**/*Tests</include>
+					</includes>
 				</configuration>
 			</plugin>
 		</plugins>

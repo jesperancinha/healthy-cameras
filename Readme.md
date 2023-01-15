@@ -15,6 +15,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/jesperancinha/healthy-cameras/badge.svg)](https://snyk.io/test/github/jesperancinha/healthy-cameras)
 
 [![Coverage Status](https://coveralls.io/repos/github/jesperancinha/healthy-cameras/badge.svg?branch=main)](https://coveralls.io/github/jesperancinha/healthy-cameras?branch=main)
+[![codecov](https://codecov.io/github/jesperancinha/healthy-cameras/branch/main/graph/badge.svg?token=lhP00hiGrC)](https://codecov.io/github/jesperancinha/healthy-cameras)
 
 [![GitHub language count](https://img.shields.io/github/languages/count/jesperancinha/healthy-cameras.svg)](#)
 [![GitHub top language](https://img.shields.io/github/languages/top/jesperancinha/healthy-cameras.svg)](#)

@@ -47,7 +47,7 @@ update-snyk:
 	npm i -g snyk
 update:
 	npm install -g npm-check-updates
-	cd cameras-gui && npx browserslist --update-db && ncu -u && yarn
+	cd cameras-gui && ncu -u && yarn && npx browserslist --update-db
 kong-deck:
 	bash kong_wait.sh
 	cd kong && deck sync

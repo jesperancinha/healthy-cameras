@@ -44,6 +44,10 @@
 
 Demo on Kong in a system where several cameras watch over a plant, and we need to constantly monitor their status
 
+#### Stable releases
+
+-   [0.0.0](https://github.com/jesperancinha/healthy-cameras/tree/0.0.0) - [2aa6c43ad3b0a595f686c8038cb7b3df6005464a](https://github.com/jesperancinha/healthy-cameras/tree/0.0.0)
+
 ## How to run
 
 ##### Simple run

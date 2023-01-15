@@ -1,4 +1,4 @@
-name: e2e-healthy-cameras
+name: HC e2e-healthy-cameras
 
 on: push
 

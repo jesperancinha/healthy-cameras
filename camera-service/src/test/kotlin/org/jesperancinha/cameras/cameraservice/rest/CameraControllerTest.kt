@@ -1,6 +1,7 @@
 package org.jesperancinha.cameras.cameraservice.rest
 
 import com.fasterxml.jackson.databind.JsonNode
+import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -73,5 +74,29 @@ class CameraControllerTest @Autowired constructor(
             .body?.findValue("cleaner")
             .toString()
             .trim { it =='\"' } shouldBe "doing his best but always under Madame Pat's dominant control"
+    }
+    @Test
+    fun `should not read the admin scope`() {
+        val headers = HttpHeaders()
+        headers["x-authenticated-scope"] = "Cheese food for brain"
+        val entity: HttpEntity<String> = HttpEntity("body", headers)
+        restTemplate.exchange(
+            "/api/v1/hc/scopes/admin",
+            GET,
+            entity,
+            String::class.java)
+            .body.shouldBeNull()
+    }
+    @Test
+    fun `should read the admin scope`() {
+        val headers = HttpHeaders()
+        headers["x-authenticated-scope"] = "admin"
+        val entity: HttpEntity<String> = HttpEntity("body", headers)
+        restTemplate.exchange(
+            "/api/v1/hc/scopes/admin",
+            GET,
+            entity,
+            String::class.java)
+            .body shouldBe "This is the info for users with scope admin."
     }
 }

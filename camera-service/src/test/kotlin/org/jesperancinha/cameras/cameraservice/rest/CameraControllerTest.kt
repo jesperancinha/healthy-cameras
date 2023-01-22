@@ -1,5 +1,6 @@
 package org.jesperancinha.cameras.cameraservice.rest
 
+import com.fasterxml.jackson.databind.JsonNode
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,7 +13,7 @@ import org.springframework.http.HttpMethod.GET
 
 
 /**
- * Aunt Pat is a fictional character that I use in my novel that is spread around different repos and projects.
+ * Madame Pat is a fictional character that I use in my novel that is spread around different repos and projects.
  */
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 class CameraControllerTest @Autowired constructor(
@@ -28,10 +29,10 @@ class CameraControllerTest @Autowired constructor(
     @Test
     fun `should read the user header correctly`() {
         val headers = HttpHeaders()
-        headers["x-authenticated-userid"] = "Aunt Pat"
+        headers["x-authenticated-userid"] = "Madame Pat"
         val entity: HttpEntity<String> = HttpEntity("body", headers)
         restTemplate.exchange("/api/v1/hc/userid", GET, entity, String::class.java)
-            .body shouldBe "Aunt Pat"
+            .body shouldBe "Madame Pat"
     }
 
     @Test
@@ -50,13 +51,27 @@ class CameraControllerTest @Autowired constructor(
     @Test
     fun `should read the credential correctly`() {
         val headers = HttpHeaders()
-        headers["x-credential-identifier"] = "The stellige secret of aunt Pat"
+        headers["x-credential-identifier"] = "The stellige secret of Madame Pat"
         val entity: HttpEntity<String> = HttpEntity("body", headers)
         restTemplate.exchange(
             "/api/v1/hc/credentialid",
             GET,
             entity,
             String::class.java)
-            .body shouldBe "The stellige secret of aunt Pat"
+            .body shouldBe "The stellige secret of Madame Pat"
+    }
+    @Test
+    fun `should read the headers`() {
+        val headers = HttpHeaders()
+        headers["cleaner"] = "doing his best but always under Madame Pat's dominant control"
+        val entity: HttpEntity<String> = HttpEntity("body", headers)
+        restTemplate.exchange(
+            "/api/v1/hc/headers",
+            GET,
+            entity,
+            JsonNode::class.java)
+            .body?.findValue("cleaner")
+            .toString()
+            .trim { it =='\"' } shouldBe "doing his best but always under Madame Pat's dominant control"
     }
 }

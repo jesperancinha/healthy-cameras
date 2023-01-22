@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders.CONTENT_TYPE
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.http.ResponseEntity
@@ -121,7 +120,7 @@ internal fun BearerToken.enrich(redirectUri: String) = BearerTokenEnriched(
     redirectUri = redirectUri
 )
 
-private fun ResAuthorizeBody.validate(ctr: ClientTokenRequest) {
+internal fun ResAuthorizeBody.validate(ctr: ClientTokenRequest) {
     ctr.redirectUri?.let { if (!redirectUri.startsWith(ctr.redirectUri)) fail() } ?: fail()
 }
 

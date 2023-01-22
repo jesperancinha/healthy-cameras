@@ -75,6 +75,7 @@ class CameraControllerTest @Autowired constructor(
             .toString()
             .trim { it =='\"' } shouldBe "doing his best but always under Madame Pat's dominant control"
     }
+
     @Test
     fun `should not read the admin scope`() {
         val headers = HttpHeaders()
@@ -98,5 +99,30 @@ class CameraControllerTest @Autowired constructor(
             entity,
             String::class.java)
             .body shouldBe "This is the info for users with scope admin."
+    }
+
+    @Test
+    fun `should not read the observer scope`() {
+        val headers = HttpHeaders()
+        headers["x-authenticated-scope"] = "We eat peanut butter everywhere even before the service"
+        val entity: HttpEntity<String> = HttpEntity("body", headers)
+        restTemplate.exchange(
+            "/api/v1/hc/scopes/observer",
+            GET,
+            entity,
+            String::class.java)
+            .body.shouldBeNull()
+    }
+    @Test
+    fun `should read the observer scope`() {
+        val headers = HttpHeaders()
+        headers["x-authenticated-scope"] = "observer"
+        val entity: HttpEntity<String> = HttpEntity("body", headers)
+        restTemplate.exchange(
+            "/api/v1/hc/scopes/observer",
+            GET,
+            entity,
+            String::class.java)
+            .body shouldBe "This is the info for users with scope observer."
     }
 }

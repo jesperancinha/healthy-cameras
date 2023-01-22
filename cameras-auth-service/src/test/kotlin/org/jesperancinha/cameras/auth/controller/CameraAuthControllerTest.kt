@@ -8,23 +8,17 @@ import io.mockk.every
 import org.jesperancinha.cameras.auth.dao.BearerToken
 import org.jesperancinha.cameras.auth.dao.BearerTokenEnriched
 import org.jesperancinha.cameras.auth.dao.ResAuthorizeBody
-import org.junit.jupiter.api.Test
-import org.springframework.security.test.context.support.WithMockUser;
-
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 import org.springframework.boot.test.web.client.TestRestTemplate
-import org.springframework.boot.test.web.client.getForEntity
-import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
+import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
-import java.net.URLEncoder
-import java.nio.charset.Charset
 import java.util.*
 
 @SpringBootTest(

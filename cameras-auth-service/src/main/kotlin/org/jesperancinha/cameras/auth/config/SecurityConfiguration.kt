@@ -1,28 +1,27 @@
 package org.jesperancinha.cameras.auth.config
 
+import io.netty.handler.ssl.SslContextBuilder
+import io.netty.handler.ssl.util.InsecureTrustManagerFactory
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.toList
 import org.jesperancinha.cameras.auth.dao.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider
-import org.springframework.security.config.core.GrantedAuthorityDefaults
+import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.*
-import org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder
 import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.security.web.server.SecurityWebFilterChain
-import org.springframework.security.web.server.authentication.RedirectServerAuthenticationSuccessHandler
-import org.springframework.security.web.server.authentication.WebFilterChainServerAuthenticationSuccessHandler
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
+import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
-import java.util.StringJoiner
+import reactor.netty.http.client.HttpClient
+import reactor.netty.tcp.SslProvider
+import reactor.netty.tcp.TcpClient
 
 
 /**
@@ -51,6 +50,19 @@ class SecurityConfiguration {
             .formLogin()
             .and()
             .build()
+
+    @Bean
+    fun webFluxClient(): WebClient = run {
+        val sslContext = SslContextBuilder.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE).build()
+        val tcpClient = TcpClient.create().secure { sslContextSpec: SslProvider.SslContextSpec ->
+            sslContextSpec.sslContext(
+                sslContext
+            )
+        }
+        val httpClient: HttpClient = HttpClient.from(tcpClient)
+        WebClient.builder().clientConnector(ReactorClientHttpConnector(httpClient)).build()
+    }
+
 
 }
 

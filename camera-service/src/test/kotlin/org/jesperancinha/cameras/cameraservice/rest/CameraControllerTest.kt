@@ -150,4 +150,29 @@ class CameraControllerTest @Autowired constructor(
             String::class.java)
             .body shouldBe "This is the info for users with scope visitor."
     }
+
+    @Test
+    fun `should not read the researcher scope`() {
+        val headers = HttpHeaders()
+        headers["x-authenticated-scope"] = "Pat gave a pet to the cat named Pet and the petted cat named Pet said meaouuuwww and ran away from the petting"
+        val entity: HttpEntity<String> = HttpEntity("body", headers)
+        restTemplate.exchange(
+            "/api/v1/hc/scopes/researcher",
+            GET,
+            entity,
+            String::class.java)
+            .body.shouldBeNull()
+    }
+    @Test
+    fun `should read the researcher scope`() {
+        val headers = HttpHeaders()
+        headers["x-authenticated-scope"] = "researcher"
+        val entity: HttpEntity<String> = HttpEntity("body", headers)
+        restTemplate.exchange(
+            "/api/v1/hc/scopes/researcher",
+            GET,
+            entity,
+            String::class.java)
+            .body shouldBe "This is the info for users with scope researcher."
+    }
 }

@@ -113,7 +113,7 @@ class TokenService(
     }
 }
 
-private fun BearerToken.enrich(redirectUri: String) = BearerTokenEnriched(
+internal fun BearerToken.enrich(redirectUri: String) = BearerTokenEnriched(
     refreshToken = refreshToken,
     accessToken = accessToken,
     expiresIn = expiresIn,

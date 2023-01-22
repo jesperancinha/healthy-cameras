@@ -30,6 +30,7 @@
         <micrometer-registry-statsd.version>1.10.3</micrometer-registry-statsd.version>
         <springdoc-openapi-starter-webflux-ui.version>2.0.2</springdoc-openapi-starter-webflux-ui.version>
         <kotest-assertions-core-jvm.version>5.5.4</kotest-assertions-core-jvm.version>
+        <springmockk.version>4.0.0</springmockk.version>
     </properties>
 
     <dependencyManagement>
@@ -87,6 +88,12 @@
                 <groupId>io.kotest</groupId>
                 <artifactId>kotest-assertions-core-jvm</artifactId>
                 <version>${kotest-assertions-core-jvm.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.ninja-squad</groupId>
+                <artifactId>springmockk</artifactId>
+                <version>${springmockk.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

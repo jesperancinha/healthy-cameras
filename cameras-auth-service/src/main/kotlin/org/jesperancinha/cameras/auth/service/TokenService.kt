@@ -1,25 +1,20 @@
 package org.jesperancinha.cameras.auth.service
 
-import io.netty.handler.ssl.SslContextBuilder
-import io.netty.handler.ssl.util.InsecureTrustManagerFactory
 import org.jesperancinha.cameras.auth.dao.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders.CONTENT_TYPE
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.http.ResponseEntity
-import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
-import reactor.netty.http.client.HttpClient
-import reactor.netty.tcp.SslProvider.SslContextSpec
-import reactor.netty.tcp.TcpClient
 import java.net.URI
 
 
@@ -33,19 +28,9 @@ class TokenService(
     @Value("\${hc.auth.oauth.grant_type}") val grantType: String,
     @Value("\${hc.auth.oauth.url.auth}") val authUrl: String,
     @Value("\${hc.auth.oauth.url.token}") val tokenUrl: String,
-    @Value("\${hc.auth.guest.validate}") val validate: Boolean
+    @Value("\${hc.auth.guest.validate}") val validate: Boolean,
+    @Autowired val webFluxClient: WebClient
 ) {
-
-    val webFluxClient: WebClient = let {
-        val sslContext = SslContextBuilder.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE).build()
-        val tcpClient = TcpClient.create().secure { sslContextSpec: SslContextSpec ->
-            sslContextSpec.sslContext(
-                sslContext
-            )
-        }
-        val httpClient: HttpClient = HttpClient.from(tcpClient)
-        WebClient.builder().clientConnector(ReactorClientHttpConnector(httpClient)).build()
-    }
 
     fun createToken(
         principal: UsernamePasswordAuthenticationToken, ctr: ClientTokenRequest

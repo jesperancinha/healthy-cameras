@@ -2,6 +2,7 @@ package org.jesperancinha.cameras.auth.service
 
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import org.jesperancinha.cameras.auth.dao.BearerToken
 import org.jesperancinha.cameras.auth.dao.ClientTokenRequest
@@ -71,5 +72,12 @@ class TokenServiceTest @Autowired constructor(
                 )
             )
         }
+    }
+
+    @Test
+    fun `should validate that the web client exists and functions`() {
+        tokenService
+            .shouldNotBeNull()
+            .webFluxClient.shouldNotBeNull()
     }
 }

@@ -19,6 +19,8 @@ test-maven:
 	mvn test
 test-npm:
 	cd cameras-gui && npm test
+coverage-npm:
+	cd cameras-gui && npm run test
 docker:
 	docker-compose -p ${GITHUB_RUN_ID} up -d --build --remove-orphans
 build-images:
@@ -47,7 +49,7 @@ update-snyk:
 	npm i -g snyk
 update:
 	npm install -g npm-check-updates
-	cd cameras-gui && npx browserslist --update-db && ncu -u && yarn
+	cd cameras-gui && ncu -u && yarn && npx browserslist --update-db
 kong-deck:
 	bash kong_wait.sh
 	cd kong && deck sync

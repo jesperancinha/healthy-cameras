@@ -8,7 +8,7 @@ on:
       - closed
 
 jobs:
-  build-test-coverage-report:
+  build:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v3
@@ -17,12 +17,18 @@ jobs:
           with:
             java-version: '17'
             distribution: 'adopt'
+        - uses: actions/setup-node@v3
+          with:
+            node-version: '16'
 
         - name: Build Node
           run: make build-npm
 
-#        - name: Test Node
-#          run: make test-npm
+        - name: Test Node
+          run: make test-npm
+
+        - name: Coverage Node
+          run: make coverage-npm
 
         - name: Build and Test MAVEN
           run:  mvn clean install jacoco:prepare-agent package jacoco:report

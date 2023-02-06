@@ -1,7 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { OverviewComponent } from './overview.component';
+import {OverviewComponent} from './overview.component';
 import {HttpClientModule} from "@angular/common/http";
+import {CAMERAS_HEALTH_STATUS_URLS} from "../app.module";
+import {MatCardModule} from "@angular/material/card";
+import {NO_ERRORS_SCHEMA} from "@angular/core";
 
 describe('OverviewComponent', () => {
   let component: OverviewComponent;
@@ -9,16 +12,24 @@ describe('OverviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OverviewComponent ],
+      declarations: [OverviewComponent],
       imports: [
-        HttpClientModule
+        HttpClientModule,
+        MatCardModule
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        {
+          provide: CAMERAS_HEALTH_STATUS_URLS,
+          useValue: {
+            cameras: []
+          }
+        }
       ]
     })
-    .compileComponents();
-
+      .compileComponents();
     fixture = TestBed.createComponent(OverviewComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

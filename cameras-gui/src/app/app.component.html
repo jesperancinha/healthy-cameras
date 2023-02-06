@@ -1,5 +1,5 @@
 <div class="content" role="main"></div>
-<mat-card>
+<mat-card fxLayout="row">
   <mat-card *ngFor="let button of buttons">
     <mat-card>
       <button mat-button (click)="navigateTo(button.path)">{{getButtonText(button.path)}}</button>

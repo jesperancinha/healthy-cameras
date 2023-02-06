@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "customWebpackConfig": {"path": "./webpack.config.js"},
+            "customWebpackConfig": {"path": "./webpack.config.cjs"},
             "outputPath": "dist/cameras-gui",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -88,7 +88,7 @@
         "test": {
           "builder": "@angular-builders/custom-webpack:karma",
           "options": {
-            "customWebpackConfig": {"path": "./webpack.config.js"},
+            "customWebpackConfig": {"path": "./webpack.config.cjs"},
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",

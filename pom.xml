@@ -107,10 +107,10 @@
                 <version>${omni-coveragereporter-maven-plugin.version}</version>
                 <configuration>
                     <extraSourceFolders>
-                        <extraSourceFolder>cameras-gui</extraSourceFolder>
+                        <extraSourceFolder>${project.basedir}/cameras-gui/src</extraSourceFolder>
                     </extraSourceFolders>
                     <extraReportFolders>
-                        <extraReportFolder>cameras-gui/coverage</extraReportFolder>
+                        <extraReportFolder>${project.basedir}/cameras-gui/coverage</extraReportFolder>
                     </extraReportFolders>
                     <httpRequestParallelization>2</httpRequestParallelization>
                 </configuration>

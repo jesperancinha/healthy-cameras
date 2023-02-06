@@ -19,6 +19,8 @@ test-maven:
 	mvn test
 test-npm:
 	cd cameras-gui && npm test
+coverage-npm:
+	cd cameras-gui && npm run test
 docker:
 	docker-compose -p ${GITHUB_RUN_ID} up -d --build --remove-orphans
 build-images:

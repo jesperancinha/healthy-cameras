@@ -24,6 +24,9 @@ jobs:
         - name: Test Node
           run: make test-npm
 
+        - name: Coverage Node
+          run: make coverage-npm
+
         - name: Build and Test MAVEN
           run:  mvn clean install jacoco:prepare-agent package jacoco:report
 

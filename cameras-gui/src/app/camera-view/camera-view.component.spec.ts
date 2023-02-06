@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CameraViewComponent } from './camera-view.component';
 import {HttpClientModule} from "@angular/common/http";
+import {CAMERAS_HEALTH_STATUS_URLS} from "../app.module";
+import {MatCardModule} from "@angular/material/card";
 
 describe('CameraViewComponent', () => {
   let component: CameraViewComponent<string>;
@@ -11,7 +13,16 @@ describe('CameraViewComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ CameraViewComponent ],
       imports: [
-        HttpClientModule
+        HttpClientModule,
+        MatCardModule
+      ],
+      providers: [
+        {
+          provide: CAMERAS_HEALTH_STATUS_URLS,
+          useValue: {
+            cameras: []
+          }
+        }
       ]
     })
     .compileComponents();

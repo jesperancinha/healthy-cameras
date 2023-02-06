@@ -29,7 +29,7 @@
         <postgresql.version>42.5.3</postgresql.version>
         <micrometer-registry-statsd.version>1.10.3</micrometer-registry-statsd.version>
         <springdoc-openapi-starter-webflux-ui.version>2.0.2</springdoc-openapi-starter-webflux-ui.version>
-        <kotest-assertions-core-jvm.version>5.5.4</kotest-assertions-core-jvm.version>
+        <kotest-assertions-core-jvm.version>5.5.5</kotest-assertions-core-jvm.version>
         <springmockk.version>4.0.0</springmockk.version>
     </properties>
 

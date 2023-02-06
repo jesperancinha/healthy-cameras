@@ -3,6 +3,9 @@ name: HC Build, Test, Coverage and Report
 on:
   push:
     branches: [ main ]
+  pull_request:
+    types:
+      - closed
 
 jobs:
   build:

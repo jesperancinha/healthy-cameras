@@ -112,6 +112,7 @@
                     <extraReportFolders>
                         <extraReportFolder>cameras-gui/coverage</extraReportFolder>
                     </extraReportFolders>
+                    <httpRequestParallelization>2</httpRequestParallelization>
                 </configuration>
             </plugin>
             <plugin>

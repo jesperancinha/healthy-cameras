@@ -52,10 +52,10 @@ export class JwtAuthService implements ProviderService<string> {
 
   private encodeObject = <T>(object: T) => this.base64url(this.cryptoJS.enc.Utf8.parse(JSON.stringify(object)));
 
-  signToken = (payload: any, secret: string) => {
-    const token: any = this.encodeToken(payload);
-    const signature = this.base64url(this.cryptoJS.HmacSHA256(token, secret));
-    return `${token}.${signature}`;
+  signToken = (body: any, secret: string) => {
+    const jwtToken: any = this.encodeToken(body);
+    const signature = this.base64url(this.cryptoJS.HmacSHA256(jwtToken, secret));
+    return `${jwtToken}.${signature}`;
   }
 
   createJwtHeader = (secret: string, issuer: string) => {

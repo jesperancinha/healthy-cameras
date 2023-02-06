@@ -107,7 +107,7 @@
                 <version>${omni-coveragereporter-maven-plugin.version}</version>
                 <configuration>
                     <extraSourceFolders>
-                        <extraSourceFolder>${project.basedir}/cameras-gui</extraSourceFolder>
+                        <extraSourceFolder>${project.basedir}/cameras-gui/src</extraSourceFolder>
                     </extraSourceFolders>
                     <extraReportFolders>
                         <extraReportFolder>${project.basedir}/cameras-gui/coverage</extraReportFolder>

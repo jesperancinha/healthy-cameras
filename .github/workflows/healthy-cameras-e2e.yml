@@ -12,6 +12,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
       - name: Start Docker
         run: make dcup-full-isolated-action
@@ -28,6 +31,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
       - name: Start Docker
         run: make dcup-full-isolated-action
@@ -44,6 +50,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
       - name: Start Docker
         run: make dcup-full-isolated-action
@@ -61,6 +70,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
       - name: Start Docker
         run: make dcup-full-isolated-action

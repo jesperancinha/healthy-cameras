@@ -38,9 +38,9 @@
 
 
 import * as crypto from "crypto";
-import * as jwt from "jsonwebtoken";
 import {applicationAuthAPI, withHeaders} from "./e2e";
 import {stringify} from "querystring";
+import * as CryptoJS from "crypto-js";
 
 const basicAuth = 'Basic Auth';
 const hmacAuth = 'HMAC Auth';
@@ -52,7 +52,7 @@ const oAuth2Auth = 'OAuth2 Auth';
 Cypress.Commands.add('loginBasicAuth', (path: string) => {
     cy.visit(path, {
         method: 'GET',
-        headers: createBasicHeaders()
+        headers: createBasicHeaders("cameraUser1:administrator")
     });
 })
 
@@ -67,6 +67,7 @@ Cypress.Commands.add('loginHmacAuth', (path: string) => {
 
 Cypress.Commands.add('loginJWT', (path: string) => {
     createJWTToken().then(headers => {
+        cy.log(JSON.stringify(headers))
         cy.intercept("*", withHeaders(headers))
         cy.visit(path, {
             method: "GET",
@@ -284,32 +285,56 @@ export const createKeyHeder = () => cy.fixture('CC4KongKeys').then(data => {
 
 export const findJWTCredential = () => cy.fixture('CC3KongToken').then(data => data.data[0].key)
 
+function base64url(source) {
+    return CryptoJS.enc.Base64.stringify(source)
+        .replace(/=+$/, '')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_');
+}
+
 export const createJWTToken = () => cy.fixture('CC3KongToken').then(data => {
-    let kongToken = data.data[0];
+    let kongToken = data.data[data.data.length - 1];
     let secret = kongToken.secret;
     let key = kongToken.key;
-    const token = jwt.sign(
-        {
-            algorithm: "HS256",
-            type: "JWT",
-        },
-        secret,
-        {
-            issuer: key,
-            expiresIn: "12h",
-            algorithm: "HS256"
-        });
+    const header = {
+        alg: "HS256",
+        typ: "JWT",
+    };
+    const stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header));
+    const encodedHeader = base64url(stringifiedHeader);
+    const body = {
+        iss: key,
+        expiresIn: "12h",
+        algorithm: "HS256"
+    };
+    const stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(body));
+    const encodedData = base64url(stringifiedData);
+    const jwtToken = encodedHeader + "." + encodedData;
+    const signature = base64url(CryptoJS.HmacSHA256(jwtToken, secret));
+    const signedToken = jwtToken + "." + signature;
+    // const signedToken = jwt.sign(
+    //     {
+    //         algorithm: "HS256",
+    //         type: "JWT",
+    //     },
+    //     secret,
+    //     {
+    //         issuer: key,
+    //         expiresIn: "12h",
+    //         algorithm: "HS256"
+    //     });
     return {
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${signedToken}`
     }
 });
 
-export function createBasicHeaders() {
-    const credentials = btoa("cameraUser1:administrator");
+export function createBasicHeaders(userPass) {
+    const credentials = btoa(userPass);
     return {
         "Authorization": `basic ${credentials}`
     };
 }
+
 export function createLDAPHeaders() {
     const credentials = btoa("admin:password");
     return {

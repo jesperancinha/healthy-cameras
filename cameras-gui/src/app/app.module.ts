@@ -16,6 +16,7 @@ import {MatTableModule} from "@angular/material/table";
 import {FormsModule} from "@angular/forms";
 import {CamerasHealthUrls} from "./services/domain/cameras.health.urls";
 import {MatSelectModule} from "@angular/material/select";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 export const CAMERAS_HEALTH_STATUS_URLS = new InjectionToken<CamerasHealthUrls>('Cameras Url Health Socket Health Checks');
 
@@ -39,7 +40,8 @@ const getCameraStatusHost = () => `${window.location.hostname == 'nginx' ? 'kong
     MatInputModule,
     MatTableModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    FlexLayoutModule
   ],
   providers: [
     {

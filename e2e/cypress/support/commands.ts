@@ -38,9 +38,9 @@
 
 
 import * as crypto from "crypto";
-import * as jwt from "jsonwebtoken";
 import {applicationAuthAPI, withHeaders} from "./e2e";
 import {stringify} from "querystring";
+import * as CryptoJS from "crypto-js";
 
 const basicAuth = 'Basic Auth';
 const hmacAuth = 'HMAC Auth';
@@ -284,23 +284,47 @@ export const createKeyHeder = () => cy.fixture('CC4KongKeys').then(data => {
 
 export const findJWTCredential = () => cy.fixture('CC3KongToken').then(data => data.data[0].key)
 
+function base64url(source) {
+   let  encodedSource = CryptoJS.enc.Base64.stringify(source);
+    encodedSource = encodedSource.replace(/=+$/, '');
+    encodedSource = encodedSource.replace(/\+/g, '-');
+    encodedSource = encodedSource.replace(/\//g, '_');
+    return encodedSource;
+}
 export const createJWTToken = () => cy.fixture('CC3KongToken').then(data => {
     let kongToken = data.data[0];
     let secret = kongToken.secret;
     let key = kongToken.key;
-    const token = jwt.sign(
-        {
-            algorithm: "HS256",
-            type: "JWT",
-        },
-        secret,
-        {
-            issuer: key,
-            expiresIn: "12h",
-            algorithm: "HS256"
-        });
+    const header = {
+        algorithm: "HS256",
+        type: "JWT",
+    };
+    const stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header));
+    const encodedHeader = base64url(stringifiedHeader);
+    const body = {
+        issuer: key,
+        expiresIn: "12h",
+        algorithm: "HS256"
+    };
+    const stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(body));
+    const encodedData = base64url(stringifiedData);
+    const token = encodedHeader + "." + encodedData;
+    let signature = CryptoJS.HmacSHA256(token, secret);
+    signature = base64url(signature);
+    const signedToken = token + "." + signature;
+    // const signedToken = jwt.sign(
+    //     {
+    //         algorithm: "HS256",
+    //         type: "JWT",
+    //     },
+    //     secret,
+    //     {
+    //         issuer: key,
+    //         expiresIn: "12h",
+    //         algorithm: "HS256"
+    //     });
     return {
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${signedToken}`
     }
 });
 
@@ -310,6 +334,7 @@ export function createBasicHeaders() {
         "Authorization": `basic ${credentials}`
     };
 }
+
 export function createLDAPHeaders() {
     const credentials = btoa("admin:password");
     return {

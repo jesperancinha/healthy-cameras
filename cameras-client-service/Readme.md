@@ -20,7 +20,7 @@ curl https://127.0.0.1:8443/camera-6-service/api/v1/hc -k
 curl https://127.0.0.1:8443/camera-6-service/api/v1/hc -k -H 'Authorization: bearer <BEARER_TOKEN>'
 ```
 
-## About me 👨🏽‍💻🚀🏳️‍🌈
+## About me
 
 [![alt text](https://raw.githubusercontent.com/jesperancinha/project-signer/master/project-signer-templates/icons-20/JEOrgLogo-20.png "João Esperancinha Homepage")](http://joaofilipesabinoesperancinha.nl)
 [![GitHub followers](https://img.shields.io/github/followers/jesperancinha.svg?label=Jesperancinha&style=social "GitHub")](https://github.com/jesperancinha)

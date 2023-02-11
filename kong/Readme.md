@@ -31,7 +31,7 @@ deck reset -f
 -   [How can i create the hmac-auth signature](https://discuss.konghq.com/t/how-can-i-create-the-hmac-auth-signature/3128)
 -   [Getting started with decK](https://docs.konghq.com/deck/1.8.x/guides/getting-started/)
 
-## About me 👨🏽‍💻🚀🏳️‍🌈
+## About me
 
 [![alt text](https://raw.githubusercontent.com/jesperancinha/project-signer/master/project-signer-templates/icons-20/JEOrgLogo-20.png "João Esperancinha Homepage")](http://joaofilipesabinoesperancinha.nl)
 [![GitHub followers](https://img.shields.io/github/followers/jesperancinha.svg?label=Jesperancinha&style=social "GitHub")](https://github.com/jesperancinha)

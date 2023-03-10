@@ -30,7 +30,7 @@
         <micrometer-registry-statsd.version>1.10.4</micrometer-registry-statsd.version>
         <springdoc-openapi-starter-webflux-ui.version>2.0.2</springdoc-openapi-starter-webflux-ui.version>
         <kotest-assertions-core-jvm.version>5.5.5</kotest-assertions-core-jvm.version>
-        <springmockk.version>4.0.1</springmockk.version>
+        <springmockk.version>4.0.2</springmockk.version>
     </properties>
 
     <dependencyManagement>

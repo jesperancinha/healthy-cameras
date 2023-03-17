@@ -17,7 +17,13 @@ jobs:
           node-version: 18
 
       - name: Start Docker
-        run: make dcup-full-isolated-action
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 2
+          retry_on: error
+          timeout_seconds: 2400
+          command: |
+            make dcup-full-isolated-action
 
       - name: Run Cypress
         run: make cypress-electron
@@ -36,7 +42,13 @@ jobs:
           node-version: 18
 
       - name: Start Docker
-        run: make dcup-full-isolated-action
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 2
+          retry_on: error
+          timeout_seconds: 2400
+          command: |
+            make dcup-full-isolated-action
 
       - name: Run Cypress
         run: make cypress-chrome
@@ -55,7 +67,13 @@ jobs:
           node-version: 18
 
       - name: Start Docker
-        run: make dcup-full-isolated-action
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 2
+          retry_on: error
+          timeout_seconds: 2400
+          command: |
+            make dcup-full-isolated-action
 
       - name: Run Cypress
         run: make cypress-firefox
@@ -75,7 +93,13 @@ jobs:
           node-version: 18
 
       - name: Start Docker
-        run: make dcup-full-isolated-action
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 2
+          retry_on: error
+          timeout_seconds: 2400
+          command: |
+            make dcup-full-isolated-action
 
       - name: Run Cypress
         run: make cypress-edge

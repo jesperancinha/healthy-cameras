@@ -22,7 +22,7 @@
         <maven-failsafe-plugin.version>3.1.0</maven-failsafe-plugin.version>
         <kotlin.version>1.8.21</kotlin.version>
         <spring-boot-starter-parent.version>3.0.6</spring-boot-starter-parent.version>
-        <omni-coveragereporter-maven-plugin.version>0.4.2</omni-coveragereporter-maven-plugin.version>
+        <omni-coveragereporter-maven-plugin.version>0.4.3</omni-coveragereporter-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
         <r2dbc-postgresql.version>0.8.13.RELEASE</r2dbc-postgresql.version>
         <testcontainers.version>1.18.0</testcontainers.version>

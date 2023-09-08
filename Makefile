@@ -95,7 +95,7 @@ dcd: stop docker-clean
 cypress-open-docker:
 	cd e2e && yarn && npm run cypress:open:docker
 cypress-open:
-	cd e2e && yarn && npm run cypress
+	cd e2e && yarn && npm run cypress:open:electron
 cypress-electron: status-containers
 	cd e2e && make cypress-electron
 cypress-chrome: status-containers

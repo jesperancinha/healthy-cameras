@@ -31,7 +31,7 @@
         <springdoc-openapi-starter-webflux-ui.version>2.2.0</springdoc-openapi-starter-webflux-ui.version>
         <kotest-assertions-core-jvm.version>5.7.2</kotest-assertions-core-jvm.version>
         <springmockk.version>4.0.2</springmockk.version>
-        <jackson-module-kotlin.version>2.15.2</jackson-module-kotlin.version>
+        <jackson-module-kotlin.version>2.15.3</jackson-module-kotlin.version>
     </properties>
 
     <dependencyManagement>

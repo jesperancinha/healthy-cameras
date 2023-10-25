@@ -27,7 +27,7 @@
     "base64url": "^3.0.1",
     "client-oauth2": "^4.3.3",
     "crypto": "^1.0.1",
-    "crypto-js": "^4.1.1",
+    "crypto-js": "^4.2.0",
     "jwt-hs256": "^3.0.0"
   }
 }

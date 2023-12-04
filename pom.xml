@@ -28,7 +28,7 @@
         <testcontainers.version>1.19.3</testcontainers.version>
         <postgresql.version>42.7.0</postgresql.version>
         <micrometer-registry-statsd.version>1.12.0</micrometer-registry-statsd.version>
-        <springdoc-openapi-starter-webflux-ui.version>2.2.0</springdoc-openapi-starter-webflux-ui.version>
+        <springdoc-openapi-starter-webflux-ui.version>2.3.0</springdoc-openapi-starter-webflux-ui.version>
         <kotest-assertions-core-jvm.version>5.8.0</kotest-assertions-core-jvm.version>
         <springmockk.version>4.0.2</springmockk.version>
         <jackson-module-kotlin.version>2.16.0</jackson-module-kotlin.version>

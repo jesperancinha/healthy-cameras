@@ -2,7 +2,7 @@ package org.jesperancinha.cameras.auth.config
 
 import io.netty.handler.ssl.SslContextBuilder
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory
-import kotlinx.coroutines.*
+import kotlinx.coroutines.runBlocking
 import org.jesperancinha.cameras.auth.dao.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -11,7 +11,9 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.userdetails.*
+import org.springframework.security.core.userdetails.MapReactiveUserDetailsService
+import org.springframework.security.core.userdetails.User
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.server.SecurityWebFilterChain
@@ -21,7 +23,6 @@ import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
 import reactor.netty.http.client.HttpClient
 import reactor.netty.tcp.SslProvider
-import reactor.netty.tcp.TcpClient
 
 
 /**
@@ -32,35 +33,40 @@ class SecurityConfiguration {
     @Bean
     fun securityWebFilterChain(httpSecurity: ServerHttpSecurity): SecurityWebFilterChain =
         httpSecurity
-            .csrf().disable()
-            .authorizeExchange()
-            .pathMatchers("/webjars/**")
-            .permitAll()
-            .pathMatchers("/logout")
-            .permitAll()
-            .pathMatchers("/logout/**")
-            .permitAll()
-            .pathMatchers("/v3/**")
-            .permitAll()
-            .pathMatchers("/actuator/**")
-            .permitAll()
-            .anyExchange()
-            .authenticated()
-            .and()
-            .formLogin()
-            .and()
+            .authorizeExchange { exchanges ->
+                exchanges
+                    .pathMatchers("/webjars/**")
+                    .permitAll()
+                    .pathMatchers("/logout")
+                    .permitAll()
+                    .pathMatchers("/logout/**")
+                    .permitAll()
+                    .pathMatchers("/v3/**")
+                    .permitAll()
+                    .pathMatchers("/actuator/**")
+                    .permitAll()
+                    .anyExchange()
+                    .authenticated()
+
+            }
+            .formLogin { formLogin ->
+                formLogin
+                    .loginPage("/login")
+            }
             .build()
 
     @Bean
     fun webFluxClient(): WebClient = run {
         val sslContext = SslContextBuilder.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE).build()
-        val tcpClient = TcpClient.create().secure { sslContextSpec: SslProvider.SslContextSpec ->
-            sslContextSpec.sslContext(
-                sslContext
-            )
-        }
-        val httpClient: HttpClient = HttpClient.from(tcpClient)
+        val httpClient: HttpClient = HttpClient.create()
+            .secure { sslContextSpec: SslProvider.SslContextSpec ->
+                sslContextSpec.sslContext(
+                    sslContext
+                )
+            }
         WebClient.builder().clientConnector(ReactorClientHttpConnector(httpClient)).build()
+
+
     }
 
 
@@ -80,7 +86,6 @@ class CustomPasswordEncoder : PasswordEncoder {
 @Service
 class UserService @Autowired constructor(
     val userRepository: UserRepository,
-    val customPasswordEncoder: CustomPasswordEncoder,
     @Value("\${hc.auth.guest.user}")
     val guestUser: String,
     @Value("\${hc.auth.guest.password}")

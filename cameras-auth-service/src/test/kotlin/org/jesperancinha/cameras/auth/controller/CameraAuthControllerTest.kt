@@ -8,7 +8,6 @@ import io.mockk.every
 import org.jesperancinha.cameras.auth.dao.BearerToken
 import org.jesperancinha.cameras.auth.dao.BearerTokenEnriched
 import org.jesperancinha.cameras.auth.dao.ResAuthorizeBody
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest

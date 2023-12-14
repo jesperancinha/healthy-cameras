@@ -33,7 +33,7 @@ class CameraAuthControllerTest @Autowired constructor(
     lateinit var webFluxClient: WebClient
 
     @Test
-    @WithMockUser("admin")
+    @WithMockUser("guest")
     fun `should create token by calling service`() {
         val testCode = UUID.randomUUID()
         every {
@@ -46,7 +46,7 @@ class CameraAuthControllerTest @Autowired constructor(
                 .bodyToMono(ResAuthorizeBody::class.java)
         } returns Mono.just(
             ResAuthorizeBody(
-                "http://localhost:8080?code=$testCode"
+                "http://localhost:8080/api/v1/cameras/auth?code=$testCode"
             )
         )
         val bearerToken = BearerToken(
@@ -62,7 +62,7 @@ class CameraAuthControllerTest @Autowired constructor(
         } returns Mono.just(
             bearerToken
         )
-        val url = "/api/v1/cameras/auth/?response_type=code&client_id=CAMERA06CLIENTID&scope=admin&state=Ok&redirect_uri=http://localhost:8080"
+        val url = "/api/v1/cameras/auth?response_type=code&client_id=CAMERA06CLIENTID&scope=admin&state=Ok&redirect_uri=http://localhost:8080/api/v1/cameras/auth"
         testRestTemplate.getForEntity(url, BearerTokenEnriched::class.java)
             .shouldNotBeNull()
             .let {

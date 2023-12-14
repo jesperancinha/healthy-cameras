@@ -33,6 +33,7 @@ class SecurityConfiguration {
     @Bean
     fun securityWebFilterChain(httpSecurity: ServerHttpSecurity): SecurityWebFilterChain =
         httpSecurity
+            .csrf { it.disable() }
             .authorizeExchange { exchanges ->
                 exchanges
                     .pathMatchers("/webjars/**")

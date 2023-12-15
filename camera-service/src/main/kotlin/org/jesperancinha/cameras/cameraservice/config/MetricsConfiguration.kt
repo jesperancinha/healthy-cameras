@@ -60,12 +60,12 @@ class MetricsConfiguration(
     fun gaugeMetric(meterRegistry: MeterRegistry) =
         Gauge.builder("camera.image.read.time", last10FileDeltaNSReading)
         { last10Records ->
-            logger.debug("$last10FileDeltaNSReading")
+            logger.debug("{}", last10FileDeltaNSReading)
             measureNanoTime { runBlocking { cameraService.getImageByteArrayByCameraNumber(cameraNumber) } }.toDouble()
                 .let { record ->
                     last10Records.add(record)
                     if (last10Records.size == 11) {
-                        last10Records.removeFirst()
+                        last10Records.removeAt(0)
                     }
                     logger.info("Refreshed ${last10Records.size} metrics. Last value read is ${last10Records.last()} ns")
                     record

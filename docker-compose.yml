@@ -15,6 +15,10 @@ services:
         condition: service_healthy
       kong:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -I -s -L http://127.0.0.1:8080/api/v1/hc/actuator/health || exit 1"]
+      interval: 5s
+      retries: 30
 
   camera-2-service:
     hostname: camera-2-service
@@ -31,6 +35,10 @@ services:
         condition: service_healthy
       kong:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -I -s -L http://127.0.0.1:8080/api/v1/hc/actuator/health || exit 1"]
+      interval: 5s
+      retries: 30
 
   camera-3-service:
     hostname: camera-3-service
@@ -47,6 +55,10 @@ services:
         condition: service_healthy
       kong:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -I -s -L http://127.0.0.1:8080/api/v1/hc/actuator/health || exit 1"]
+      interval: 5s
+      retries: 30
 
   camera-4-service:
     hostname: camera-4-service
@@ -63,6 +75,10 @@ services:
         condition: service_healthy
       kong:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -I -s -L http://127.0.0.1:8080/api/v1/hc/actuator/health || exit 1"]
+      interval: 5s
+      retries: 30
 
   camera-5-service:
     hostname: camera-5-service
@@ -79,6 +95,10 @@ services:
         condition: service_healthy
       kong:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -I -s -L http://127.0.0.1:8080/api/v1/hc/actuator/health || exit 1"]
+      interval: 5s
+      retries: 30
 
   camera-6-service:
     hostname: camera-6-service
@@ -95,6 +115,10 @@ services:
         condition: service_healthy
       kong:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -I -s -L http://127.0.0.1:8080/api/v1/hc/actuator/health || exit 1"]
+      interval: 5s
+      retries: 30
 
   kong-database:
     hostname: kong-database
@@ -147,6 +171,10 @@ services:
     command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus"
     expose:
       - 9090
+    healthcheck:
+      test: ["CMD", "wget", "http://localhost:9090"]
+      interval: 5s
+      retries: 30
     depends_on:
       kong-database:
         condition: service_healthy
@@ -161,6 +189,10 @@ services:
       - ./docker-images/grafana/provisioning/:/etc/grafana/provisioning
     expose:
       - 3000
+    healthcheck:
+      test: timeout 10s bash -c ':> /dev/tcp/127.0.0.1/3000' || exit 1
+      interval: 5s
+      retries: 30
     depends_on:
       kong-database:
         condition: service_healthy
@@ -186,7 +218,7 @@ services:
     healthcheck:
       test: timeout 10s bash -c ':> /dev/tcp/127.0.0.1/8001' || exit 1
       interval: 5s
-      retries: 10
+      retries: 30
     depends_on:
       kong-database:
         condition: service_healthy
@@ -213,13 +245,29 @@ services:
     healthcheck:
       test: timeout 10s bash -c ':> /dev/tcp/127.0.0.1/8090' || exit 1
       interval: 5s
-      retries: 10
+      retries: 30
     depends_on:
       kong-database:
         condition: service_healthy
       kong-migration:
         condition: service_completed_successfully
       kong:
+        condition: service_healthy
+      grafana:
+        condition: service_healthy
+      prometheus:
+        condition: service_healthy
+      camera-1-service:
+        condition: service_healthy
+      camera-2-service:
+        condition: service_healthy
+      camera-3-service:
+        condition: service_healthy
+      camera-4-service:
+        condition: service_healthy
+      camera-5-service:
+        condition: service_healthy
+      camera-6-service:
         condition: service_healthy
 
   graphite:

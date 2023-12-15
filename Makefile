@@ -133,6 +133,10 @@ build-graphite:
 	docker-compose -p ${GITHUB_RUN_ID} rm graphite
 	docker-compose -p ${GITHUB_RUN_ID} build --no-cache graphite
 	docker-compose -p ${GITHUB_RUN_ID} up -d graphite
+build-kong:
+	docker-compose -p ${GITHUB_RUN_ID} rm kong
+	docker-compose -p ${GITHUB_RUN_ID} build --no-cache kong
+	docker-compose -p ${GITHUB_RUN_ID} up -d kong
 stop-cameras-auth-service: stop-auth-service
 status-containers:
 	docker ps

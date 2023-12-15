@@ -8,7 +8,6 @@ import io.mockk.every
 import org.jesperancinha.cameras.auth.dao.BearerToken
 import org.jesperancinha.cameras.auth.dao.BearerTokenEnriched
 import org.jesperancinha.cameras.auth.dao.ResAuthorizeBody
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -24,7 +23,8 @@ import java.util.*
 @SpringBootTest(
     webEnvironment = RANDOM_PORT, properties = [
         "hc.auth.oauth.provision_key=tra-la-la",
-        "hc.auth.guest.validate=true"]
+        "hc.auth.guest.validate=true",
+        "hc.csrf.enable=true"]
 )
 class CameraAuthControllerTest @Autowired constructor(
     val testRestTemplate: TestRestTemplate
@@ -34,7 +34,7 @@ class CameraAuthControllerTest @Autowired constructor(
     lateinit var webFluxClient: WebClient
 
     @Test
-    @WithMockUser("admin")
+    @WithMockUser("guest")
     fun `should create token by calling service`() {
         val testCode = UUID.randomUUID()
         every {

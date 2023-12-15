@@ -23,7 +23,8 @@ import java.util.*
 @SpringBootTest(
     webEnvironment = RANDOM_PORT, properties = [
         "hc.auth.oauth.provision_key=tra-la-la",
-        "hc.auth.guest.validate=true"]
+        "hc.auth.guest.validate=true",
+        "hc.csrf.enable=true"]
 )
 class CameraAuthControllerTest @Autowired constructor(
     val testRestTemplate: TestRestTemplate
@@ -46,7 +47,7 @@ class CameraAuthControllerTest @Autowired constructor(
                 .bodyToMono(ResAuthorizeBody::class.java)
         } returns Mono.just(
             ResAuthorizeBody(
-                "http://localhost:8080/api/v1/cameras/auth?code=$testCode"
+                "http://localhost:8080?code=$testCode"
             )
         )
         val bearerToken = BearerToken(
@@ -62,7 +63,7 @@ class CameraAuthControllerTest @Autowired constructor(
         } returns Mono.just(
             bearerToken
         )
-        val url = "/api/v1/cameras/auth?response_type=code&client_id=CAMERA06CLIENTID&scope=admin&state=Ok&redirect_uri=http://localhost:8080/api/v1/cameras/auth"
+        val url = "/api/v1/cameras/auth/?response_type=code&client_id=CAMERA06CLIENTID&scope=admin&state=Ok&redirect_uri=http://localhost:8080"
         testRestTemplate.getForEntity(url, BearerTokenEnriched::class.java)
             .shouldNotBeNull()
             .let {

@@ -31,9 +31,12 @@ import reactor.netty.tcp.SslProvider
 @Configuration
 class SecurityConfiguration {
     @Bean
-    fun securityWebFilterChain(httpSecurity: ServerHttpSecurity): SecurityWebFilterChain =
-        httpSecurity
-            .csrf { it.disable() }
+    fun securityWebFilterChain(
+        @Value("\${hc.csrf.enable:false}")
+        csrf: Boolean,
+        httpSecurity: ServerHttpSecurity
+    ): SecurityWebFilterChain {
+        val serverHttpSecurityBuilder = httpSecurity
             .authorizeExchange { exchanges ->
                 exchanges
                     .pathMatchers("/webjars/**")
@@ -54,7 +57,12 @@ class SecurityConfiguration {
                 formLogin
                     .loginPage("/login")
             }
+        if(!csrf){
+            serverHttpSecurityBuilder.csrf { it.disable() }
+        }
+        return serverHttpSecurityBuilder
             .build()
+    }
 
     @Bean
     fun webFluxClient(): WebClient = run {
@@ -66,8 +74,6 @@ class SecurityConfiguration {
                 )
             }
         WebClient.builder().clientConnector(ReactorClientHttpConnector(httpClient)).build()
-
-
     }
 
 

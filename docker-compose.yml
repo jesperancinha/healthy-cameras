@@ -257,6 +257,8 @@ services:
         condition: service_healthy
       prometheus:
         condition: service_healthy
+      graphite:
+        condition: service_healthy
       camera-1-service:
         condition: service_healthy
       camera-2-service:
@@ -280,6 +282,10 @@ services:
       - 2023-2024
       - 8125
       - 8126
+    healthcheck:
+      test: timeout 10s bash -c ':> /dev/tcp/127.0.0.1/8085' || exit 1
+      interval: 5s
+      retries: 30
     networks:
       - healthy-cameras
 

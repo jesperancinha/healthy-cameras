@@ -34,6 +34,7 @@ Demo on Kong in a system where several cameras watch over a plant, and we need t
 
 #### Stable releases
 
+-   [1.0.0](https://github.com/jesperancinha/healthy-cameras/tree/1.0.0) - [cd516c965673570f63c5829f9f908fc9f40a48f8](https://github.com/jesperancinha/healthy-cameras/tree/1.0.0) - Spring Boot 3.2.0
 -   [0.0.0](https://github.com/jesperancinha/healthy-cameras/tree/0.0.0) - [2aa6c43ad3b0a595f686c8038cb7b3df6005464a](https://github.com/jesperancinha/healthy-cameras/tree/0.0.0)
 
 ## How to run

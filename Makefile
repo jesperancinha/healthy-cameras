@@ -151,3 +151,21 @@ node-update:
 	source ~/.nvm/nvm.sh
 	nvm install --lts
 	nvm use --lts
+update:
+	find . -name "package-lock.json" | xargs rm; \
+	find . -name "yarn.lock" | xargs rm; \
+	git pull; \
+	curl --compressed -o- -L https://yarnpkg.com/install.sh | bash; \
+	npm install caniuse-lite; \
+	npm install -g npm-check-updates; \
+	cd cameras-gui; \
+		yarn; \
+		npx browserslist --update-db; \
+		ncu -u; \
+		yarn; \
+	cd ..; \
+	cd e2e; \
+		yarn; \
+		npx browserslist --update-db; \
+		ncu -u; \
+		yarn;

@@ -32,10 +32,18 @@ Please check the [TechStack.md](TechStack.md) file for details.
 
 Demo on Kong in a system where several cameras watch over a plant, and we need to constantly monitor their status
 
-#### Stable releases
+<details>
+<summary><b>Stable Releases</b></summary>
+
+This repo is also the official support repo to my article on medium:
+
+[![](https://img.shields.io/badge/Protecting%20Applications%20with%20Kong%20security%20plugins%20and%20using%20StatsD%20to%20monitor%20system%20states%20—%20A%20healthy%20camera%20story-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/itnext/protecting-applications-with-kong-security-plugins-and-using-statsd-to-monitor-system-states-a-eb3468d47319)
+
 
 -   [1.0.0](https://github.com/jesperancinha/healthy-cameras/tree/1.0.0) - [cd516c965673570f63c5829f9f908fc9f40a48f8](https://github.com/jesperancinha/healthy-cameras/tree/1.0.0) - Spring Boot 3.2.0
 -   [0.0.0](https://github.com/jesperancinha/healthy-cameras/tree/0.0.0) - [2aa6c43ad3b0a595f686c8038cb7b3df6005464a](https://github.com/jesperancinha/healthy-cameras/tree/0.0.0)
+
+</details>
 
 ## How to run
 

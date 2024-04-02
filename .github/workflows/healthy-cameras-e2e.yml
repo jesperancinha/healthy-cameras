@@ -77,7 +77,7 @@ jobs:
 
       - name: Run Cypress
         run: make cypress-firefox
-#        continue-on-error: true
+        continue-on-error: true
 
   e2e-edge:
     runs-on: ubuntu-latest

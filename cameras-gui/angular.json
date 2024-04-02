@@ -71,10 +71,10 @@
           "builder": "@angular-builders/custom-webpack:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cameras-gui:build:production"
+              "buildTarget": "cameras-gui:build:production"
             },
             "development": {
-              "browserTarget": "cameras-gui:build:development"
+              "buildTarget": "cameras-gui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cameras-gui:build"
+            "buildTarget": "cameras-gui:build"
           }
         },
         "test": {

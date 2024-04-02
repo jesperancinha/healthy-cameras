@@ -67,10 +67,11 @@ make dcup
 -   [Metrics in Kong - http://localhost:8001/metrics](http://localhost:8001/metrics)
 -   [Graphite Page - http://localhost:8085](http://localhost:8085)
 
-## References
+## Resources
 
 #### Online
 
+-   [process is not defined ReferenceError: process is not defined at eval](https://olaybounphonekosada.medium.com/process-is-not-defined-referenceerror-process-is-not-defined-at-eval-webpack-internal-node-mo-9d8db07adab9)
 -   [StatsD @ Etsy](https://www.etsy.com/codeascraft/measure-anything-measure-everything)
 -   [statsd / statsd  @ GitHub](https://github.com/statsd/statsd)
 -   [What is StatsD exactly? @ Datadog](https://www.datadoghq.com/blog/statsd/)

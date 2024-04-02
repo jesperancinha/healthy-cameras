@@ -51,5 +51,6 @@ target
 *.bkp
 *.dtmp
 
-## Yarn
+## NPM and YARN
 yarn.lock
+package-lock.json

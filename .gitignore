@@ -51,3 +51,5 @@ target
 *.bkp
 *.dtmp
 
+## Yarn
+yarn.lock

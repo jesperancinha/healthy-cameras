@@ -20,6 +20,11 @@ updates:
     directory: "/e2e"
     schedule:
       interval: "daily"
+
+  - package-ecosystem: npm
+    directory: "/cameras-gui"
+    schedule:
+      interval: "daily"
     groups:
       angular:
         patterns:

@@ -3,6 +3,9 @@ name: HC Build on PR
 on:
   pull_request:
     branches: [ main ]
+  push:
+    branches:
+      - '!master'
 
 jobs:
   build:

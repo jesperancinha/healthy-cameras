@@ -57,3 +57,5 @@ package-lock.json
 
 ## Automation
 cypressUpdateOne.sh
+docker-composetmp.yml
+packagetmp.json

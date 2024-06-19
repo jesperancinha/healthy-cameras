@@ -1,4 +1,4 @@
-name: Updates Cypress dependencies and containers
+name: Updates cypress dependencies and containers
 
 on:
   schedule:
@@ -25,7 +25,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           commit-message: Update sbt dependencies
-          branch: update-cypress-dependencies and-containers
+          branch: update-cypress-dependencies-and-containers
           title: 'Update cypress dependencies and containers'
           body: |
             This pull request updates the following dependencies:

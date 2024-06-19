@@ -154,9 +154,10 @@ node-update:
 	source ~/.nvm/nvm.sh
 	nvm install --lts
 	nvm use --lts
-update:
+remove-lock-files:
 	find . -name "package-lock.json" | xargs rm; \
-	find . -name "yarn.lock" | xargs rm; \
+	find . -name "yarn.lock" | xargs rm;
+update: remove-lock-files
 	git pull; \
 	curl --compressed -o- -L https://yarnpkg.com/install.sh | bash; \
 	npm install caniuse-lite; \
@@ -172,3 +173,4 @@ update:
 		npx browserslist --update-db; \
 		ncu -u; \
 		yarn;
+deps-update: update

@@ -47,9 +47,6 @@ docker-clean: stop
 	docker-compose -p ${GITHUB_RUN_ID} rm -svf
 update-snyk:
 	npm i -g snyk
-update:
-	npm install -g npm-check-updates
-	cd cameras-gui && ncu -u && yarn && npx browserslist --update-db
 kong-deck:
 	bash kong_wait.sh
 	cd kong && deck sync
@@ -155,8 +152,8 @@ node-update:
 	nvm install --lts
 	nvm use --lts
 remove-lock-files:
-	find . -name "package-lock.json" | xargs rm; \
-	find . -name "yarn.lock" | xargs rm;
+	find . -name "package-lock.json" | xargs -I {} rm {}; \
+	find . -name "yarn.lock" | xargs -I {} rm {};
 update: remove-lock-files
 	git pull; \
 	curl --compressed -o- -L https://yarnpkg.com/install.sh | bash; \

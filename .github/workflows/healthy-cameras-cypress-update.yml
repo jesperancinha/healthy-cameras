@@ -1,4 +1,4 @@
-name: Updates Cypress dependencies and containers
+name: Updates cypress dependencies and containers
 
 on:
   schedule:

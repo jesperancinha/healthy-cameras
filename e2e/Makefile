@@ -21,3 +21,5 @@ dcd:
 	cd .. && make dcd
 dcup-full-action:
 	cd .. && make dcup-full-action
+docker-logs:
+	docker-compose -p ${GITHUB_RUN_ID} -f ../docker-compose.yml -f docker-compose.yml logs

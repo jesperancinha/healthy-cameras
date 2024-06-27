@@ -138,6 +138,9 @@ build-kong:
 	docker-compose -p ${GITHUB_RUN_ID} build --no-cache kong
 	docker-compose -p ${GITHUB_RUN_ID} up -d kong
 stop-cameras-auth-service: stop-auth-service
+docker-logs:
+	cd e2e; \
+	make docker-logs
 status-containers:
 	docker ps
 	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-deck.yml logs kong

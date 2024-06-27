@@ -25,8 +25,18 @@ jobs:
           command: |
             make dcup-full-isolated-action
 
+      - name: Docker Startup Fail!
+        if: failure()
+        run: |
+          make docker-logs
+
       - name: Run Cypress
         run: make cypress-electron
+
+      - name: Cypress Fail!
+        if: failure()
+        run: |
+          make docker-logs
 
   e2e-chrome:
     runs-on: ubuntu-latest
@@ -50,8 +60,18 @@ jobs:
           command: |
             make dcup-full-isolated-action
 
+      - name: Docker Startup Fail!
+        if: failure()
+        run: |
+          make docker-logs
+
       - name: Run Cypress
         run: make cypress-chrome
+
+      - name: Cypress Fail!
+        if: failure()
+        run: |
+          make docker-logs
 
   e2e-firefox:
     runs-on: ubuntu-latest
@@ -75,9 +95,18 @@ jobs:
           command: |
             make dcup-full-isolated-action
 
+      - name: Docker Startup Fail!
+        if: failure()
+        run: |
+          make docker-logs
+
       - name: Run Cypress
         run: make cypress-firefox
-        continue-on-error: true
+
+      - name: Cypress Fail!
+        if: failure()
+        run: |
+          make docker-logs
 
   e2e-edge:
     runs-on: ubuntu-latest
@@ -101,5 +130,15 @@ jobs:
           command: |
             make dcup-full-isolated-action
 
+      - name: Docker Startup Fail!
+        if: failure()
+        run: |
+          make docker-logs
+
       - name: Run Cypress
         run: make cypress-edge
+
+      - name: Cypress Fail!
+        if: failure()
+        run: |
+          make docker-logs

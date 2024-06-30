@@ -93,4 +93,5 @@ export const applicationAuthAPI: string = '/cameras-auth-service/api/v1/cameras/
 
 Cypress.on('uncaught:exception', (err, runnable) => {
         cy.log(err.message);
+        return true;
 });

@@ -59,3 +59,6 @@ package-lock.json
 cypressUpdateOne.sh
 docker-composetmp.yml
 packagetmp.json
+pluginUpdatesOne.sh
+javaUpdatesOne.sh
+nodeUpdatesOne.sh

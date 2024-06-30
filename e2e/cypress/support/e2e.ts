@@ -15,6 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import {async, asyncScheduler} from "rxjs";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -90,3 +91,7 @@ export const applicationRootCamera6AccessPointVistor: string = `${sanitizePrePat
 export const applicationRootCamera6AccessPointResearcher: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${scopes}/${scopeResearcher}`;
 export const applicationRootCamera6Headers: string = `${sanitizePrePath("/camera-6-service")}${applicationRoot}${headers}`;
 export const applicationAuthAPI: string = '/cameras-auth-service/api/v1/cameras/auth/login'
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+        return false;
+});

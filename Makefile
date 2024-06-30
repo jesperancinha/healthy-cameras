@@ -143,8 +143,6 @@ docker-logs:
 	make docker-logs
 status-containers:
 	docker ps
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-deck.yml logs kong
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-deck.yml logs kong-deck
 node-update-old:
 	sudo npm cache clean -f
 	sudo npm install -g n

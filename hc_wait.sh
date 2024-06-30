@@ -26,8 +26,10 @@ function checkServiceByNameAndMessage() {
     echo -e "\e[92m Succeeded starting $name Service after $counter tries!\e[39m"
 }
 
+checkServiceByNameAndMessage grafana 'Usage stats are ready to report'
 checkServiceByNameAndMessage kong 'init_worker_by_lua'
 checkServiceByNameAndMessage graphite 'ok: run: nginx'
+checkServiceByNameAndMessage openldap 'slapd starting'
 checkServiceByNameAndMessage kong-database 'database system is ready to accept connections'
 checkServiceByNameAndMessage nginx 'test is successful'
 checkServiceByNameAndMessage prometheus 'Starting rule manager...'
@@ -36,4 +38,3 @@ checkServiceByNameAndMessage camera-2-service 'Tomcat started'
 checkServiceByNameAndMessage camera-3-service 'Tomcat started'
 checkServiceByNameAndMessage camera-4-service 'Tomcat started'
 checkServiceByNameAndMessage camera-5-service 'Tomcat started'
-checkServiceByNameAndMessage openldap 'slapd starting'

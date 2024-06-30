@@ -4,7 +4,7 @@ describe('Grafana Tests', () => {
 
     it('show grafana', () => {
         cy.visit(`http://${host}:${port}`);
-        cy.get("h1").contains("Grafana").should('exist');
+        cy.get("h1").contains("Grahhfana").should('exist');
         cy.get('input[name="user"]').type("admin");
         cy.get('input[name="password"]').type("admin");
         cy.get('button[type="submit"]').click();

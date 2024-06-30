@@ -93,6 +93,5 @@ export const applicationRootCamera6Headers: string = `${sanitizePrePath("/camera
 export const applicationAuthAPI: string = '/cameras-auth-service/api/v1/cameras/auth/login'
 
 Cypress.on('uncaught:exception', (err, runnable) => {
-        asyncScheduler.schedule(()=>cy.log(err.message));
-        return true;
+        return false;
 });

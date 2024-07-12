@@ -18,8 +18,8 @@
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven-compiler-plugin.source>${java.version}</maven-compiler-plugin.source>
         <maven-compiler-plugin.target>${java.version}</maven-compiler-plugin.target>
-        <maven-surefire-plugin.version>3.3.0</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>3.3.0</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.3.1</maven-failsafe-plugin.version>
         <kotlin.version>2.0.0</kotlin.version>
         <spring-boot-starter-parent.version>3.3.1</spring-boot-starter-parent.version>
         <omni-coveragereporter-maven-plugin.version>0.4.3</omni-coveragereporter-maven-plugin.version>
@@ -27,11 +27,11 @@
         <r2dbc-postgresql.version>0.8.13.RELEASE</r2dbc-postgresql.version>
         <testcontainers.version>1.19.8</testcontainers.version>
         <postgresql.version>42.7.3</postgresql.version>
-        <micrometer-registry-statsd.version>1.13.1</micrometer-registry-statsd.version>
+        <micrometer-registry-statsd.version>1.13.2</micrometer-registry-statsd.version>
         <springdoc-openapi-starter-webflux-ui.version>2.6.0</springdoc-openapi-starter-webflux-ui.version>
         <kotest-assertions-core-jvm.version>5.9.1</kotest-assertions-core-jvm.version>
         <springmockk.version>4.0.2</springmockk.version>
-        <jackson-module-kotlin.version>2.17.1</jackson-module-kotlin.version>
+        <jackson-module-kotlin.version>2.17.2</jackson-module-kotlin.version>
     </properties>
 
     <dependencyManagement>

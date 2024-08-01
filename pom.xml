@@ -25,7 +25,7 @@
         <omni-coveragereporter-maven-plugin.version>0.4.3</omni-coveragereporter-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <r2dbc-postgresql.version>0.8.13.RELEASE</r2dbc-postgresql.version>
-        <testcontainers.version>1.20.0</testcontainers.version>
+        <testcontainers.version>1.20.1</testcontainers.version>
         <postgresql.version>42.7.3</postgresql.version>
         <micrometer-registry-statsd.version>1.13.2</micrometer-registry-statsd.version>
         <springdoc-openapi-starter-webflux-ui.version>2.6.0</springdoc-openapi-starter-webflux-ui.version>

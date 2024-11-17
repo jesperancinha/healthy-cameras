@@ -60,6 +60,6 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "karma-webpack": "5.0.1",
     "ts-jest": "^29.2.5",
-    "typescript": "~5.6.3"
+    "typescript": "<5.6.0"
   }
 }

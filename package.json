@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "caniuse-lite": "^1.0.30001679",
+    "caniuse-lite": "^1.0.30001680",
     "process": "^0.11.10",
     "webpack": "^5.92.1"
   }

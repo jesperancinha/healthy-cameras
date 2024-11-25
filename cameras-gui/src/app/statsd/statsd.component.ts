@@ -3,7 +3,8 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'app-statsd',
   templateUrl: './statsd.component.html',
-  styleUrls: ['./statsd.component.scss']
+  styleUrls: ['./statsd.component.scss'],
+  standalone: false
 })
 export class StatsdComponent implements OnInit {
   minuteRanges = [1].concat([...Array.from(Array(12).keys()).map(x => x * 5 + 5)]);

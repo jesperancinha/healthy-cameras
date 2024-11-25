@@ -9,7 +9,8 @@ const WAITING_MESSAGE = "...waiting for response";
 @Component({
   selector: 'app-camera-view',
   templateUrl: './camera-view.component.html',
-  styleUrls: ['./camera-view.component.scss']
+  styleUrls: ['./camera-view.component.scss'],
+  standalone: false
 })
 export class CameraViewComponent<OUT> implements OnInit {
 

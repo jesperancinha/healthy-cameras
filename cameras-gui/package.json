@@ -40,7 +40,7 @@
     "web-animations-js": "^2.3.2",
     "webpack": "^5.97.1",
     "zone.js": "~0.15.0",
-    "typescript": "^5.7.2"
+    "typescript": "<5.7.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.0.4",

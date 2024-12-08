@@ -54,6 +54,7 @@ target
 ## NPM and YARN
 yarn.lock
 package-lock.json
+/package.json
 
 ## Automation
 cypressUpdateOne.sh

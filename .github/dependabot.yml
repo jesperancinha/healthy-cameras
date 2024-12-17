@@ -25,11 +25,18 @@ updates:
     directory: "/e2e"
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-name: "typescript"
+        versions: ["5.7.2"]
 
   - package-ecosystem: npm
     directory: "/cameras-gui"
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-name: "typescript"
+        versions: ["5.7.2"]
+
     groups:
       angular:
         patterns:

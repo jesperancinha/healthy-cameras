@@ -35,12 +35,10 @@ plugins:
     enabled: true
     name: hmac-auth
     service: camera-2-service
-  - config:
-     enabled: true
+  - enabled: true
     name: jwt
     service: camera-3-service
-  - config:
-     enabled: true
+  - enabled: true
     name: key-auth
     service: camera-4-service
   - config:

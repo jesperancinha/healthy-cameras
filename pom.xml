@@ -21,7 +21,7 @@
         <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
         <kotlin.version>2.1.0</kotlin.version>
-        <spring-boot-starter-parent.version>3.4.0</spring-boot-starter-parent.version>
+        <spring-boot-starter-parent.version>3.4.1</spring-boot-starter-parent.version>
         <omni-coveragereporter-maven-plugin.version>0.4.4</omni-coveragereporter-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <r2dbc-postgresql.version>0.8.13.RELEASE</r2dbc-postgresql.version>

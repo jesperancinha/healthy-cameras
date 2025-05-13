@@ -15,9 +15,9 @@ describe('Grafana Tests', () => {
         cy.get('button[type = "submit"]').click();
         cy.reload()
         // cy.get('div[class="grafana-app"] > main[class="main-view"] > div > div').get('button[aria-label="Toggle menu"]').click()
-        cy.get('button[id="mega-menu-toggle"]').click()
+        cy.get('button[id="mega-menu-toggle"]').click({multiple: true})
         // cy.get('a[aria-label="Dashboards"]', {timeout: 10000}).click();
-        cy.get('a[href="/dashboards"]', {timeout: 10000}).click();
+        cy.get('a[href="/dashboards"]', {timeout: 10000}).eq(0).click({force:true});
     });
 
 })

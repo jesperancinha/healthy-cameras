@@ -155,6 +155,8 @@ node-update:
 remove-lock-files:
 	find . -name "package-lock.json" | xargs -I {} rm {}; \
 	find . -name "yarn.lock" | xargs -I {} rm {};
+docker-logs:
+	docker-compose -p ${GITHUB_RUN_ID} -f ../docker-compose.yml -f docker-compose.yml logs
 update: remove-lock-files
 	git pull; \
 	curl --compressed -o- -L https://yarnpkg.com/install.sh | bash; \

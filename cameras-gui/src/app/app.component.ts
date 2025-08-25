@@ -1,4 +1,8 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 import {routes} from "./app-routing.module";
 import {Router} from "@angular/router";
 import {capitalizeText} from "./services/utils";
@@ -7,7 +11,8 @@ import {capitalizeText} from "./services/utils";
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: false
+  standalone: true,
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule],
 })
 export class AppComponent {
   title = 'cameras-gui';
@@ -27,4 +32,3 @@ export class AppComponent {
 
   getCurrentApp = () => window.location.href.indexOf("8000") > -1? "Kong" : "NGINX";
 }
-

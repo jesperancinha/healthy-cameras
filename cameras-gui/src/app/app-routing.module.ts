@@ -7,7 +7,8 @@ export const routes: Routes = [
   {path: "overview", component: OverviewComponent},
   {path: "control", component: OverviewComponent},
   {path: "statsd", component: StatsdComponent},
-  {path: "", component: OverviewComponent}
+  {path: '', component: OverviewComponent},
+  {path: '**', component: OverviewComponent},
 ];
 
 @NgModule({

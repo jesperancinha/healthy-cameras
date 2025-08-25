@@ -10,9 +10,11 @@
   <mat-form-field appearance="fill">
     <mat-label>{{minRange}}</mat-label>
     <mat-select  [(ngModel)]="minRange">
-      <mat-option *ngFor="let minRange of minuteRanges" [value]="minRange">
-        {{minRange}}
-      </mat-option>
+      @for (minRange of minuteRanges; track minRange) {
+        <mat-option [value]="minRange">
+          {{minRange}}
+        </mat-option>
+      }
     </mat-select>
   </mat-form-field>
 </mat-card>

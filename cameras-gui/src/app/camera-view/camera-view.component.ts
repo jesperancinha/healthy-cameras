@@ -1,4 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import {ProviderService} from "../services/provider.service";
 import {capitalizeText} from "../services/utils";
 import {DynamicControlData} from "../services/domain/dynamic.control.data";
@@ -10,7 +15,8 @@ const WAITING_MESSAGE = "...waiting for response";
   selector: 'app-camera-view',
   templateUrl: './camera-view.component.html',
   styleUrls: ['./camera-view.component.scss'],
-  standalone: false
+  standalone: true,
+  imports: [CommonModule, FormsModule, MatCardModule, MatFormFieldModule, MatInputModule],
 })
 export class CameraViewComponent<OUT> implements OnInit {
 

@@ -1,10 +1,12 @@
 <div class="content" role="main"></div>
 <mat-card fxLayout="row">
-  <mat-card *ngFor="let button of buttons">
+  @for (button of buttons; track button.path) {
     <mat-card>
-      <button mat-button (click)="navigateTo(button.path)">{{getButtonText(button.path)}}</button>
+      <mat-card>
+        <button mat-button (click)="navigateTo(button.path)">{{getButtonText(button.path)}}</button>
+      </mat-card>
     </mat-card>
-  </mat-card>
+  }
   <mat-card>
     <mat-card>
       <button mat-button (click)="navigateToExternal('http://localhost:8000')">Kong Facing App</button>

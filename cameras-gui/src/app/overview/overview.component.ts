@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {CameraViewComponent} from '../camera-view/camera-view.component';
 import {BasicAuthService} from "../services/basic-auth.service";
 import {HmacAuthService} from "../services/hmac-auth.service";
 import {JwtAuthService} from "../services/jwt-auth.service";
@@ -6,12 +8,14 @@ import {KeyAuthService} from "../services/key-auth.service";
 import {LdapAuthService} from "../services/ldap-auth.service";
 import {Oauth2AuthService} from "../services/oauth2-auth.service";
 import {CameraSocketService} from "../services/camera-socket.service";
+import {MatCard} from "@angular/material/card";
 
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
-  standalone: false
+  standalone: true,
+  imports: [CommonModule, CameraViewComponent, MatCard],
 })
 export class OverviewComponent implements OnInit {
   baParams: Map<string, string> = new Map(Object.entries({

@@ -18,9 +18,9 @@ describe('StatsdComponent', () => {
         MatOptionModule,
         MatSelectModule,
         FormsModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        StatsdComponent
       ],
-      declarations: [ StatsdComponent ]
     })
     .compileComponents();
 

@@ -11,10 +11,10 @@ describe('CameraViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CameraViewComponent ],
       imports: [
         HttpClientModule,
-        MatCardModule
+        MatCardModule,
+        CameraViewComponent
       ],
       providers: [
         {

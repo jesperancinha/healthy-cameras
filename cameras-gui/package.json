@@ -53,6 +53,7 @@
     "@types/jest": "^30.0.0",
     "jasmine-core": "~5.9.0",
     "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
     "jest-preset-angular": "^15.0.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",

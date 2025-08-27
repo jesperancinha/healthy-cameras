@@ -12,10 +12,10 @@ describe('OverviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [OverviewComponent],
       imports: [
         HttpClientModule,
-        MatCardModule
+        MatCardModule,
+        OverviewComponent
       ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [

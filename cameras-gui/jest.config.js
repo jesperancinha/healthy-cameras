@@ -1,5 +1,6 @@
 module.exports = {
   preset: 'jest-preset-angular',
+  setupFiles: ['zone.js'],
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-  globalSetup: 'jest-preset-angular/global-setup',
+  testEnvironment: 'jsdom',
 };

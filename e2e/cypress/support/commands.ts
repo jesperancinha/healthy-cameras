@@ -37,9 +37,7 @@
 // }
 
 
-import * as crypto from "crypto";
 import {applicationAuthAPI, withHeaders} from "./e2e";
-import {stringify} from "querystring";
 import * as CryptoJS from "crypto-js";
 
 const basicAuth = 'Basic Auth';
@@ -111,8 +109,8 @@ Cypress.Commands.add('loginOAuth2ByProvisionKey', (path: string) => {
                     Host: 'localhost'
                 }
             }).then(response => {
-                cy.log(stringify(response.body));
-                cy.log(stringify(response.headers));
+                cy.log(JSON.stringify(response.body));
+                cy.log(JSON.stringify(response.headers));
 
                 cy.request({
                     method: 'POST',
@@ -157,8 +155,8 @@ Cypress.Commands.add('loginOAuth2ByAccessCode', (path: string) => {
                     Host: 'localhost'
                 }
             }).then(response => {
-                cy.log(stringify(response.body));
-                cy.log(stringify(response.headers));
+                cy.log(JSON.stringify(response.body));
+                cy.log(JSON.stringify(response.headers));
 
                 cy.request({
                     method: 'POST',
@@ -262,9 +260,9 @@ Cypress.Commands.add('logAll', () => {
 export function createCamera2HmacHeaders(method: string, path: string): Partial<any> {
     const username = 'cameraUser2', secret = 'dragon', algorithm = 'hmac-sha256';
     const currentDateTimeUtc = new Date().toUTCString();
-    const digestBodyHeader = `SHA-256=${crypto.createHash('sha256').digest('base64')}`;
+    const digestBodyHeader = `SHA-256=${CryptoJS.SHA256('').toString(CryptoJS.enc.Base64)}`;
     const signingString = `x-date: ${currentDateTimeUtc}\n${method} ${path} HTTP/1.1\ndigest: ${digestBodyHeader}`;
-    const signature = crypto.createHmac('sha256', secret).update(signingString).digest('base64');
+    const signature = CryptoJS.HmacSHA256(signingString, secret).toString(CryptoJS.enc.Base64);
     const authorization = `hmac username="${username}", algorithm="${algorithm}", headers="x-date request-line digest", signature="${signature}"`;
     return {
         'Digest': digestBodyHeader,

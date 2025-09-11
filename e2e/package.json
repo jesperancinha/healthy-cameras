@@ -19,11 +19,7 @@
   "author": "João Esperancinha",
   "license": "ISC",
   "devDependencies": {
-<<<<<<< HEAD
-    "cypress": "15.0.1",
-=======
     "cypress": "15.1.0",
->>>>>>> origin/main
     "ts-node": "10.9.2",
     "typescript": "5.9.2"
   },

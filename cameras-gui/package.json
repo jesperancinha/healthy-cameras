@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^20.2.2",
-    "@angular/cli": "~20.2.2",
+    "@angular/cli": "~20.3.0",
     "@angular/compiler-cli": "^20.2.4",
     "@babel/core": "^7.28.4",
     "@babel/preset-typescript": "^7.27.1",

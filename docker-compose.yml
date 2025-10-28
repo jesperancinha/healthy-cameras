@@ -292,7 +292,7 @@ services:
   openldap:
     hostname: openldap
     container_name: openldap
-    image: bitnami/openldap
+    image: bitnamilegacy/openldap
     environment:
       LDAP_ROOT: dc=example,dc=org
       LDAP_PORT_NUMBER: 1389

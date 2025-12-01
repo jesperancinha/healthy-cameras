@@ -27,8 +27,8 @@
         <r2dbc-postgresql.version>0.8.13.RELEASE</r2dbc-postgresql.version>
         <testcontainers.version>1.21.3</testcontainers.version>
         <springdoc-openapi-starter-webflux-ui.version>3.0.0</springdoc-openapi-starter-webflux-ui.version>
-        <kotest-assertions-core-jvm.version>6.0.5</kotest-assertions-core-jvm.version>
-        <springmockk.version>4.0.2</springmockk.version>
+        <kotest-assertions-core-jvm.version>6.0.7</kotest-assertions-core-jvm.version>
+        <springmockk.version>5.0.1</springmockk.version>
     </properties>
 
     <dependencyManagement>

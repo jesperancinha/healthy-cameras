@@ -4,7 +4,7 @@ updates:
   - package-ecosystem: maven
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "yearly"
     groups:
       postgresql:
         patterns:
@@ -24,7 +24,7 @@ updates:
   - package-ecosystem: npm
     directory: "/e2e"
     schedule:
-      interval: "daily"
+      interval: "yearly"
     ignore:
       - dependency-name: "typescript"
         versions: ["5.7.2"]
@@ -32,7 +32,7 @@ updates:
   - package-ecosystem: npm
     directory: "/cameras-gui"
     schedule:
-      interval: "daily"
+      interval: "yearly"
     ignore:
       - dependency-name: "typescript"
         versions: ["5.7.2"]

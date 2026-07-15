@@ -67,6 +67,20 @@ make dcup
 -   [Metrics in Kong - http://localhost:8001/metrics](http://localhost:8001/metrics)
 -   [Graphite Page - http://localhost:8085](http://localhost:8085)
 
+---
+
+## Claude
+
+Prompt claude with the following:
+
+### Run all skills
+```text
+please run skills angular, annotations, docker, java, jee, jvm, kotlin, parallel, readme, spring, spring-test on this project
+```
+
+---
+
+
 ## Resources
 
 #### Online

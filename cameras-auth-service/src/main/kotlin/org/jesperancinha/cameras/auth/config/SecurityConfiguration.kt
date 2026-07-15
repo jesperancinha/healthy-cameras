@@ -4,7 +4,6 @@ import io.netty.handler.ssl.SslContextBuilder
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory
 import kotlinx.coroutines.runBlocking
 import org.jesperancinha.cameras.auth.dao.UserRepository
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -26,14 +25,11 @@ import reactor.netty.http.client.HttpClient
 import reactor.netty.tcp.SslProvider
 
 
-/**
- * Created by jofisaes on 07/08/2022
- */
 @Configuration
 class SecurityConfiguration {
     @Bean
     fun securityWebFilterChain(
-        @Value("\${hc.csrf.enable:false}")
+        @Value($$"${hc.csrf.enable:false}")
         csrf: Boolean,
         httpSecurity: ServerHttpSecurity
     ): SecurityWebFilterChain {
@@ -89,11 +85,11 @@ class CustomPasswordEncoder : PasswordEncoder {
 }
 
 @Service
-class UserService @Autowired constructor(
+class UserService(
     val userRepository: UserRepository,
-    @Value("\${hc.auth.guest.user}")
+    @param:Value($$"${hc.auth.guest.user}")
     val guestUser: String,
-    @Value("\${hc.auth.guest.password}")
+    @param:Value($$"${hc.auth.guest.password}")
     val guestPassword: String
 ) : MapReactiveUserDetailsService(
     User.builder()

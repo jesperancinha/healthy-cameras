@@ -14,7 +14,6 @@ import kotlin.system.measureNanoTime
 
 
 /**
- * Created by jofisaes on 02/07/2022
  * Configuration of all metric beans for prometheus.
  * If Spring statsD is activated, then all metric info will be sent to StatsD along
  * Running this service withing the preconfigured containers will mean that graphite will have 2 sources of information:
@@ -24,7 +23,7 @@ import kotlin.system.measureNanoTime
 @Configuration
 class MetricsConfiguration(
     val cameraService: CameraService,
-    @Value("\${hc.camera.number}")
+    @param:Value($$"${hc.camera.number}")
     val cameraNumber: Long,
 ) {
     private val last10FileDeltaNSReading: MutableList<Double> = mutableListOf()

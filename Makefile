@@ -22,9 +22,9 @@ test-npm:
 coverage-npm:
 	cd cameras-gui && npm run coverage
 docker:
-	docker-compose -p ${GITHUB_RUN_ID} up -d --build --remove-orphans
+	docker compose -p ${GITHUB_RUN_ID} up -d --build --remove-orphans
 build-images:
-	docker-compose -p ${GITHUB_RUN_ID} build
+	docker compose -p ${GITHUB_RUN_ID} build
 build-docker: stop no-test dcup
 stop: stop-auth-service
 	docker ps -a -q --filter="name=kong" | xargs -I {} docker stop {}
@@ -43,8 +43,8 @@ stop-auth-service:
 	docker ps -a -q --filter="name=cameras-auth-service" | xargs -I {} docker stop {}
 	docker ps -a -q --filter="name=cameras-auth-service" | xargs -I {} docker rm {}
 docker-clean: stop
-	docker-compose -p ${GITHUB_RUN_ID} down -v
-	docker-compose -p ${GITHUB_RUN_ID} rm -svf
+	docker compose -p ${GITHUB_RUN_ID} down -v
+	docker compose -p ${GITHUB_RUN_ID} rm -svf
 update-snyk:
 	npm i -g snyk
 kong-deck:
@@ -57,29 +57,29 @@ hc-wait:
 kong-config:
 	cd kong && make kong-config
 dcup-light: dcd
-	docker-compose -p ${GITHUB_RUN_ID} up -d kong-database kong kong-migration kong-deck camera-1-service
+	docker compose -p ${GITHUB_RUN_ID} up -d kong-database kong kong-migration kong-deck camera-1-service
 	make kong-config
 dcup-light-camera-3: dcd
-	docker-compose -p ${GITHUB_RUN_ID} up -d kong-database kong kong-migration kong-deck camera-3-service
+	docker compose -p ${GITHUB_RUN_ID} up -d kong-database kong kong-migration kong-deck camera-3-service
 	make kong-config
 dcup-light-camera-4: dcd
-	docker-compose -p ${GITHUB_RUN_ID} up -d kong-database kong kong-migration kong-deck camera-4-service
+	docker compose -p ${GITHUB_RUN_ID} up -d kong-database kong kong-migration kong-deck camera-4-service
 	make kong-config
 dcup-light-camera-5: dcd
-	docker-compose -p ${GITHUB_RUN_ID} up -d kong-database kong kong-migration kong-deck openldap camera-5-service
+	docker compose -p ${GITHUB_RUN_ID} up -d kong-database kong kong-migration kong-deck openldap camera-5-service
 dcup-light-camera-6: dcd
-	docker-compose -p ${GITHUB_RUN_ID} up -d kong-database kong kong-migration kong-deck camera-6-service
+	docker compose -p ${GITHUB_RUN_ID} up -d kong-database kong kong-migration kong-deck camera-6-service
 	make kong-config build-cameras-auth-service
 dcup-base:
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose.override.yml build camera-1-service camera-2-service camera-3-service camera-4-service camera-5-service camera-6-service
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose.override.yml up -d
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-deck.yml up -d
+	docker compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose.override.yml build camera-1-service camera-2-service camera-3-service camera-4-service camera-5-service camera-6-service
+	docker compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose.override.yml up -d
+	docker compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-deck.yml up -d
 dcup-isolated-base:
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-pipeline.override.yml build camera-1-service camera-2-service camera-3-service camera-4-service camera-5-service camera-6-service
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-pipeline.override.yml up -d
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-pipeline.override.yml -f docker-compose-deck.yml up -d
+	docker compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-pipeline.override.yml build camera-1-service camera-2-service camera-3-service camera-4-service camera-5-service camera-6-service
+	docker compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-pipeline.override.yml up -d
+	docker compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-pipeline.override.yml -f docker-compose-deck.yml up -d
 dcup-auth:
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-auth.yml up -d cameras-auth-service
+	docker compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-auth.yml up -d cameras-auth-service
 dcup: dcd dcup-base
 create-network:
 	docker network create healthy-cameras_healthy-cameras
@@ -91,7 +91,7 @@ install-utils:
 dcup-full-action: dcd docker-clean build-maven build-npm build-cypress install-utils dcup hc-wait kong-config build-cameras-auth-service
 dcup-full-isolated-action: dcd docker-clean build-maven build-npm build-cypress install-utils dcup-isolated hc-wait kong-config build-cameras-auth-service
 dcd: dc-migration stop docker-clean install-utils
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-auth.yml down
+	docker compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-auth.yml down
 cypress-open-docker:
 	cd e2e && yarn && npm run cypress:open:docker
 cypress-open:
@@ -119,24 +119,24 @@ run-cameras-auth:
 cameras-auth-prov-key:
 	cd cameras-auth-service && make cameras-auth-prov-key
 build-cameras-auth-service: stop-cameras-auth-service
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-auth.yml rm cameras-auth-service
+	docker compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-auth.yml rm cameras-auth-service
 	cd cameras-auth-service && mvn clean install -DskipTests
 	cp e2e/cypress/fixtures/CC6KongProvOauth2.json cameras-auth-service/target/CC6KongProvOauth2.json
-	docker-compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-auth.yml build --no-cache cameras-auth-service
+	docker compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose-auth.yml build --no-cache cameras-auth-service
 	make dcup-auth
 build-nginx:
-	docker-compose -p ${GITHUB_RUN_ID} rm nginx
+	docker compose -p ${GITHUB_RUN_ID} rm nginx
 	make build-npm
-	docker-compose -p ${GITHUB_RUN_ID} build --no-cache nginx
-	docker-compose -p ${GITHUB_RUN_ID} up -d nginx
+	docker compose -p ${GITHUB_RUN_ID} build --no-cache nginx
+	docker compose -p ${GITHUB_RUN_ID} up -d nginx
 build-graphite:
-	docker-compose -p ${GITHUB_RUN_ID} rm graphite
-	docker-compose -p ${GITHUB_RUN_ID} build --no-cache graphite
-	docker-compose -p ${GITHUB_RUN_ID} up -d graphite
+	docker compose -p ${GITHUB_RUN_ID} rm graphite
+	docker compose -p ${GITHUB_RUN_ID} build --no-cache graphite
+	docker compose -p ${GITHUB_RUN_ID} up -d graphite
 build-kong:
-	docker-compose -p ${GITHUB_RUN_ID} rm kong
-	docker-compose -p ${GITHUB_RUN_ID} build --no-cache kong
-	docker-compose -p ${GITHUB_RUN_ID} up -d kong
+	docker compose -p ${GITHUB_RUN_ID} rm kong
+	docker compose -p ${GITHUB_RUN_ID} build --no-cache kong
+	docker compose -p ${GITHUB_RUN_ID} up -d kong
 stop-cameras-auth-service: stop-auth-service
 docker-logs:
 	cd e2e; \
@@ -156,7 +156,7 @@ remove-lock-files:
 	find . -name "package-lock.json" | xargs -I {} rm {}; \
 	find . -name "yarn.lock" | xargs -I {} rm {};
 docker-logs:
-	docker-compose -p ${GITHUB_RUN_ID} -f ../docker-compose.yml -f docker-compose.yml logs
+	docker compose -p ${GITHUB_RUN_ID} -f ../docker-compose.yml -f docker-compose.yml logs
 update: remove-lock-files
 	git pull; \
 	curl --compressed -o- -L https://yarnpkg.com/install.sh | bash; \

@@ -12,7 +12,7 @@ import kotlin.math.absoluteValue
 
 @Service
 class CameraService(
-    @Value("\${hc.camera.bank}")
+    @param:Value($$"${hc.camera.bank}")
     val bank: String
 ) {
     suspend fun getImageByteArrayByCameraNumber(cameraNumber: Long) =
@@ -27,11 +27,11 @@ class CameraService(
                         filter.toList()
                     }
                 if (allImages.size > 0) {
-                    val countImages = allImages?.size ?: 0
+                    val countImages = allImages.size
                     val delta = (10 / countImages.toDouble())
                     val currentMinute = findCurrentMinute()
                     val index = (((currentMinute + 1) / delta).toInt()).absoluteValue - 1
-                    allImages?.get(if (index == -1) 0 else index)?.let { resource.resolve(it.name) }
+                    allImages[if (index == -1) 0 else index].let { resource.resolve(it.name) }
                 } else return null
             }?.readBytes()
 

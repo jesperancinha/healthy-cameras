@@ -3,7 +3,6 @@ package org.jesperancinha.cameras.auth.service
 import org.jesperancinha.cameras.auth.dao.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders.CONTENT_TYPE
 import org.springframework.http.HttpStatus
@@ -14,22 +13,23 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.bodyToMono
 import reactor.core.publisher.Mono
 import java.net.URI
 
 
 @Service
 class TokenService(
-    @Value("\${hc.auth.oauth.client_id}") val clientId: String,
-    @Value("\${hc.auth.oauth.client_secret}") val clientSecret: String,
-    @Value("\${hc.auth.oauth.provision_key}") val provisionKey: String,
-    @Value("\${hc.auth.oauth.authenticated_userid}") val authenticatedUserid: String,
-    @Value("\${hc.auth.oauth.response_type}") val responseType: String,
-    @Value("\${hc.auth.oauth.grant_type}") val grantType: String,
-    @Value("\${hc.auth.oauth.url.auth}") val authUrl: String,
-    @Value("\${hc.auth.oauth.url.token}") val tokenUrl: String,
-    @Value("\${hc.auth.guest.validate}") val validate: Boolean,
-    @Autowired val webFluxClient: WebClient
+    @param:Value($$"${hc.auth.oauth.client_id}") val clientId: String,
+    @param:Value($$"${hc.auth.oauth.client_secret}") val clientSecret: String,
+    @param:Value($$"${hc.auth.oauth.provision_key}") val provisionKey: String,
+    @param:Value($$"${hc.auth.oauth.authenticated_userid}") val authenticatedUserid: String,
+    @param:Value($$"${hc.auth.oauth.response_type}") val responseType: String,
+    @param:Value($$"${hc.auth.oauth.grant_type}") val grantType: String,
+    @param:Value($$"${hc.auth.oauth.url.auth}") val authUrl: String,
+    @param:Value($$"${hc.auth.oauth.url.token}") val tokenUrl: String,
+    @param:Value($$"${hc.auth.guest.validate}") val validate: Boolean,
+    val webFluxClient: WebClient
 ) {
 
     fun createToken(
@@ -37,7 +37,7 @@ class TokenService(
     ): Mono<ResponseEntity<BearerTokenEnriched>> = principal.authorities.map { it.authority }[0].let { scope ->
         webFluxClient.post().uri(authUrl).header(CONTENT_TYPE, APPLICATION_FORM_URLENCODED_VALUE)
             .accept(APPLICATION_JSON).body(createAuthFormRequestBody(scope))
-            .retrieve().bodyToMono(ResAuthorizeBody::class.java).map { authorizeBody ->
+            .retrieve().bodyToMono<ResAuthorizeBody>().map { authorizeBody ->
                 logger.info("Response redirect uri: ${authorizeBody.redirectUri}")
                 logger.info("Input redirect uri: ${ctr.redirectUri}")
                 if (validate) {
@@ -45,7 +45,7 @@ class TokenService(
                 }
                 webFluxClient.post().uri(tokenUrl).body(
                     createTokenFormRequestBody(scope, authorizeBody)
-                ).retrieve().bodyToMono(BearerToken::class.java).map { bearerToken ->
+                ).retrieve().bodyToMono<BearerToken>().map { bearerToken ->
                     bearerToken.enrich(authorizeBody.redirectUri)
                 }
             }

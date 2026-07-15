@@ -18,9 +18,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/jesperancinha/healthy-cameras/badge.svg?branch=main)](https://coveralls.io/github/jesperancinha/healthy-cameras?branch=main)
 [![codecov](https://codecov.io/github/jesperancinha/healthy-cameras/branch/main/graph/badge.svg?token=lhP00hiGrC)](https://codecov.io/github/jesperancinha/healthy-cameras)
 
-[![GitHub language count](https://img.shields.io/github/languages/count/jesperancinha/healthy-cameras.svg)](#)
-[![GitHub top language](https://img.shields.io/github/languages/top/jesperancinha/healthy-cameras.svg)](#)
-[![GitHub top language](https://img.shields.io/github/languages/code-size/jesperancinha/healthy-cameras.svg)](#)
+![GitHub language count](https://img.shields.io/github/languages/count/jesperancinha/healthy-cameras.svg)
+![GitHub top language](https://img.shields.io/github/languages/top/jesperancinha/healthy-cameras.svg)
+![GitHub top language](https://img.shields.io/github/languages/code-size/jesperancinha/healthy-cameras.svg)
 
 ---
 
@@ -50,7 +50,7 @@ This repo is also the official support repo to my article on medium:
 ##### Simple run
 
 ```shell
-docker-compose up -d
+docker compose up -d
 ```
 
 or
@@ -66,6 +66,20 @@ make dcup
 -   [Camera Welcome Message for camera 1 - http://localhost:8000/camera-1-service/api/v1/hc](http://localhost:8000/camera-1-service/api/v1/hc)
 -   [Metrics in Kong - http://localhost:8001/metrics](http://localhost:8001/metrics)
 -   [Graphite Page - http://localhost:8085](http://localhost:8085)
+
+---
+
+## Claude
+
+Prompt claude with the following:
+
+### Run all skills
+```text
+please run skills angular, annotations, docker, java, jee, jvm, kotlin, parallel, readme, spring, spring-test on this project
+```
+
+---
+
 
 ## Resources
 

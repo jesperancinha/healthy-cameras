@@ -3,7 +3,6 @@ package org.jesperancinha.cameras.cameraservice.rest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jesperancinha.cameras.cameraservice.service.CameraService
-import org.jesperancinha.cameras.cameraservice.service.SecurityService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -17,7 +16,7 @@ import reactor.kotlin.core.publisher.toMono
 @RestController
 class CameraController(
     val cameraService: CameraService,
-    @Value("\${hc.camera.number}")
+    @param:Value($$"${hc.camera.number}")
     val cameraNumber: Long
 ) {
 

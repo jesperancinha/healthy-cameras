@@ -90,7 +90,7 @@ install-utils:
 	npm install webpack
 dcup-full-action: dcd docker-clean build-maven build-npm build-cypress install-utils dcup hc-wait kong-config build-cameras-auth-service
 dcup-full-isolated-action: dcd docker-clean build-maven build-npm build-cypress install-utils dcup-isolated hc-wait kong-config build-cameras-auth-service
-dcd: dc-migration stop docker-clean install-utils
+dcd: stop docker-clean install-utils
 	docker compose -p ${GITHUB_RUN_ID} -f docker-compose.yml -f docker-compose.override.yml -f docker-compose-auth.yml down
 cypress-open-docker:
 	cd e2e && yarn && npm run cypress:open:docker
@@ -192,5 +192,3 @@ update-repo-prs:
 	curl -sL https://raw.githubusercontent.com/jesperancinha/project-signer/master/update-all-repo-prs.sh | bash
 accept-prs:
 	curl -sL https://raw.githubusercontent.com/jesperancinha/project-signer/master/acceptPR.sh | bash
-dc-migration:
-	curl -sL https://raw.githubusercontent.com/jesperancinha/project-signer/master/setupDockerCompose.sh | bash

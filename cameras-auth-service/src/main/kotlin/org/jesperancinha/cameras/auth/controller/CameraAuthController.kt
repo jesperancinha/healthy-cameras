@@ -1,10 +1,8 @@
 package org.jesperancinha.cameras.auth.controller
 
-import io.netty.handler.codec.http.HttpHeaderValues
 import org.jesperancinha.cameras.auth.dao.ClientTokenRequest
 import org.jesperancinha.cameras.auth.service.TokenService
 import org.springframework.http.MediaType.*
-import org.springframework.http.server.reactive.ServerHttpResponse
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

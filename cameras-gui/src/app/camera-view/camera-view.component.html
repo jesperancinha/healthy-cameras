@@ -1,5 +1,5 @@
 <mat-card style="height:550px;">
-  <mat-card-title>{{title}}</mat-card-title>
+  <mat-card-title>{{title()}}</mat-card-title>
   <mat-card>
     @if (getStatus()!='UP') {
       <div class="red-sign">Camera is unreachable</div>
@@ -18,7 +18,7 @@
   </mat-card>
   @if (imageSrc) {
     <mat-card style="top: 0; float: right; margin-bottom: -150px">
-      <img [src]="imageSrc" alt="{{prefix}}-camera" width="200px"/>
+      <img [src]="imageSrc" alt="{{prefix()}}-camera" width="200px"/>
     </mat-card>
   }
   <mat-card style="width: 300px">

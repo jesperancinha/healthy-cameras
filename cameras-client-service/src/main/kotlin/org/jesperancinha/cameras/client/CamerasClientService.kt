@@ -10,11 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
 class CamerasClientService (
-    @Value("\${server.port}")
+    @param:Value($$"${server.port}")
     val port: Long
 ) : ApplicationRunner {
 
-    override fun run(args: ApplicationArguments?) {
+    override fun run(args: ApplicationArguments) {
         logger.info("Go to -> http://localhost:$port/api/v1/cameras/client to try to access any endpoint when running locally")
         logger.info("Go to -> http://localhost:8086/api/v1/cameras/auth/ to go directly to the login page")
         logger.info("Go to -> https://localhost:8443/camera-6-service/api/v1/hc for the secured OAuth2 application")

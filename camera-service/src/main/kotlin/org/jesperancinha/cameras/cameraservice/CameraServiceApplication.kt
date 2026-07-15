@@ -23,7 +23,7 @@ import org.springframework.web.reactive.socket.WebSocketHandler
 @EnableWebFluxSecurity
 @OpenAPIDefinition(
     info = Info(title = "OpenAPI definition"),
-    servers = [Server(url = "\${hc.server.url}/api/v1/hc", description = "Server URL")]
+    servers = [Server(url = $$"${hc.server.url}/api/v1/hc", description = "Server URL")]
 )
 @EnableReactiveMethodSecurity
 class CameraServiceApplication(

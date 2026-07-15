@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.bodyToMono
 import reactor.core.publisher.Mono
 import java.net.URI
 
@@ -36,7 +37,7 @@ class TokenService(
     ): Mono<ResponseEntity<BearerTokenEnriched>> = principal.authorities.map { it.authority }[0].let { scope ->
         webFluxClient.post().uri(authUrl).header(CONTENT_TYPE, APPLICATION_FORM_URLENCODED_VALUE)
             .accept(APPLICATION_JSON).body(createAuthFormRequestBody(scope))
-            .retrieve().bodyToMono(ResAuthorizeBody::class.java).map { authorizeBody ->
+            .retrieve().bodyToMono<ResAuthorizeBody>().map { authorizeBody ->
                 logger.info("Response redirect uri: ${authorizeBody.redirectUri}")
                 logger.info("Input redirect uri: ${ctr.redirectUri}")
                 if (validate) {
@@ -44,7 +45,7 @@ class TokenService(
                 }
                 webFluxClient.post().uri(tokenUrl).body(
                     createTokenFormRequestBody(scope, authorizeBody)
-                ).retrieve().bodyToMono(BearerToken::class.java).map { bearerToken ->
+                ).retrieve().bodyToMono<BearerToken>().map { bearerToken ->
                     bearerToken.enrich(authorizeBody.redirectUri)
                 }
             }

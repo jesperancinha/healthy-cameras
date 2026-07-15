@@ -241,7 +241,11 @@ class ApplicationUser(
 
 The `org.springframework.lang.Nullable` is deprecated, please use `org.jspecify.annotations.Nullable` instead.
 
-## 9. Checklist
+## 9. management.metrics.export.statsd.host does not exist
+
+Replace all usages of `management.metrics.export.statsd.host` with `management.statsd.metrics.export.host`
+
+## 10. Checklist
 
 [ ] All old security configurations have been updated to the new style. 
 [ ] All usages of `NestedServletException` have been replaced with `ServletException`.

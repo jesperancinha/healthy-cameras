@@ -63,3 +63,6 @@ packagetmp.json
 pluginUpdatesOne.sh
 javaUpdatesOne.sh
 nodeUpdatesOne.sh
+
+# Generated files
+dependabot.yml.bak

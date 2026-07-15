@@ -6,20 +6,18 @@ import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.web.server.SecurityWebFilterChain
 
 
-/**
- * Created by jofisaes on 02/10/2022
- */
 @Configuration
 class SecurityConfiguration {
 
     @Bean
     fun securityWebFilterChain(httpSecurity: ServerHttpSecurity): SecurityWebFilterChain {
         return httpSecurity
-            .csrf().disable()
-            .authorizeExchange()
-            .pathMatchers("/**")
-            .permitAll()
-            .and()
+            .csrf { it.disable() }
+            .authorizeExchange { exchanges ->
+                exchanges
+                    .pathMatchers("/**")
+                    .permitAll()
+            }
             .build()
     }
 }

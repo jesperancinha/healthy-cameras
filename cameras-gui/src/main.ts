@@ -10,9 +10,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { AppRoutingModule } from './app/app-routing.module';
+import { routes } from './app/app-routing.module';
 import { APP_PROVIDERS } from './app/app.module';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
@@ -31,9 +32,9 @@ bootstrapApplication(AppComponent, {
       MatTableModule,
       MatSelectModule,
       FormsModule,
-      FlexLayoutModule,
-      AppRoutingModule
+      FlexLayoutModule
     ),
+    provideRouter(routes),
     provideHttpClient(),
     ...APP_PROVIDERS
   ]

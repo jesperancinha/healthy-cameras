@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, input, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
@@ -20,10 +20,10 @@ const WAITING_MESSAGE = "...waiting for response";
 })
 export class CameraViewComponent<OUT> implements OnInit {
 
-  @Input() providerService: ProviderService<OUT> | undefined;
-  @Input() params: Map<string, string> = new Map();
-  @Input() title: string | undefined;
-  @Input() prefix: string | undefined;
+  providerService = input<ProviderService<OUT>>();
+  params = input(new Map<string, string>());
+  title = input<string>();
+  prefix = input<string>();
   basicMessage: string | undefined;
   errorMessage: string | undefined | null;
   sentInfo: string | undefined | null;
@@ -37,7 +37,7 @@ export class CameraViewComponent<OUT> implements OnInit {
 
   ngOnInit(): void {
     this.currentState = this.controlNames();
-    this.providerService?.eventEmitter().subscribe(sendInfo => {
+    this.providerService()?.eventEmitter().subscribe(sendInfo => {
       this.basicMessage = this.basicMessage?.replace(WAITING_MESSAGE, "");
       this.basicMessage = `${this.basicMessage}\n${JSON.stringify(sendInfo)}`;
       this.sentInfo = sendInfo;
@@ -45,19 +45,19 @@ export class CameraViewComponent<OUT> implements OnInit {
   }
 
   sendRequest() {
-    this.params.clear();
+    this.params().clear();
     this.clearLogs();
     this.basicMessage = WAITING_MESSAGE;
     this.currentState.forEach(entry => {
-      this.params.set(entry.param.replace(`${this.prefix}-`, ""), entry.value);
+      this.params().set(entry.param.replace(`${this.prefix()}-`, ""), entry.value);
     })
-    this.providerService?.retrieveWelcomeMessage(this.params).subscribe(
+    this.providerService()?.retrieveWelcomeMessage(this.params()).subscribe(
       data => {
         this.basicMessage = `${data}\n\n${this.basicMessage}`;
       }, error => {
         this.errorMessage = `Error sending data: ${this.sentInfo}. Server Message is: ${JSON.stringify(error)}`;
       })
-    this.providerService?.getImage(this.params).subscribe(response => this.imageSrc = 'data:image/png;base64,' + btoa(String.fromCharCode(...new Uint8Array(response))));
+    this.providerService()?.getImage(this.params()).subscribe(response => this.imageSrc = 'data:image/png;base64,' + btoa(String.fromCharCode(...new Uint8Array(response))));
   }
 
   controlNames(): DynamicControlData[] {
@@ -65,12 +65,12 @@ export class CameraViewComponent<OUT> implements OnInit {
   }
 
   calculateCurrentState() {
-    let controlMap: Map<string, string> = this.params;
-    if (this.params) {
-      return Array.from(this.params.keys()).map(name => {
+    let controlMap: Map<string, string> = this.params();
+    if (this.params()) {
+      return Array.from(this.params().keys()).map(name => {
         return {
           name: capitalizeText(name),
-          param: `${this.prefix}-${name}`,
+          param: `${this.prefix()}-${name}`,
           value: controlMap.get(name) || ""
         }
       });
@@ -78,7 +78,7 @@ export class CameraViewComponent<OUT> implements OnInit {
   }
 
   getStatus = () => {
-    const status = this.cameraSocketService.getStatus(this.prefix || "");
+    const status = this.cameraSocketService.getStatus(this.prefix() || "");
     if (status != 'UP') {
       this.basicMessage = this.emptyMessage;
     }
